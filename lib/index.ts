@@ -59,9 +59,7 @@ export async function coreShopFetch<TResult, TVariables>({
 export async function getCategories(): Promise<Object_CoreShopCategory[]> {
     const res = await coreShopFetch<GetCoreShopCategoriesQuery, GetCoreShopCategoriesQueryVariables>({
         query: print(GetCoreShopCategories),
-        variables: {
-            storeName: 'Standard'
-        }
+        variables: {}
     });
 
     if (res.data.CoreShopCategories?.__typename === 'CoreShopCategoriesResult') {
@@ -73,9 +71,7 @@ export async function getCategories(): Promise<Object_CoreShopCategory[]> {
 export async function getLatestProducts(): Promise<ProductFragment[]> {
     const res = await coreShopFetch<GetCoreShopLatestProductsQuery, GetCoreShopLatestProductsQueryVariables>({
         query: print(GetCoreShopLatestProducts),
-        variables: {
-            storeName: 'Standard'
-        }
+        variables: {}
     });
 
     if (res.data.CoreShopLatestProducts?.__typename === 'CoreShopLatestProductsResult') {
@@ -103,7 +99,6 @@ export async function getProductsInCategory({categoryId} : {categoryId: number})
         query: print(GetCoreShopProductsInCategory),
         variables: {
             categoryId: categoryId,
-            storeName: 'Standard'
         }
     });
 
@@ -118,7 +113,6 @@ export async function getProductPrice({productId} : {productId: number}): Promis
         query: print(GetCoreShopProductPrice),
         variables: {
             productId: productId,
-            storeName: 'Standard'
         }
     });
 
@@ -149,7 +143,6 @@ export async function addItemToOrder({token, productId, quantity} : {token: stri
             token: token,
             productId: productId,
             quantity: quantity,
-            storeName: 'Standard'
         }
     });
 

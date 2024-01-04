@@ -1,7 +1,7 @@
 #import "../error.graphql"
 
-query getCoreShopProductPrice($productId: Int!, $storeName: String!) {
-    CoreShopProductPrice(productPrice: {productId: $productId, context: {store: {storeName: $storeName}}}) {
+query getCoreShopProductPrice($productId: Int!) {
+    CoreShopProductPrice(productPrice: {productId: $productId, context: {}}) {
         ... on CoreShopProductPriceResult {
             __typename
             price_net

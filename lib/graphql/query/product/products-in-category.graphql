@@ -1,8 +1,8 @@
 #import "product-fragment.graphql"
 #import "../error.graphql"
 
-query getCoreShopProductsInCategory($categoryId: Int!, $storeName: String!) {
-    CoreShopProducts(productListing: {store: {storeName: $storeName}, category: {categoryId: $categoryId}}) {
+query getCoreShopProductsInCategory($categoryId: Int!) {
+    CoreShopProducts(productListing: {category: {categoryId: $categoryId}}) {
         ... on CoreShopProductsResult {
             __typename
             products {

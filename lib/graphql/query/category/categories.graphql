@@ -1,8 +1,8 @@
 #import "../error.graphql"
 #import "category-fragment.graphql"
 
-query getCoreShopCategories($storeName: String!) {
-    CoreShopCategories(categoryListing: {store: {storeName: $storeName}}) {
+query getCoreShopCategories {
+    CoreShopCategories(categoryListing: {}) {
         ... on CoreShopCategoriesResult {
             __typename
             categories {

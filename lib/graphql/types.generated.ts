@@ -18,7 +18,6 @@ export type Scalars = {
 
 export type ActiveOrderInput = {
   order: OrderInput;
-  store: StoreInput;
 };
 
 export type AddOrderVoucherCodeInput = {
@@ -29,7 +28,6 @@ export type AddOrderVoucherCodeInput = {
 export type AddToOrderItemInput = {
   order?: InputMaybe<OrderInputNull>;
   orderItem?: InputMaybe<OrderItemInput>;
-  store: StoreInput;
 };
 
 export type AddressInput = {
@@ -50,14 +48,13 @@ export type CategoryInput = {
 };
 
 export type CategoryListingInput = {
-  store: StoreInput;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type ContextInput = {
   currency?: InputMaybe<CurrencyInput>;
   locale?: InputMaybe<LocaleInput>;
   order?: InputMaybe<OrderInput>;
-  store: StoreInput;
 };
 
 export type CoreShopActiveOrderResult = {
@@ -655,12 +652,7 @@ export type FilterListingInput = {
   filter: FilterInput;
   locale?: InputMaybe<Scalars['String']['input']>;
   parameters?: InputMaybe<Array<InputMaybe<CoreShopFilterKeyValue>>>;
-  store: StoreInput;
   variantListMode?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type LatestProductsInput = {
-  store: StoreInput;
 };
 
 export type LocaleInput = {
@@ -782,7 +774,6 @@ export type ProductInput = {
 
 export type ProductListingInput = {
   category?: InputMaybe<CategoryInput>;
-  store: StoreInput;
 };
 
 export type ProductPriceInput = {
@@ -825,11 +816,6 @@ export type QueryCoreShopFilterArgs = {
 };
 
 
-export type QueryCoreShopLatestProductsArgs = {
-  latestProducts?: InputMaybe<LatestProductsInput>;
-};
-
-
 export type QueryCoreShopOrderArgs = {
   order?: InputMaybe<OrderInput>;
 };
@@ -857,10 +843,6 @@ export type RemoveOrderItemInput = {
 export type RemoveOrderVoucherCodeInput = {
   order: OrderInput;
   orderVoucherCode: OrderVoucherCodeInput;
-};
-
-export type StoreInput = {
-  storeName: Scalars['String']['input'];
 };
 
 export type UpdateOrderItemInput = {
@@ -1739,9 +1721,7 @@ export type CoreShopAuthorizeMutationVariables = Exact<{
 
 export type CoreShopAuthorizeMutation = { __typename?: 'Mutations', CoreShopAuthorize?: { __typename?: 'CoreShopAuthorizeResult', token?: string | null } | { __typename?: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
 
-export type GetCoreShopCategoriesQueryVariables = Exact<{
-  storeName: Scalars['String']['input'];
-}>;
+export type GetCoreShopCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCoreShopCategoriesQuery = { __typename?: 'Query', CoreShopCategories?: { __typename: 'CoreShopCategoriesResult', categories?: { __typename?: 'CoreShopCategoryConnection', totalCount?: number | null, edges?: Array<{ __typename: 'CoreShopCategoryEdge', node?: { __typename: 'object_CoreShopCategory', id?: string | null, name?: string | null } | null } | null> | null } | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
@@ -1760,7 +1740,6 @@ export type ErrorFragment = { __typename: 'CoreShopError', message?: string | nu
 export type CoreShopAddToOrderMutationVariables = Exact<{
   productId: Scalars['Int']['input'];
   quantity: Scalars['Float']['input'];
-  storeName: Scalars['String']['input'];
   token?: InputMaybe<Scalars['String']['input']>;
 }>;
 
@@ -1795,16 +1774,13 @@ export type CoreShopUpdateOrderItemMutationVariables = Exact<{
 
 export type CoreShopUpdateOrderItemMutation = { __typename?: 'Mutations', CoreShopUpdateOrderItem?: { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopUpdateOrderItemResult', order?: { __typename?: 'object_CoreShopOrder', id?: string | null, token?: string | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, items?: Array<{ __typename?: 'object_CoreShopOrderItem', id?: string | null, quantity?: number | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, itemRetailPriceGross?: number | null, itemRetailPriceNet?: number | null, itemDiscountNet?: number | null, itemDiscountGross?: number | null, itemDiscountPriceGross?: number | null, itemDiscountPriceNet?: number | null, product?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | null> | null, taxes?: Array<{ __typename?: 'fieldcollection_CoreShopTaxItem', name?: string | null, rate?: number | null, amount?: number | null } | null> | null, adjustmentItems?: Array<{ __typename?: 'fieldcollection_CoreShopAdjustment', typeIdentifier?: string | null, label?: string | null, pimcoreAmountNet?: number | null, pimcoreAmountGross?: number | null } | null> | null } | null } | { __typename?: 'CoreShopValidationError' } | null };
 
-export type GetCoreShopLatestProductsQueryVariables = Exact<{
-  storeName: Scalars['String']['input'];
-}>;
+export type GetCoreShopLatestProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCoreShopLatestProductsQuery = { __typename?: 'Query', CoreShopLatestProducts?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopLatestProductsResult', products?: { __typename: 'CoreShopProductConnection', edges?: Array<{ __typename: 'CoreShopProductEdge', node?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | null> | null } | null } | { __typename?: 'CoreShopValidationError' } | null };
 
 export type GetCoreShopProductPriceQueryVariables = Exact<{
   productId: Scalars['Int']['input'];
-  storeName: Scalars['String']['input'];
 }>;
 
 
@@ -1821,7 +1797,6 @@ export type GetCoreShopProductQuery = { __typename?: 'Query', CoreShopProduct?: 
 
 export type GetCoreShopProductsInCategoryQueryVariables = Exact<{
   categoryId: Scalars['Int']['input'];
-  storeName: Scalars['String']['input'];
 }>;
 
 
@@ -1969,8 +1944,8 @@ export const CoreShopAuthorize = gql`
 }
     `;
 export const GetCoreShopCategories = gql`
-    query getCoreShopCategories($storeName: String!) {
-  CoreShopCategories(categoryListing: {store: {storeName: $storeName}}) {
+    query getCoreShopCategories {
+  CoreShopCategories(categoryListing: {}) {
     ... on CoreShopCategoriesResult {
       __typename
       categories {
@@ -2007,9 +1982,9 @@ export const GetCoreShopCategory = gql`
     ${Category}
 ${Error}`;
 export const CoreShopAddToOrder = gql`
-    mutation CoreShopAddToOrder($productId: Int!, $quantity: Float!, $storeName: String!, $token: String) {
+    mutation CoreShopAddToOrder($productId: Int!, $quantity: Float!, $token: String) {
   CoreShopAddToOrder(
-    addToOrder: {order: {token: $token}, orderItem: {productId: $productId, quantity: $quantity}, store: {storeName: $storeName}}
+    addToOrder: {order: {token: $token}, orderItem: {productId: $productId, quantity: $quantity}}
   ) {
     ... on CoreShopAddToOrderResult {
       __typename
@@ -2075,8 +2050,8 @@ export const CoreShopUpdateOrderItem = gql`
     ${Order}
 ${Error}`;
 export const GetCoreShopLatestProducts = gql`
-    query getCoreShopLatestProducts($storeName: String!) {
-  CoreShopLatestProducts(latestProducts: {store: {storeName: $storeName}}) {
+    query getCoreShopLatestProducts {
+  CoreShopLatestProducts {
     ... on CoreShopLatestProductsResult {
       __typename
       products {
@@ -2097,10 +2072,8 @@ export const GetCoreShopLatestProducts = gql`
     ${Product}
 ${Error}`;
 export const GetCoreShopProductPrice = gql`
-    query getCoreShopProductPrice($productId: Int!, $storeName: String!) {
-  CoreShopProductPrice(
-    productPrice: {productId: $productId, context: {store: {storeName: $storeName}}}
-  ) {
+    query getCoreShopProductPrice($productId: Int!) {
+  CoreShopProductPrice(productPrice: {productId: $productId, context: {}}) {
     ... on CoreShopProductPriceResult {
       __typename
       price_net
@@ -2137,10 +2110,8 @@ export const GetCoreShopProduct = gql`
     ${Product}
 ${Error}`;
 export const GetCoreShopProductsInCategory = gql`
-    query getCoreShopProductsInCategory($categoryId: Int!, $storeName: String!) {
-  CoreShopProducts(
-    productListing: {store: {storeName: $storeName}, category: {categoryId: $categoryId}}
-  ) {
+    query getCoreShopProductsInCategory($categoryId: Int!) {
+  CoreShopProducts(productListing: {category: {categoryId: $categoryId}}) {
     ... on CoreShopProductsResult {
       __typename
       products {
