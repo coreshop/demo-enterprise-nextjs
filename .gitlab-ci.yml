@@ -42,7 +42,7 @@ update_manifest:
         - cd $CD_CHART_REPO
         - git checkout $CI_COMMIT_REF_NAME 2>/dev/null || $CI_COMMIT_REF_NAME checkout -b foo
 
-        - yq -i eval ".headless_next.image.tag = \"$TAG\"" $CD_MANIFEST_VALUES_FILE
+        - yq -i eval ".headless_nextjs.image.tag = \"$TAG\"" $CD_MANIFEST_VALUES_FILE
 
         - cat $CD_MANIFEST_FILE
         - git commit -am "[$CI_COMMIT_REF_NAME] update image Tag to \"$TAG\""
