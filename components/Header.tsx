@@ -1,5 +1,7 @@
 import CategoriesWidget from "@/components/category/Widget";
 import Link from "next/link";
+import {Suspense} from "react";
+import Cart from "@/components/cart";
 
 export default function Header() {
     return (
@@ -82,7 +84,9 @@ export default function Header() {
                         </div>
 
                         <div className="col-md-3 p-sm-2">
-                            CART
+                            <Suspense fallback={<div />}>
+                                <Cart />
+                            </Suspense>
                         </div>
                     </div>
                 </div>

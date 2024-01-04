@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './shop.css'
-import {Suspense} from "react";
+import {Suspense, useEffect} from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -27,6 +27,9 @@ export default function RootLayout({
               </div>
           </Suspense>
           <Footer />
+          <script src="/js/vendor/jquery-1.11.1.min.js" />
+          <script src="/js/vendor/popper.min.js" />
+          <script src="/js/vendor/bootstrap.min.js" />
       </body>
     </html>
   )

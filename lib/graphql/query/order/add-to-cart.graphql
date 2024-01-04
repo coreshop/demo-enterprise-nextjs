@@ -4,6 +4,7 @@
 mutation CoreShopAddToOrder($productId: Int!, $quantity: Float!, $storeName: String!, $token: String) {
     CoreShopAddToOrder(addToOrder: {order: {token: $token}, orderItem: {productId: $productId, quantity: $quantity}, store: {storeName: $storeName}}) {
         ... on CoreShopAddToOrderResult {
+            __typename
             order {
                 ...order
             }

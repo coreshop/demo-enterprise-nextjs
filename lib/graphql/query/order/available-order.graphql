@@ -1,9 +1,10 @@
 #import "order-fragment.graphql"
 #import "../error.graphql"
 
-query CoreShopOrder($token: String!){
+query GetCoreShopOrder($token: String!){
     CoreShopOrder(order: {token: $token}) {
         ... on CoreShopOrderResult {
+            __typename
             order {
                 ...order
             }

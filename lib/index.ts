@@ -2,13 +2,15 @@ import {
     print
 } from 'graphql';
 import {
+    CoreShopAddToOrder,
+    CoreShopAddToOrderMutation, CoreShopAddToOrderMutationVariables,
     CoreShopProductPriceResult,
     GetCoreShopCategories,
     GetCoreShopCategoriesQuery,
     GetCoreShopCategoriesQueryVariables,
     GetCoreShopLatestProducts,
     GetCoreShopLatestProductsQuery,
-    GetCoreShopLatestProductsQueryVariables,
+    GetCoreShopLatestProductsQueryVariables, GetCoreShopOrder, GetCoreShopOrderQuery, GetCoreShopOrderQueryVariables,
     GetCoreShopProduct,
     GetCoreShopProductPrice,
     GetCoreShopProductPriceQuery,
@@ -18,7 +20,7 @@ import {
     GetCoreShopProductsInCategory,
     GetCoreShopProductsInCategoryQuery,
     GetCoreShopProductsInCategoryQueryVariables,
-    Object_CoreShopCategory,
+    Object_CoreShopCategory, OrderFragment,
     ProductFragment
 } from "@/lib/graphql/types.generated";
 const domain = process.env.API_URL;
@@ -125,4 +127,35 @@ export async function getProductPrice({productId} : {productId: number}): Promis
     }
 
     return undefined;
+}
+export async function getOrder({cartToken} : {cartToken: string}): Promise<OrderFragment|undefined> {
+    const res = await coreShopFetch<GetCoreShopOrderQuery, GetCoreShopOrderQueryVariables>({
+        query: print(GetCoreShopOrder),
+        variables: {
+            token: cartToken,
+        }
+    });
+
+    if (res.data?.CoreShopOrder?.__typename === 'CoreShopOrderResult') {
+        return res.data.CoreShopOrder.order as OrderFragment;
+    }
+
+    return undefined;
+}
+export async function addItemToOrder({token, productId, quantity} : {token: string|undefined, productId: number, quantity: number}): Promise<OrderFragment|null> {
+    const res = await coreShopFetch<CoreShopAddToOrderMutation, CoreShopAddToOrderMutationVariables>({
+        query: print(CoreShopAddToOrder),
+        variables: {
+            token: token,
+            productId: productId,
+            quantity: quantity,
+            storeName: 'Standard'
+        }
+    });
+
+    if (res.data?.CoreShopAddToOrder?.__typename === 'CoreShopAddToOrderResult') {
+        return res.data.CoreShopAddToOrder.order as OrderFragment;
+    }
+
+    return null;
 }
