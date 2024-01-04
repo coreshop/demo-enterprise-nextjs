@@ -5,13 +5,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'coreshop-headless.localhost',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'demo4-enterprise.coreshop.org',
+                hostname: process.env.API_HOSTNAME ? process.env.API_HOSTNAME : 'coreshop-headless.localhost',
                 port: '',
                 pathname: '/**',
             },
