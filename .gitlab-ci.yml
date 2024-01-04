@@ -19,7 +19,7 @@ build_and_push:
         - base64 -d $GOOGLE_ARTIFACT_REGISTRY | docker login -u _json_key --password-stdin https://$GCP_URL
         - export GCP_REGISTRY_IMAGE=$(echo "$GCP_URL/cors-wolke/cors/$CI_PROJECT_PATH" | tr '[:upper:]' '[:lower:]')
     script:
-        - docker build . --tag $GCP_REGISTRY_IMAGE/headless:$TAG --build-arg API_URL=$API_URL
+        - docker build . --tag $GCP_REGISTRY_IMAGE/headless:$TAG --build-arg API_URL=$API_URL --build-arg API_HOSTNAME=$API_HOSTNAME
         - docker push $GCP_REGISTRY_IMAGE/headless:$TAG
     tags:
         - cors
