@@ -2,7 +2,6 @@
 
 import {useFormState, useFormStatus} from 'react-dom';
 import {ProductFragment} from "@/lib/graphql/types.generated";
-import {addItemToOrder} from "@/lib";
 import {addItemToCart} from "@/components/cart/actions";
 
 function SubmitButton() {
