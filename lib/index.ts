@@ -21,7 +21,7 @@ import {
     Object_CoreShopCategory,
     ProductFragment
 } from "@/lib/graphql/types.generated";
-const domain = process.env.API_URL || 'https://coreshop-headless.localhost/pimcore-graphql-webservices/test?apikey=cccffae4fb6834f6a3d7eef35e890777';
+const domain = process.env.API_URL;
 const endpoint = `${domain}`;
 export async function coreShopFetch<TResult, TVariables>({
        query,
