@@ -1,0 +1,22 @@
+#import "../error.graphql"
+
+query getCoreShopProductPrice($productId: Int!, $storeName: String!) {
+    CoreShopProductPrice(productPrice: {productId: $productId, context: {store: {storeName: $storeName}}}) {
+        ... on CoreShopProductPriceResult {
+            __typename
+            price_net
+            price_gross
+            retail_price_net
+            retail_price_gross
+            discount_price_net
+            discount_price_gross
+            discount_net
+            discount_gross
+            tax_amount
+            tax_rate
+        }
+        ... on CoreShopError {
+            ...error
+        }
+    }
+}

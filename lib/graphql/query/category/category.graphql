@@ -1,0 +1,16 @@
+#import "../error.graphql"
+#import "category-fragment.graphql"
+
+query getCoreShopCategory($categoryId: Int!) {
+    CoreShopCategory(category: {categoryId: $categoryId}) {
+        ... on CoreShopCategoryResult {
+            __typename
+            category {
+                ...category
+            }
+        }
+        ... on CoreShopError {
+            ...error
+        }
+    }
+}

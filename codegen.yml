@@ -1,0 +1,11 @@
+overwrite: true
+schema:
+  - "https://coreshop-headless.localhost/pimcore-graphql-webservices/test?apikey=cccffae4fb6834f6a3d7eef35e890777"
+documents:
+  - "./lib/graphql/**/*.graphql"
+generates:
+  lib/graphql/types.generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-document-nodes

@@ -1,0 +1,128 @@
+import {
+    print
+} from 'graphql';
+import {
+    CoreShopProductPriceResult,
+    GetCoreShopCategories,
+    GetCoreShopCategoriesQuery,
+    GetCoreShopCategoriesQueryVariables,
+    GetCoreShopLatestProducts,
+    GetCoreShopLatestProductsQuery,
+    GetCoreShopLatestProductsQueryVariables,
+    GetCoreShopProduct,
+    GetCoreShopProductPrice,
+    GetCoreShopProductPriceQuery,
+    GetCoreShopProductPriceQueryVariables,
+    GetCoreShopProductQuery,
+    GetCoreShopProductQueryVariables,
+    GetCoreShopProductsInCategory,
+    GetCoreShopProductsInCategoryQuery,
+    GetCoreShopProductsInCategoryQueryVariables,
+    Object_CoreShopCategory,
+    ProductFragment
+} from "@/lib/graphql/types.generated";
+const domain = process.env.API_URL || 'https://coreshop-headless.localhost/pimcore-graphql-webservices/test?apikey=cccffae4fb6834f6a3d7eef35e890777';
+const endpoint = `${domain}`;
+export async function coreShopFetch<TResult, TVariables>({
+       query,
+       variables,
+       headers,
+       cache = 'force-cache'
+   }: {
+    query: string;
+    variables: TVariables;
+    headers?: HeadersInit;
+    cache?: RequestCache;
+}): Promise<{data: TResult}> {
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+            ... headers
+        },
+        body: JSON.stringify({
+            query,
+            variables
+        }),
+        cache
+    })
+
+    if (response.status !== 200) {
+        throw new Error(`Failed to fetch: ${response.statusText}. Body: ${await response.text()}`)
+    }
+
+    return await response.json() as {data: TResult};
+}
+
+export async function getCategories(): Promise<Object_CoreShopCategory[]> {
+    const res = await coreShopFetch<GetCoreShopCategoriesQuery, GetCoreShopCategoriesQueryVariables>({
+        query: print(GetCoreShopCategories),
+        variables: {
+            storeName: 'Standard'
+        }
+    });
+
+    if (res.data.CoreShopCategories?.__typename === 'CoreShopCategoriesResult') {
+        return res.data.CoreShopCategories?.categories?.edges?.map((data) => data?.node) as Object_CoreShopCategory[];
+    }
+
+    return [];
+}
+export async function getLatestProducts(): Promise<ProductFragment[]> {
+    const res = await coreShopFetch<GetCoreShopLatestProductsQuery, GetCoreShopLatestProductsQueryVariables>({
+        query: print(GetCoreShopLatestProducts),
+        variables: {
+            storeName: 'Standard'
+        }
+    });
+
+    if (res.data.CoreShopLatestProducts?.__typename === 'CoreShopLatestProductsResult') {
+        return res.data.CoreShopLatestProducts?.products?.edges?.map((data) => data?.node) as ProductFragment[];
+    }
+
+    return [];
+}
+export async function getProduct({productId} : {productId: number}): Promise<ProductFragment|undefined> {
+    const res = await coreShopFetch<GetCoreShopProductQuery, GetCoreShopProductQueryVariables>({
+        query: print(GetCoreShopProduct),
+        variables: {
+            productId: productId
+        }
+    });
+
+    if (res.data?.CoreShopProduct?.__typename === 'CoreShopProductResult') {
+        return res.data.CoreShopProduct?.product as ProductFragment;
+    }
+
+    return undefined;
+}
+export async function getProductsInCategory({categoryId} : {categoryId: number}): Promise<ProductFragment[]|undefined> {
+    const res = await coreShopFetch<GetCoreShopProductsInCategoryQuery, GetCoreShopProductsInCategoryQueryVariables>({
+        query: print(GetCoreShopProductsInCategory),
+        variables: {
+            categoryId: categoryId,
+            storeName: 'Standard'
+        }
+    });
+
+    if (res.data.CoreShopProducts?.__typename === 'CoreShopProductsResult') {
+        return res.data.CoreShopProducts?.products?.edges?.map((data) => data?.node) as ProductFragment[];
+    }
+
+    return undefined;
+}
+export async function getProductPrice({productId} : {productId: number}): Promise<CoreShopProductPriceResult|undefined> {
+    const res = await coreShopFetch<GetCoreShopProductPriceQuery, GetCoreShopProductPriceQueryVariables>({
+        query: print(GetCoreShopProductPrice),
+        variables: {
+            productId: productId,
+            storeName: 'Standard'
+        }
+    });
+
+    if (res.data?.CoreShopProductPrice?.__typename === 'CoreShopProductPriceResult') {
+        return res.data.CoreShopProductPrice as CoreShopProductPriceResult;
+    }
+
+    return undefined;
+}

@@ -1,0 +1,37 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Next.js: debug server-side",
+        "type": "node-terminal",
+        "request": "launch",
+        "command": "npm run dev",
+        "env": {
+            "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+        }
+      },
+      {
+        "name": "Next.js: debug client-side",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:3000",
+        "env": {
+            "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+        }
+      },
+      {
+        "name": "Next.js: debug full stack",
+        "type": "node-terminal",
+        "request": "launch",
+        "command": "npm run dev",
+        "serverReadyAction": {
+          "pattern": "- Local:.+(https?://.+)",
+          "uriFormat": "%s",
+          "action": "debugWithChrome"
+        },
+        "env": {
+            "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+        }
+      }
+    ]
+  }

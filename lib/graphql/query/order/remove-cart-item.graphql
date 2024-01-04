@@ -1,0 +1,15 @@
+#import "order-fragment.graphql"
+#import "../error.graphql"
+
+mutation CoreShopRemoveOrderItem($orderItemId: Int!, $token: String!) {
+    CoreShopRemoveOrderItem(removeOrderItem: {order: {token: $token}, orderItem: {id: $orderItemId}}) {
+        ... on CoreShopRemoveOrderItemResult {
+            order {
+                ...order
+            }
+        }
+        ... on CoreShopError {
+            ...error
+        }
+    }
+}

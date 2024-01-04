@@ -1,0 +1,63 @@
+fragment product on object_CoreShopProduct {
+    __typename
+    id
+    name
+    ean
+    images {
+        ... on asset {
+            fullpath
+            dimensions {
+                width
+                height
+            }
+        }
+    }
+    imagesCartPreview: images {
+        ... on asset {
+            fullpath(thumbnail: "coreshop_productCartPreview")
+            dimensions(thumbnail: "coreshop_productCartPreview") {
+                width
+                height
+            }
+        }
+    }
+    imagesCartProduct: images {
+        ... on asset {
+            fullpath(thumbnail: "coreshop_productCart")
+            dimensions(thumbnail: "coreshop_productCart") {
+                width
+                height
+            }
+        }
+    }
+    imagesGrid: images {
+        ... on asset {
+            fullpath(thumbnail: "coreshop_productGrid")
+            dimensions(thumbnail: "coreshop_productGrid") {
+                width
+                height
+            }
+        }
+    }
+    imagesProductDetail: images {
+        ... on asset {
+            fullpath(thumbnail: "coreshop_productDetail")
+            dimensions(thumbnail: "coreshop_productDetail") {
+                width
+                height
+            }
+        }
+    }
+    imagesProductDetailPreview: images {
+        ... on asset {
+            fullpath(thumbnail: "coreshop_productDetailThumbnail")
+            dimensions(thumbnail: "coreshop_productDetailThumbnail") {
+                width
+                height
+            }
+        }
+    }
+    isTracked
+    stockAvailability
+    shortDescription
+}

@@ -1,0 +1,21 @@
+#import "product-fragment.graphql"
+#import "../error.graphql"
+
+query getCoreShopProductsInCategory($categoryId: Int!, $storeName: String!) {
+    CoreShopProducts(productListing: {store: {storeName: $storeName}, category: {categoryId: $categoryId}}) {
+        ... on CoreShopProductsResult {
+            __typename
+            products {
+                totalCount,
+                edges {
+                    node {
+                        ...product
+                    }
+                }
+            }
+        }
+        ... on CoreShopError {
+            ...error
+        }
+    }
+}

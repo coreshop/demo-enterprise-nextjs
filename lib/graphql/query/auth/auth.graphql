@@ -1,0 +1,10 @@
+mutation CoreShopAuthorize($username: String!, $password: String!, $orderToken: String) {
+    CoreShopAuthorize(authorize: {username: $username, password: $password, orderToken: $orderToken}) {
+        ... on CoreShopAuthorizeResult {
+            token
+        }
+        ... on CoreShopError {
+            message
+        }
+    }
+}

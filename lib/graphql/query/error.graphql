@@ -1,0 +1,4 @@
+fragment error on CoreShopError {
+    __typename
+    message
+}

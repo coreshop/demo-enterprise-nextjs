@@ -1,0 +1,28 @@
+#import "order-item-fragment.graphql"
+
+fragment order on object_CoreShopOrder {
+    id
+    token
+    totalGross
+    totalNet
+    subtotalGross
+    subtotalNet
+    items {
+        ...orderItem
+    }
+    taxes {
+        ... on fieldcollection_CoreShopTaxItem {
+            name
+            rate
+            amount
+        }
+    }
+    adjustmentItems {
+        ... on fieldcollection_CoreShopAdjustment {
+            typeIdentifier
+            label
+            pimcoreAmountNet
+            pimcoreAmountGross
+        }
+    }
+}

@@ -1,0 +1,2159 @@
+import gql from 'graphql-tag';
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  array: { input: any; output: any; }
+};
+
+export type ActiveOrderInput = {
+  order: OrderInput;
+  store: StoreInput;
+};
+
+export type AddOrderVoucherCodeInput = {
+  order: OrderInput;
+  orderVoucherCode: OrderVoucherCodeInput;
+};
+
+export type AddToOrderItemInput = {
+  order?: InputMaybe<OrderInputNull>;
+  orderItem?: InputMaybe<OrderItemInput>;
+  store: StoreInput;
+};
+
+export type AddressInput = {
+  city: Scalars['String']['input'];
+  company?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<CountryEnumType>;
+  firstname: Scalars['String']['input'];
+  lastname: Scalars['String']['input'];
+  number: Scalars['String']['input'];
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  postcode: Scalars['String']['input'];
+  salutation: Scalars['String']['input'];
+  street: Scalars['String']['input'];
+};
+
+export type CategoryInput = {
+  categoryId: Scalars['Int']['input'];
+};
+
+export type CategoryListingInput = {
+  store: StoreInput;
+};
+
+export type ContextInput = {
+  currency?: InputMaybe<CurrencyInput>;
+  locale?: InputMaybe<LocaleInput>;
+  order?: InputMaybe<OrderInput>;
+  store: StoreInput;
+};
+
+export type CoreShopActiveOrderResult = {
+  __typename?: 'CoreShopActiveOrderResult';
+  order?: Maybe<Object_CoreShopOrder>;
+};
+
+export type CoreShopActiveOrderUnionResult = CoreShopActiveOrderResult | CoreShopError | CoreShopValidationError;
+
+export type CoreShopAddOrderVoucherCodeResult = {
+  __typename?: 'CoreShopAddOrderVoucherCodeResult';
+  order?: Maybe<Object_CoreShopOrder>;
+};
+
+export type CoreShopAddOrderVoucherCodeUnionResult = CoreShopAddOrderVoucherCodeResult | CoreShopError | CoreShopValidationError;
+
+export type CoreShopAddToOrderResult = {
+  __typename?: 'CoreShopAddToOrderResult';
+  order?: Maybe<Object_CoreShopOrder>;
+};
+
+export type CoreShopAddToOrderUnionResult = CoreShopAddToOrderResult | CoreShopError | CoreShopValidationError;
+
+export type CoreShopAuthorizeResult = {
+  __typename?: 'CoreShopAuthorizeResult';
+  token?: Maybe<Scalars['String']['output']>;
+};
+
+export type CoreShopAuthorizeUnionResult = CoreShopAuthorizeResult | CoreShopError | CoreShopValidationError;
+
+export type CoreShopCategoriesResult = {
+  __typename?: 'CoreShopCategoriesResult';
+  categories?: Maybe<CoreShopCategoryConnection>;
+};
+
+export type CoreShopCategoriesUnionResult = CoreShopCategoriesResult | CoreShopError | CoreShopValidationError;
+
+export type CoreShopCategoryConnection = {
+  __typename?: 'CoreShopCategoryConnection';
+  edges?: Maybe<Array<Maybe<CoreShopCategoryEdge>>>;
+  /** The total count of all queryable objects for this schema listing */
+  totalCount?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreShopCategoryEdge = {
+  __typename?: 'CoreShopCategoryEdge';
+  cursor?: Maybe<Scalars['String']['output']>;
+  node?: Maybe<Object_CoreShopCategory>;
+};
+
+export type CoreShopCategoryResult = {
+  __typename?: 'CoreShopCategoryResult';
+  category?: Maybe<Object_CoreShopCategory>;
+};
+
+export type CoreShopCategoryUnionResult = CoreShopCategoryResult | CoreShopError | CoreShopValidationError;
+
+export type CoreShopCustomerRegistrationResult = {
+  __typename?: 'CoreShopCustomerRegistrationResult';
+  customer?: Maybe<Object_CoreShopCustomer>;
+};
+
+export type CoreShopCustomerRegistrationUnionResult = CoreShopCustomerRegistrationResult | CoreShopError | CoreShopValidationError;
+
+export type CoreShopError = {
+  __typename?: 'CoreShopError';
+  message?: Maybe<Scalars['String']['output']>;
+};
+
+export type CoreShopFilterKeyValue = {
+  key: Scalars['String']['input'];
+  value: Scalars['String']['input'];
+};
+
+export type CoreShopFilterResult = {
+  __typename?: 'CoreShopFilterResult';
+  objects?: Maybe<CoreShopProductFilterListingConnection>;
+};
+
+export type CoreShopFilterUnionResult = CoreShopError | CoreShopFilterResult | CoreShopValidationError;
+
+export type CoreShopLatestProductsResult = {
+  __typename?: 'CoreShopLatestProductsResult';
+  products?: Maybe<CoreShopProductConnection>;
+};
+
+export type CoreShopLatestProductsUnionResult = CoreShopError | CoreShopLatestProductsResult | CoreShopValidationError;
+
+export type CoreShopMeResult = {
+  __typename?: 'CoreShopMeResult';
+  user?: Maybe<Object_CoreShopUser>;
+};
+
+export type CoreShopMeUnionResult = CoreShopError | CoreShopMeResult | CoreShopValidationError;
+
+export type CoreShopOrderResult = {
+  __typename?: 'CoreShopOrderResult';
+  order?: Maybe<Object_CoreShopOrder>;
+};
+
+export type CoreShopOrderUnionResult = CoreShopError | CoreShopOrderResult | CoreShopValidationError;
+
+export type CoreShopPasswordResetRequestResult = {
+  __typename?: 'CoreShopPasswordResetRequestResult';
+  success?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type CoreShopPasswordResetRequestUnionResult = CoreShopError | CoreShopPasswordResetRequestResult | CoreShopValidationError;
+
+export type CoreShopPasswordResetRequestValidateResult = {
+  __typename?: 'CoreShopPasswordResetRequestValidateResult';
+  success?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type CoreShopPasswordResetRequestValidateUnionResult = CoreShopError | CoreShopPasswordResetRequestValidateResult | CoreShopValidationError;
+
+export type CoreShopPasswordResetResult = {
+  __typename?: 'CoreShopPasswordResetResult';
+  success?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type CoreShopPasswordResetUnionResult = CoreShopError | CoreShopPasswordResetResult | CoreShopValidationError;
+
+export type CoreShopProductConnection = {
+  __typename?: 'CoreShopProductConnection';
+  edges?: Maybe<Array<Maybe<CoreShopProductEdge>>>;
+  /** The total count of all queryable objects for this schema listing */
+  totalCount?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreShopProductEdge = {
+  __typename?: 'CoreShopProductEdge';
+  cursor?: Maybe<Scalars['String']['output']>;
+  node?: Maybe<Object_CoreShopProduct>;
+};
+
+export type CoreShopProductFilterEdgeConnection = {
+  __typename?: 'CoreShopProductFilterEdgeConnection';
+  cursor?: Maybe<Scalars['String']['output']>;
+  node?: Maybe<Object_CoreShopProduct>;
+};
+
+export type CoreShopProductFilterListingConnection = {
+  __typename?: 'CoreShopProductFilterListingConnection';
+  edges?: Maybe<Array<Maybe<CoreShopProductFilterEdgeConnection>>>;
+  /** The total count of all queryable objects for this schema listing */
+  totalCount?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreShopProductPriceResult = {
+  __typename?: 'CoreShopProductPriceResult';
+  discount_gross?: Maybe<Scalars['Int']['output']>;
+  discount_net?: Maybe<Scalars['Int']['output']>;
+  discount_price_gross?: Maybe<Scalars['Int']['output']>;
+  discount_price_net?: Maybe<Scalars['Int']['output']>;
+  price_gross?: Maybe<Scalars['Int']['output']>;
+  price_net?: Maybe<Scalars['Int']['output']>;
+  retail_price_gross?: Maybe<Scalars['Int']['output']>;
+  retail_price_net?: Maybe<Scalars['Int']['output']>;
+  tax_amount?: Maybe<Scalars['Int']['output']>;
+  tax_rate?: Maybe<Scalars['Float']['output']>;
+};
+
+export type CoreShopProductPriceUnionResult = CoreShopError | CoreShopProductPriceResult | CoreShopValidationError;
+
+export type CoreShopProductResult = {
+  __typename?: 'CoreShopProductResult';
+  product?: Maybe<Object_CoreShopProduct>;
+};
+
+export type CoreShopProductUnionResult = CoreShopError | CoreShopProductResult | CoreShopValidationError;
+
+export type CoreShopProductsResult = {
+  __typename?: 'CoreShopProductsResult';
+  products?: Maybe<CoreShopProductConnection>;
+};
+
+export type CoreShopProductsUnionResult = CoreShopError | CoreShopProductsResult | CoreShopValidationError;
+
+export type CoreShopRemoveOrderItemResult = {
+  __typename?: 'CoreShopRemoveOrderItemResult';
+  order?: Maybe<Object_CoreShopOrder>;
+};
+
+export type CoreShopRemoveOrderItemUnionResult = CoreShopError | CoreShopRemoveOrderItemResult | CoreShopValidationError;
+
+export type CoreShopRemoveOrderVoucherCodeResult = {
+  __typename?: 'CoreShopRemoveOrderVoucherCodeResult';
+  order?: Maybe<Object_CoreShopOrder>;
+};
+
+export type CoreShopRemoveOrderVoucherCodeUnionResult = CoreShopError | CoreShopRemoveOrderVoucherCodeResult | CoreShopValidationError;
+
+export type CoreShopUpdateOrderItemResult = {
+  __typename?: 'CoreShopUpdateOrderItemResult';
+  order?: Maybe<Object_CoreShopOrder>;
+};
+
+export type CoreShopUpdateOrderItemUnionResult = CoreShopError | CoreShopUpdateOrderItemResult | CoreShopValidationError;
+
+export type CoreShopValidationError = {
+  __typename?: 'CoreShopValidationError';
+  message?: Maybe<Scalars['String']['output']>;
+  violations?: Maybe<Array<Maybe<CoreShopValidationErrorViolation>>>;
+};
+
+export type CoreShopValidationErrorViolation = {
+  __typename?: 'CoreShopValidationErrorViolation';
+  message?: Maybe<Scalars['String']['output']>;
+  propertyPath?: Maybe<Scalars['String']['output']>;
+};
+
+export type CoreshopCartPriceRule = {
+  __typename?: 'CoreshopCartPriceRule';
+  actions?: Maybe<CoreshopRuleAction__List>;
+  active?: Maybe<Scalars['Boolean']['output']>;
+  conditions?: Maybe<CoreshopRuleCondition__List>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  isVoucherRule?: Maybe<Scalars['Boolean']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  priority?: Maybe<Scalars['Int']['output']>;
+  translations?: Maybe<CoreshopCartPriceRuleTranslation__List>;
+  voucherCodes?: Maybe<CoreshopCartPriceRuleVoucherCode__List>;
+};
+
+export type CoreshopCartPriceRuleTranslation = {
+  __typename?: 'CoreshopCartPriceRuleTranslation';
+  creationDate?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  label?: Maybe<Scalars['String']['output']>;
+  locale?: Maybe<Scalars['String']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  translatable?: Maybe<CoreshopCartPriceRule>;
+};
+
+export type CoreshopCartPriceRuleTranslation__List = {
+  __typename?: 'CoreshopCartPriceRuleTranslation__List';
+  items?: Maybe<Array<Maybe<CoreshopCartPriceRuleTranslation>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopCartPriceRuleVoucherCode = {
+  __typename?: 'CoreshopCartPriceRuleVoucherCode';
+  cartPriceRule?: Maybe<CoreshopCartPriceRule>;
+  code?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  creditAvailable?: Maybe<Scalars['Int']['output']>;
+  creditCurrency?: Maybe<CoreshopCurrency>;
+  creditUsed?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  isCreditCode?: Maybe<Scalars['Boolean']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  used?: Maybe<Scalars['Boolean']['output']>;
+  uses?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopCartPriceRuleVoucherCode__List = {
+  __typename?: 'CoreshopCartPriceRuleVoucherCode__List';
+  items?: Maybe<Array<Maybe<CoreshopCartPriceRuleVoucherCode>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopConfiguration = {
+  __typename?: 'CoreshopConfiguration';
+  creationDate?: Maybe<Scalars['String']['output']>;
+  data?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  key?: Maybe<Scalars['String']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  store?: Maybe<CoreshopStore>;
+};
+
+export type CoreshopConfiguration__List = {
+  __typename?: 'CoreshopConfiguration__List';
+  items?: Maybe<Array<Maybe<CoreshopConfiguration>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopCountry = {
+  __typename?: 'CoreshopCountry';
+  active?: Maybe<Scalars['Boolean']['output']>;
+  addressFormat?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  currency?: Maybe<CoreshopCurrency>;
+  id?: Maybe<Scalars['Int']['output']>;
+  isoCode?: Maybe<Scalars['String']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  salutations?: Maybe<Scalars['String']['output']>;
+  states?: Maybe<CoreshopState__List>;
+  stores?: Maybe<CoreshopStore__List>;
+  translations?: Maybe<CoreshopCountryTranslation__List>;
+  zone?: Maybe<CoreshopZone>;
+};
+
+export type CoreshopCountryTranslation = {
+  __typename?: 'CoreshopCountryTranslation';
+  creationDate?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  locale?: Maybe<Scalars['String']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  translatable?: Maybe<CoreshopCountry>;
+};
+
+export type CoreshopCountryTranslation__List = {
+  __typename?: 'CoreshopCountryTranslation__List';
+  items?: Maybe<Array<Maybe<CoreshopCountryTranslation>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopCountry__List = {
+  __typename?: 'CoreshopCountry__List';
+  items?: Maybe<Array<Maybe<CoreshopCountry>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopCurrency = {
+  __typename?: 'CoreshopCurrency';
+  countries?: Maybe<CoreshopCountry__List>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  isoCode?: Maybe<Scalars['String']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  numericIsoCode?: Maybe<Scalars['Int']['output']>;
+  symbol?: Maybe<Scalars['String']['output']>;
+};
+
+export type CoreshopFilter = {
+  __typename?: 'CoreshopFilter';
+  conditions?: Maybe<CoreshopFilterCondition__List>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  index?: Maybe<CoreshopIndex>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  orderDirection?: Maybe<Scalars['String']['output']>;
+  orderKey?: Maybe<Scalars['String']['output']>;
+  preConditions?: Maybe<CoreshopFilterCondition__List>;
+  resultsPerPage?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopFilterCondition = {
+  __typename?: 'CoreshopFilterCondition';
+  configuration?: Maybe<Scalars['array']['output']>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  label?: Maybe<Scalars['String']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  quantityUnit?: Maybe<Scalars['String']['output']>;
+  sort?: Maybe<Scalars['Int']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+export type CoreshopFilterCondition__List = {
+  __typename?: 'CoreshopFilterCondition__List';
+  items?: Maybe<Array<Maybe<CoreshopFilterCondition>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopIndex = {
+  __typename?: 'CoreshopIndex';
+  class?: Maybe<Scalars['String']['output']>;
+  columns?: Maybe<CoreshopIndexColumn__List>;
+  configuration?: Maybe<Scalars['array']['output']>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  indexLastVersion?: Maybe<Scalars['Boolean']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  worker?: Maybe<Scalars['String']['output']>;
+};
+
+export type CoreshopIndexColumn = {
+  __typename?: 'CoreshopIndexColumn';
+  columnType?: Maybe<Scalars['String']['output']>;
+  configuration?: Maybe<Scalars['array']['output']>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  dataType?: Maybe<Scalars['String']['output']>;
+  getter?: Maybe<Scalars['String']['output']>;
+  getterConfig?: Maybe<Scalars['array']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  index?: Maybe<CoreshopIndex>;
+  interpreter?: Maybe<Scalars['String']['output']>;
+  interpreterConfig?: Maybe<Scalars['array']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  objectKey?: Maybe<Scalars['String']['output']>;
+  objectType?: Maybe<Scalars['String']['output']>;
+};
+
+export type CoreshopIndexColumn__List = {
+  __typename?: 'CoreshopIndexColumn__List';
+  items?: Maybe<Array<Maybe<CoreshopIndexColumn>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopProductStoreValues = {
+  __typename?: 'CoreshopProductStoreValues';
+  id?: Maybe<Scalars['Int']['output']>;
+  price?: Maybe<Scalars['String']['output']>;
+  product?: Maybe<Scalars['String']['output']>;
+  productUnitDefinitionPrices?: Maybe<CoreshopProductUnitDefinitionPrice__List>;
+  store?: Maybe<CoreshopStore>;
+};
+
+export type CoreshopProductUnit = {
+  __typename?: 'CoreshopProductUnit';
+  creationDate?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  translations?: Maybe<CoreshopProductUnitTranslation__List>;
+};
+
+export type CoreshopProductUnitDefinition = {
+  __typename?: 'CoreshopProductUnitDefinition';
+  conversionRate?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  precision?: Maybe<Scalars['Int']['output']>;
+  productUnitDefinitions?: Maybe<CoreshopProductUnitDefinitions>;
+  unit?: Maybe<CoreshopProductUnit>;
+};
+
+export type CoreshopProductUnitDefinitionPrice = {
+  __typename?: 'CoreshopProductUnitDefinitionPrice';
+  id?: Maybe<Scalars['Int']['output']>;
+  price?: Maybe<Scalars['String']['output']>;
+  productStoreValues?: Maybe<CoreshopProductStoreValues>;
+  unitDefinition?: Maybe<CoreshopProductUnitDefinition>;
+};
+
+export type CoreshopProductUnitDefinitionPrice__List = {
+  __typename?: 'CoreshopProductUnitDefinitionPrice__List';
+  items?: Maybe<Array<Maybe<CoreshopProductUnitDefinitionPrice>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopProductUnitDefinition__List = {
+  __typename?: 'CoreshopProductUnitDefinition__List';
+  items?: Maybe<Array<Maybe<CoreshopProductUnitDefinition>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopProductUnitDefinitions = {
+  __typename?: 'CoreshopProductUnitDefinitions';
+  defaultUnitDefinition?: Maybe<CoreshopProductUnitDefinition>;
+  id?: Maybe<Scalars['Int']['output']>;
+  product?: Maybe<Scalars['String']['output']>;
+  unitDefinitions?: Maybe<CoreshopProductUnitDefinition__List>;
+};
+
+export type CoreshopProductUnitTranslation = {
+  __typename?: 'CoreshopProductUnitTranslation';
+  creationDate?: Maybe<Scalars['String']['output']>;
+  fullLabel?: Maybe<Scalars['String']['output']>;
+  fullPluralLabel?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  locale?: Maybe<Scalars['String']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  shortLabel?: Maybe<Scalars['String']['output']>;
+  shortPluralLabel?: Maybe<Scalars['String']['output']>;
+  translatable?: Maybe<CoreshopProductUnit>;
+};
+
+export type CoreshopProductUnitTranslation__List = {
+  __typename?: 'CoreshopProductUnitTranslation__List';
+  items?: Maybe<Array<Maybe<CoreshopProductUnitTranslation>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopRuleAction = {
+  __typename?: 'CoreshopRuleAction';
+  configuration?: Maybe<Scalars['array']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  sort?: Maybe<Scalars['Int']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+export type CoreshopRuleAction__List = {
+  __typename?: 'CoreshopRuleAction__List';
+  items?: Maybe<Array<Maybe<CoreshopRuleAction>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopRuleCondition = {
+  __typename?: 'CoreshopRuleCondition';
+  configuration?: Maybe<Scalars['array']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  sort?: Maybe<Scalars['Int']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+export type CoreshopRuleCondition__List = {
+  __typename?: 'CoreshopRuleCondition__List';
+  items?: Maybe<Array<Maybe<CoreshopRuleCondition>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopState = {
+  __typename?: 'CoreshopState';
+  active?: Maybe<Scalars['Boolean']['output']>;
+  country?: Maybe<CoreshopCountry>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  isoCode?: Maybe<Scalars['String']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  translations?: Maybe<CoreshopStateTranslation__List>;
+};
+
+export type CoreshopStateTranslation = {
+  __typename?: 'CoreshopStateTranslation';
+  creationDate?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  locale?: Maybe<Scalars['String']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  translatable?: Maybe<CoreshopState>;
+};
+
+export type CoreshopStateTranslation__List = {
+  __typename?: 'CoreshopStateTranslation__List';
+  items?: Maybe<Array<Maybe<CoreshopStateTranslation>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopState__List = {
+  __typename?: 'CoreshopState__List';
+  items?: Maybe<Array<Maybe<CoreshopState>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopStore = {
+  __typename?: 'CoreshopStore';
+  baseCountry?: Maybe<CoreshopCountry>;
+  configurations?: Maybe<CoreshopConfiguration__List>;
+  countries?: Maybe<CoreshopCountry__List>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  currency?: Maybe<CoreshopCurrency>;
+  id?: Maybe<Scalars['Int']['output']>;
+  isDefault?: Maybe<Scalars['Boolean']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  siteId?: Maybe<Scalars['Int']['output']>;
+  template?: Maybe<Scalars['String']['output']>;
+  useGrossPrice?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type CoreshopStore__List = {
+  __typename?: 'CoreshopStore__List';
+  items?: Maybe<Array<Maybe<CoreshopStore>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CoreshopZone = {
+  __typename?: 'CoreshopZone';
+  active?: Maybe<Scalars['Boolean']['output']>;
+  countries?: Maybe<CoreshopCountry__List>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  modificationDate?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+export enum CountryEnumType {
+  Austria = 'Austria'
+}
+
+export type CurrencyInput = {
+  iso: Scalars['String']['input'];
+};
+
+export type CustomerInput = {
+  address: AddressInput;
+  email: Scalars['String']['input'];
+  firstname: Scalars['String']['input'];
+  gender: Scalars['String']['input'];
+  lastname: Scalars['String']['input'];
+  newsletterActive: Scalars['Boolean']['input'];
+  salutation: Scalars['String']['input'];
+  user: UserInput;
+};
+
+export type ElementProperty = Property_Asset | Property_Checkbox | Property_Object | Property_Select | Property_Text;
+
+export type FilterInput = {
+  filterId: Scalars['Int']['input'];
+};
+
+export type FilterListingInput = {
+  category: CategoryInput;
+  filter: FilterInput;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  parameters?: InputMaybe<Array<InputMaybe<CoreShopFilterKeyValue>>>;
+  store: StoreInput;
+  variantListMode?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type LatestProductsInput = {
+  store: StoreInput;
+};
+
+export type LocaleInput = {
+  locale: Scalars['String']['input'];
+};
+
+export type LoginInput = {
+  orderToken?: InputMaybe<Scalars['String']['input']>;
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
+export type Mutations = {
+  __typename?: 'Mutations';
+  CoreShopAddOrderVoucherCode?: Maybe<CoreShopAddOrderVoucherCodeUnionResult>;
+  CoreShopAddToOrder?: Maybe<CoreShopAddToOrderUnionResult>;
+  CoreShopAuthorize?: Maybe<CoreShopAuthorizeUnionResult>;
+  CoreShopCustomerRegistration?: Maybe<CoreShopCustomerRegistrationUnionResult>;
+  CoreShopPasswordReset?: Maybe<CoreShopPasswordResetUnionResult>;
+  CoreShopPasswordResetRequest?: Maybe<CoreShopPasswordResetRequestUnionResult>;
+  CoreShopPasswordResetRequestValidate?: Maybe<CoreShopPasswordResetRequestValidateUnionResult>;
+  CoreShopRemoveOrderItem?: Maybe<CoreShopRemoveOrderItemUnionResult>;
+  CoreShopRemoveOrderVoucherCode?: Maybe<CoreShopRemoveOrderVoucherCodeUnionResult>;
+  CoreShopUpdateOrderItem?: Maybe<CoreShopUpdateOrderItemUnionResult>;
+};
+
+
+export type MutationsCoreShopAddOrderVoucherCodeArgs = {
+  addOrderVoucherCode?: InputMaybe<AddOrderVoucherCodeInput>;
+};
+
+
+export type MutationsCoreShopAddToOrderArgs = {
+  addToOrder?: InputMaybe<AddToOrderItemInput>;
+};
+
+
+export type MutationsCoreShopAuthorizeArgs = {
+  authorize?: InputMaybe<LoginInput>;
+};
+
+
+export type MutationsCoreShopCustomerRegistrationArgs = {
+  customerRegistration?: InputMaybe<CustomerInput>;
+};
+
+
+export type MutationsCoreShopPasswordResetArgs = {
+  passwordReset?: InputMaybe<PasswordResetInput>;
+};
+
+
+export type MutationsCoreShopPasswordResetRequestArgs = {
+  passwordResetRequest?: InputMaybe<PasswordResetRequestInput>;
+};
+
+
+export type MutationsCoreShopPasswordResetRequestValidateArgs = {
+  passwordResetRequestValidate?: InputMaybe<PasswordResetRequestValidateInput>;
+};
+
+
+export type MutationsCoreShopRemoveOrderItemArgs = {
+  removeOrderItem?: InputMaybe<RemoveOrderItemInput>;
+};
+
+
+export type MutationsCoreShopRemoveOrderVoucherCodeArgs = {
+  removeOrderVoucherCode?: InputMaybe<RemoveOrderVoucherCodeInput>;
+};
+
+
+export type MutationsCoreShopUpdateOrderItemArgs = {
+  updateOrderItem?: InputMaybe<UpdateOrderItemInput>;
+};
+
+export type OrderInput = {
+  token: Scalars['String']['input'];
+};
+
+export type OrderInputNull = {
+  token?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OrderItemIdInput = {
+  id: Scalars['Int']['input'];
+};
+
+export type OrderItemInput = {
+  productId: Scalars['Int']['input'];
+  quantity: Scalars['Float']['input'];
+};
+
+export type OrderItemQuantityInput = {
+  id: Scalars['Int']['input'];
+  quantity: Scalars['Float']['input'];
+};
+
+export type OrderVoucherCodeInput = {
+  code: Scalars['String']['input'];
+};
+
+export type PasswordResetInput = {
+  password: Scalars['String']['input'];
+  token: Scalars['String']['input'];
+};
+
+export type PasswordResetRequestInput = {
+  username: Scalars['String']['input'];
+};
+
+export type PasswordResetRequestValidateInput = {
+  token: Scalars['String']['input'];
+};
+
+export type ProductInput = {
+  productId: Scalars['Int']['input'];
+};
+
+export type ProductListingInput = {
+  category?: InputMaybe<CategoryInput>;
+  store: StoreInput;
+};
+
+export type ProductPriceInput = {
+  context: ContextInput;
+  productId: Scalars['Int']['input'];
+};
+
+export type Query = {
+  __typename?: 'Query';
+  CoreShopActiveOrder?: Maybe<CoreShopActiveOrderUnionResult>;
+  CoreShopCategories?: Maybe<CoreShopCategoriesUnionResult>;
+  CoreShopCategory?: Maybe<CoreShopCategoryUnionResult>;
+  CoreShopFilter?: Maybe<CoreShopFilterUnionResult>;
+  CoreShopLatestProducts?: Maybe<CoreShopLatestProductsUnionResult>;
+  CoreShopMe?: Maybe<CoreShopMeUnionResult>;
+  CoreShopOrder?: Maybe<CoreShopOrderUnionResult>;
+  CoreShopProduct?: Maybe<CoreShopProductUnionResult>;
+  CoreShopProductPrice?: Maybe<CoreShopProductPriceUnionResult>;
+  CoreShopProducts?: Maybe<CoreShopProductsUnionResult>;
+};
+
+
+export type QueryCoreShopActiveOrderArgs = {
+  activeOrder?: InputMaybe<ActiveOrderInput>;
+};
+
+
+export type QueryCoreShopCategoriesArgs = {
+  categoryListing?: InputMaybe<CategoryListingInput>;
+};
+
+
+export type QueryCoreShopCategoryArgs = {
+  category?: InputMaybe<CategoryInput>;
+};
+
+
+export type QueryCoreShopFilterArgs = {
+  filterListing?: InputMaybe<FilterListingInput>;
+};
+
+
+export type QueryCoreShopLatestProductsArgs = {
+  latestProducts?: InputMaybe<LatestProductsInput>;
+};
+
+
+export type QueryCoreShopOrderArgs = {
+  order?: InputMaybe<OrderInput>;
+};
+
+
+export type QueryCoreShopProductArgs = {
+  product?: InputMaybe<ProductInput>;
+};
+
+
+export type QueryCoreShopProductPriceArgs = {
+  productPrice?: InputMaybe<ProductPriceInput>;
+};
+
+
+export type QueryCoreShopProductsArgs = {
+  productListing?: InputMaybe<ProductListingInput>;
+};
+
+export type RemoveOrderItemInput = {
+  order: OrderInput;
+  orderItem: OrderItemIdInput;
+};
+
+export type RemoveOrderVoucherCodeInput = {
+  order: OrderInput;
+  orderVoucherCode: OrderVoucherCodeInput;
+};
+
+export type StoreInput = {
+  storeName: Scalars['String']['input'];
+};
+
+export type UpdateOrderItemInput = {
+  order: OrderInput;
+  orderItem: OrderItemQuantityInput;
+};
+
+export type UrlSlug = {
+  __typename?: 'UrlSlug';
+  siteId?: Maybe<Scalars['Int']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+};
+
+export type UserInput = {
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
+export type Asset = Element & {
+  __typename?: 'asset';
+  _siblings?: Maybe<Array<Maybe<Asset_Tree>>>;
+  children?: Maybe<Array<Maybe<Asset_Tree>>>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  data?: Maybe<Scalars['String']['output']>;
+  dimensions?: Maybe<Dimensions>;
+  duration?: Maybe<Scalars['Float']['output']>;
+  embeddedMetaInfo?: Maybe<Array<Maybe<Asset_EmbeddedMetaInfo_Item>>>;
+  filename?: Maybe<Scalars['String']['output']>;
+  filesize?: Maybe<Scalars['Int']['output']>;
+  fullpath?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  metadata?: Maybe<Array<Maybe<Asset_Metadata_Item>>>;
+  mimetype?: Maybe<Scalars['String']['output']>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  parent?: Maybe<Asset_Tree>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+  resolutions?: Maybe<Array<Maybe<Resolutions>>>;
+  srcset?: Maybe<Array<Maybe<Srcset>>>;
+  tags?: Maybe<Array<Maybe<Element_Tag>>>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type AssetDataArgs = {
+  format?: InputMaybe<Scalars['String']['input']>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type AssetDimensionsArgs = {
+  format?: InputMaybe<Scalars['String']['input']>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type AssetFullpathArgs = {
+  format?: InputMaybe<Scalars['String']['input']>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type AssetMetadataArgs = {
+  ignore_language?: InputMaybe<Scalars['Boolean']['input']>;
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type AssetPropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type AssetResolutionsArgs = {
+  format?: InputMaybe<Scalars['String']['input']>;
+  thumbnail: Scalars['String']['input'];
+  types?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+};
+
+
+export type AssetSrcsetArgs = {
+  format?: InputMaybe<Scalars['String']['input']>;
+  thumbnail: Scalars['String']['input'];
+};
+
+
+export type AssetTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Asset_EmbeddedMetaInfo_Item = {
+  __typename?: 'asset_embeddedMetaInfo_item';
+  name?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['String']['output']>;
+};
+
+export type Asset_Folder = {
+  __typename?: 'asset_folder';
+  _siblings?: Maybe<Array<Maybe<Asset_Tree>>>;
+  children?: Maybe<Array<Maybe<Asset_Tree>>>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  filename?: Maybe<Scalars['String']['output']>;
+  fullpath?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  parent?: Maybe<Asset_Folder>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+};
+
+
+export type Asset_FolderFullpathArgs = {
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Asset_FolderPropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type Asset_Metadata_Item = {
+  __typename?: 'asset_metadata_item';
+  data?: Maybe<Scalars['String']['output']>;
+  language?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+export type Asset_Tree = Asset | Asset_Folder;
+
+export type Dimensions = {
+  __typename?: 'dimensions';
+  height?: Maybe<Scalars['Int']['output']>;
+  width?: Maybe<Scalars['Int']['output']>;
+};
+
+export type Element = {
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type Element_Tag = {
+  __typename?: 'element_tag';
+  id?: Maybe<Scalars['ID']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  path?: Maybe<Scalars['String']['output']>;
+};
+
+export type Fieldcollection_CoreShopAdjustment = {
+  __typename?: 'fieldcollection_CoreShopAdjustment';
+  label?: Maybe<Scalars['String']['output']>;
+  pimcoreAmountGross?: Maybe<Scalars['Int']['output']>;
+  pimcoreAmountNet?: Maybe<Scalars['Int']['output']>;
+  pimcoreNeutral?: Maybe<Scalars['Boolean']['output']>;
+  typeIdentifier?: Maybe<Scalars['String']['output']>;
+};
+
+export type Fieldcollection_CoreShopPriceRuleItem = {
+  __typename?: 'fieldcollection_CoreShopPriceRuleItem';
+  cartPriceRule?: Maybe<CoreshopCartPriceRule>;
+  discountGross?: Maybe<Scalars['Int']['output']>;
+  discountNet?: Maybe<Scalars['Int']['output']>;
+  voucherCode?: Maybe<Scalars['String']['output']>;
+};
+
+export type Fieldcollection_CoreShopProposalCartPriceRuleItem = {
+  __typename?: 'fieldcollection_CoreShopProposalCartPriceRuleItem';
+  cartPriceRule?: Maybe<CoreshopCartPriceRule>;
+  discountGross?: Maybe<Scalars['Int']['output']>;
+  discountNet?: Maybe<Scalars['Int']['output']>;
+  voucherCode?: Maybe<Scalars['String']['output']>;
+};
+
+export type Fieldcollection_CoreShopTaxItem = {
+  __typename?: 'fieldcollection_CoreShopTaxItem';
+  amount?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  rate?: Maybe<Scalars['Float']['output']>;
+};
+
+export type Hotspot_Metadata_Object = Asset | Object_CoreShopCategory | Object_CoreShopCustomer | Object_CoreShopOrder | Object_CoreShopOrderItem | Object_CoreShopProduct | Object_CoreShopUser;
+
+export type Object_CoreShopAddress = Element & {
+  __typename?: 'object_CoreShopAddress';
+  _siblings?: Maybe<Array<Maybe<Object_Tree>>>;
+  children?: Maybe<Array<Maybe<Object_Tree>>>;
+  childrenSortBy?: Maybe<Scalars['String']['output']>;
+  classname?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  index?: Maybe<Scalars['Int']['output']>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  objectType?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Object_Tree>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+  tags?: Maybe<Array<Maybe<Element_Tag>>>;
+};
+
+
+export type Object_CoreShopAddress_SiblingsArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopAddressChildrenArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopAddressPropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopAddressTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Object_CoreShopAttributeColor = Element & {
+  __typename?: 'object_CoreShopAttributeColor';
+  _siblings?: Maybe<Array<Maybe<Object_Tree>>>;
+  children?: Maybe<Array<Maybe<Object_Tree>>>;
+  childrenSortBy?: Maybe<Scalars['String']['output']>;
+  classname?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  index?: Maybe<Scalars['Int']['output']>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  objectType?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Object_Tree>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+  tags?: Maybe<Array<Maybe<Element_Tag>>>;
+};
+
+
+export type Object_CoreShopAttributeColor_SiblingsArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopAttributeColorChildrenArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopAttributeColorPropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopAttributeColorTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Object_CoreShopAttributeGroup = Element & {
+  __typename?: 'object_CoreShopAttributeGroup';
+  _siblings?: Maybe<Array<Maybe<Object_Tree>>>;
+  children?: Maybe<Array<Maybe<Object_Tree>>>;
+  childrenSortBy?: Maybe<Scalars['String']['output']>;
+  classname?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  index?: Maybe<Scalars['Int']['output']>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  objectType?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Object_Tree>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+  tags?: Maybe<Array<Maybe<Element_Tag>>>;
+};
+
+
+export type Object_CoreShopAttributeGroup_SiblingsArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopAttributeGroupChildrenArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopAttributeGroupPropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopAttributeGroupTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Object_CoreShopAttributeValue = Element & {
+  __typename?: 'object_CoreShopAttributeValue';
+  _siblings?: Maybe<Array<Maybe<Object_Tree>>>;
+  children?: Maybe<Array<Maybe<Object_Tree>>>;
+  childrenSortBy?: Maybe<Scalars['String']['output']>;
+  classname?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  index?: Maybe<Scalars['Int']['output']>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  objectType?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Object_Tree>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+  tags?: Maybe<Array<Maybe<Element_Tag>>>;
+};
+
+
+export type Object_CoreShopAttributeValue_SiblingsArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopAttributeValueChildrenArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopAttributeValuePropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopAttributeValueTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Object_CoreShopCategory = Element & {
+  __typename?: 'object_CoreShopCategory';
+  _siblings?: Maybe<Array<Maybe<Object_Tree>>>;
+  children?: Maybe<Array<Maybe<Object_Tree>>>;
+  childrenSortBy?: Maybe<Scalars['String']['output']>;
+  classname?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  filter?: Maybe<CoreshopFilter>;
+  id?: Maybe<Scalars['ID']['output']>;
+  index?: Maybe<Scalars['Int']['output']>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  objectType?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Object_Tree>;
+  parentCategory?: Maybe<Object_CoreShopCategory_ParentCategory>;
+  pimcoreMetaDescription?: Maybe<Scalars['String']['output']>;
+  pimcoreMetaTitle?: Maybe<Scalars['String']['output']>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+  slug?: Maybe<Array<Maybe<UrlSlug>>>;
+  stores?: Maybe<Array<Maybe<CoreshopStore>>>;
+  tags?: Maybe<Array<Maybe<Element_Tag>>>;
+};
+
+
+export type Object_CoreShopCategory_SiblingsArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopCategoryChildrenArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopCategoryDescriptionArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Object_CoreShopCategoryNameArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Object_CoreShopCategoryPimcoreMetaDescriptionArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Object_CoreShopCategoryPimcoreMetaTitleArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Object_CoreShopCategoryPropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopCategorySlugArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Object_CoreShopCategoryTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** pseudo class for field parentCategory */
+export type Object_CoreShopCategory_ParentCategory = Object_CoreShopCategory;
+
+export type Object_CoreShopCustomer = Element & {
+  __typename?: 'object_CoreShopCustomer';
+  _siblings?: Maybe<Array<Maybe<Object_Tree>>>;
+  children?: Maybe<Array<Maybe<Object_Tree>>>;
+  childrenSortBy?: Maybe<Scalars['String']['output']>;
+  classname?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  firstname?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  index?: Maybe<Scalars['Int']['output']>;
+  lastname?: Maybe<Scalars['String']['output']>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  objectType?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Object_Tree>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+  tags?: Maybe<Array<Maybe<Element_Tag>>>;
+};
+
+
+export type Object_CoreShopCustomer_SiblingsArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopCustomerChildrenArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopCustomerPropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopCustomerTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Object_CoreShopManufacturer = Element & {
+  __typename?: 'object_CoreShopManufacturer';
+  _siblings?: Maybe<Array<Maybe<Object_Tree>>>;
+  children?: Maybe<Array<Maybe<Object_Tree>>>;
+  childrenSortBy?: Maybe<Scalars['String']['output']>;
+  classname?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  index?: Maybe<Scalars['Int']['output']>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  objectType?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Object_Tree>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+  tags?: Maybe<Array<Maybe<Element_Tag>>>;
+};
+
+
+export type Object_CoreShopManufacturer_SiblingsArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopManufacturerChildrenArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopManufacturerPropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopManufacturerTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Object_CoreShopOrder = Element & {
+  __typename?: 'object_CoreShopOrder';
+  _siblings?: Maybe<Array<Maybe<Object_Tree>>>;
+  adjustmentItems?: Maybe<Array<Maybe<Object_CoreShopOrder_AdjustmentItems>>>;
+  baseCurrency?: Maybe<CoreshopCurrency>;
+  children?: Maybe<Array<Maybe<Object_Tree>>>;
+  childrenSortBy?: Maybe<Scalars['String']['output']>;
+  classname?: Maybe<Scalars['String']['output']>;
+  convertedAdjustmentItems?: Maybe<Array<Maybe<Object_CoreShopOrder_ConvertedAdjustmentItems>>>;
+  convertedPaymentTotal?: Maybe<Scalars['Int']['output']>;
+  convertedPimcoreAdjustmentTotalGross?: Maybe<Scalars['Int']['output']>;
+  convertedPimcoreAdjustmentTotalNet?: Maybe<Scalars['Int']['output']>;
+  convertedSubtotalGross?: Maybe<Scalars['Int']['output']>;
+  convertedSubtotalNet?: Maybe<Scalars['Int']['output']>;
+  convertedTaxes?: Maybe<Array<Maybe<Object_CoreShopOrder_ConvertedTaxes>>>;
+  convertedTotalGross?: Maybe<Scalars['Int']['output']>;
+  convertedTotalNet?: Maybe<Scalars['Int']['output']>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  currency?: Maybe<CoreshopCurrency>;
+  customer?: Maybe<Object_CoreShopOrder_Customer>;
+  id?: Maybe<Scalars['ID']['output']>;
+  index?: Maybe<Scalars['Int']['output']>;
+  invoiceAddress?: Maybe<Object_CoreShopOrder_InvoiceAddress>;
+  items?: Maybe<Array<Maybe<Object_CoreShopOrder_Items>>>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  needsRecalculation?: Maybe<Scalars['Boolean']['output']>;
+  objectType?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Object_Tree>;
+  paymentTotal?: Maybe<Scalars['Int']['output']>;
+  pimcoreAdjustmentTotalGross?: Maybe<Scalars['Int']['output']>;
+  pimcoreAdjustmentTotalNet?: Maybe<Scalars['Int']['output']>;
+  priceRuleItems?: Maybe<Array<Maybe<Object_CoreShopOrder_PriceRuleItems>>>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+  shippingAddress?: Maybe<Object_CoreShopOrder_ShippingAddress>;
+  shippingTaxRate?: Maybe<Scalars['Float']['output']>;
+  store?: Maybe<CoreshopStore>;
+  subtotalGross?: Maybe<Scalars['Int']['output']>;
+  subtotalNet?: Maybe<Scalars['Int']['output']>;
+  tags?: Maybe<Array<Maybe<Element_Tag>>>;
+  taxes?: Maybe<Array<Maybe<Object_CoreShopOrder_Taxes>>>;
+  token?: Maybe<Scalars['String']['output']>;
+  totalGross?: Maybe<Scalars['Int']['output']>;
+  totalNet?: Maybe<Scalars['Int']['output']>;
+  weight?: Maybe<Scalars['Float']['output']>;
+};
+
+
+export type Object_CoreShopOrder_SiblingsArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopOrderChildrenArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopOrderPropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopOrderTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Object_CoreShopOrderItem = Element & {
+  __typename?: 'object_CoreShopOrderItem';
+  _siblings?: Maybe<Array<Maybe<Object_Tree>>>;
+  adjustmentItems?: Maybe<Array<Maybe<Object_CoreShopOrderItem_AdjustmentItems>>>;
+  children?: Maybe<Array<Maybe<Object_Tree>>>;
+  childrenSortBy?: Maybe<Scalars['String']['output']>;
+  classname?: Maybe<Scalars['String']['output']>;
+  convertedAdjustmentItems?: Maybe<Array<Maybe<Object_CoreShopOrderItem_ConvertedAdjustmentItems>>>;
+  convertedCustomItemPrice?: Maybe<Scalars['Int']['output']>;
+  convertedItemDiscountGross?: Maybe<Scalars['Int']['output']>;
+  convertedItemDiscountNet?: Maybe<Scalars['Int']['output']>;
+  convertedItemDiscountPriceGross?: Maybe<Scalars['Int']['output']>;
+  convertedItemDiscountPriceNet?: Maybe<Scalars['Int']['output']>;
+  convertedItemPriceGross?: Maybe<Scalars['Int']['output']>;
+  convertedItemPriceNet?: Maybe<Scalars['Int']['output']>;
+  convertedItemRetailPriceGross?: Maybe<Scalars['Int']['output']>;
+  convertedItemRetailPriceNet?: Maybe<Scalars['Int']['output']>;
+  convertedItemTax?: Maybe<Scalars['Int']['output']>;
+  convertedItemWholesalePrice?: Maybe<Scalars['Int']['output']>;
+  convertedPimcoreAdjustmentTotalGross?: Maybe<Scalars['Int']['output']>;
+  convertedPimcoreAdjustmentTotalNet?: Maybe<Scalars['Int']['output']>;
+  convertedSubtotalGross?: Maybe<Scalars['Int']['output']>;
+  convertedSubtotalNet?: Maybe<Scalars['Int']['output']>;
+  convertedTaxes?: Maybe<Array<Maybe<Object_CoreShopOrderItem_ConvertedTaxes>>>;
+  convertedTotalGross?: Maybe<Scalars['Int']['output']>;
+  convertedTotalNet?: Maybe<Scalars['Int']['output']>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  customItemDiscount?: Maybe<Scalars['Float']['output']>;
+  customItemPrice?: Maybe<Scalars['Int']['output']>;
+  defaultUnitQuantity?: Maybe<Scalars['Float']['output']>;
+  digitalProduct?: Maybe<Scalars['Boolean']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  index?: Maybe<Scalars['Int']['output']>;
+  isGiftItem?: Maybe<Scalars['Boolean']['output']>;
+  itemDiscountGross?: Maybe<Scalars['Int']['output']>;
+  itemDiscountNet?: Maybe<Scalars['Int']['output']>;
+  itemDiscountPriceGross?: Maybe<Scalars['Int']['output']>;
+  itemDiscountPriceNet?: Maybe<Scalars['Int']['output']>;
+  itemPriceGross?: Maybe<Scalars['Int']['output']>;
+  itemPriceNet?: Maybe<Scalars['Int']['output']>;
+  itemRetailPriceGross?: Maybe<Scalars['Int']['output']>;
+  itemRetailPriceNet?: Maybe<Scalars['Int']['output']>;
+  itemTax?: Maybe<Scalars['Int']['output']>;
+  itemWeight?: Maybe<Scalars['Float']['output']>;
+  itemWholesalePrice?: Maybe<Scalars['Int']['output']>;
+  mainObjectId?: Maybe<Scalars['Float']['output']>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  objectId?: Maybe<Scalars['Float']['output']>;
+  objectType?: Maybe<Scalars['String']['output']>;
+  order?: Maybe<Object_CoreShopOrderItem_Order>;
+  parent?: Maybe<Object_Tree>;
+  pimcoreAdjustmentTotalGross?: Maybe<Scalars['Int']['output']>;
+  pimcoreAdjustmentTotalNet?: Maybe<Scalars['Int']['output']>;
+  priceRuleItems?: Maybe<Array<Maybe<Object_CoreShopOrderItem_PriceRuleItems>>>;
+  product?: Maybe<Object_CoreShopOrderItem_Product>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+  quantity?: Maybe<Scalars['Float']['output']>;
+  subtotalGross?: Maybe<Scalars['Int']['output']>;
+  subtotalNet?: Maybe<Scalars['Int']['output']>;
+  tags?: Maybe<Array<Maybe<Element_Tag>>>;
+  taxes?: Maybe<Array<Maybe<Object_CoreShopOrderItem_Taxes>>>;
+  totalGross?: Maybe<Scalars['Int']['output']>;
+  totalNet?: Maybe<Scalars['Int']['output']>;
+  totalWeight?: Maybe<Scalars['Float']['output']>;
+  unit?: Maybe<CoreshopProductUnit>;
+  unitDefinition?: Maybe<CoreshopProductUnitDefinition>;
+  unitIdentifier?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type Object_CoreShopOrderItem_SiblingsArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopOrderItemChildrenArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopOrderItemPropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopOrderItemTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Object_CoreShopOrderItem_AdjustmentItems = Fieldcollection_CoreShopAdjustment;
+
+export type Object_CoreShopOrderItem_ConvertedAdjustmentItems = Fieldcollection_CoreShopAdjustment;
+
+export type Object_CoreShopOrderItem_ConvertedTaxes = Fieldcollection_CoreShopTaxItem;
+
+/** pseudo class for field order */
+export type Object_CoreShopOrderItem_Order = Object_CoreShopOrder;
+
+export type Object_CoreShopOrderItem_PriceRuleItems = Fieldcollection_CoreShopPriceRuleItem;
+
+/** pseudo class for field product */
+export type Object_CoreShopOrderItem_Product = Object_CoreShopProduct;
+
+export type Object_CoreShopOrderItem_Taxes = Fieldcollection_CoreShopTaxItem;
+
+export type Object_CoreShopOrder_AdjustmentItems = Fieldcollection_CoreShopAdjustment;
+
+export type Object_CoreShopOrder_ConvertedAdjustmentItems = Fieldcollection_CoreShopAdjustment;
+
+export type Object_CoreShopOrder_ConvertedTaxes = Fieldcollection_CoreShopTaxItem;
+
+/** pseudo class for field customer */
+export type Object_CoreShopOrder_Customer = Object_CoreShopCustomer;
+
+/** pseudo class for field invoiceAddress */
+export type Object_CoreShopOrder_InvoiceAddress = Object_CoreShopAddress;
+
+export type Object_CoreShopOrder_Items = Object_CoreShopOrderItem;
+
+export type Object_CoreShopOrder_PriceRuleItems = Fieldcollection_CoreShopProposalCartPriceRuleItem;
+
+/** pseudo class for field shippingAddress */
+export type Object_CoreShopOrder_ShippingAddress = Object_CoreShopAddress;
+
+export type Object_CoreShopOrder_Taxes = Fieldcollection_CoreShopTaxItem;
+
+export type Object_CoreShopProduct = Element & {
+  __typename?: 'object_CoreShopProduct';
+  _siblings?: Maybe<Array<Maybe<Object_Tree>>>;
+  active?: Maybe<Scalars['Boolean']['output']>;
+  allowedAttributeGroups?: Maybe<Array<Maybe<Object_CoreShopProduct_AllowedAttributeGroups>>>;
+  attributes?: Maybe<Array<Maybe<Object_CoreShopProduct_Attributes>>>;
+  categories?: Maybe<Array<Maybe<Object_CoreShopProduct_Categories>>>;
+  children?: Maybe<Array<Maybe<Object_Tree>>>;
+  childrenSortBy?: Maybe<Scalars['String']['output']>;
+  classname?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  depth?: Maybe<Scalars['Float']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  digitalProduct?: Maybe<Scalars['Boolean']['output']>;
+  ean?: Maybe<Scalars['String']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  images?: Maybe<Array<Maybe<Object_CoreShopProduct_Images>>>;
+  index?: Maybe<Scalars['Int']['output']>;
+  isTracked?: Maybe<Scalars['Boolean']['output']>;
+  itemQuantityFactor?: Maybe<Scalars['Int']['output']>;
+  mainVariant?: Maybe<Object_CoreShopProduct_MainVariant>;
+  manufacturer?: Maybe<Object_CoreShopProduct_Manufacturer>;
+  maximumQuantityToOrder?: Maybe<Scalars['Int']['output']>;
+  minimumQuantityToOrder?: Maybe<Scalars['Int']['output']>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  objectType?: Maybe<Scalars['String']['output']>;
+  onHand?: Maybe<Scalars['Int']['output']>;
+  onHold?: Maybe<Scalars['Int']['output']>;
+  parent?: Maybe<Object_Tree>;
+  pimcoreMetaDescription?: Maybe<Scalars['String']['output']>;
+  pimcoreMetaTitle?: Maybe<Scalars['String']['output']>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+  shortDescription?: Maybe<Scalars['String']['output']>;
+  sku?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Array<Maybe<UrlSlug>>>;
+  stockAvailability?: Maybe<Scalars['Boolean']['output']>;
+  storeValues?: Maybe<Array<Maybe<CoreshopProductStoreValues>>>;
+  stores?: Maybe<Array<Maybe<CoreshopStore>>>;
+  tags?: Maybe<Array<Maybe<Element_Tag>>>;
+  unitDefinitions?: Maybe<CoreshopProductUnitDefinitions>;
+  weight?: Maybe<Scalars['Float']['output']>;
+  wholesalePrice?: Maybe<Scalars['Int']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+
+export type Object_CoreShopProduct_SiblingsArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopProductChildrenArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopProductDescriptionArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Object_CoreShopProductNameArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Object_CoreShopProductPimcoreMetaDescriptionArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Object_CoreShopProductPimcoreMetaTitleArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Object_CoreShopProductPropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopProductShortDescriptionArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Object_CoreShopProductSlugArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type Object_CoreShopProductTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Object_CoreShopProduct_AllowedAttributeGroups = Object_CoreShopAttributeGroup;
+
+export type Object_CoreShopProduct_Attributes = Object_CoreShopAttributeColor | Object_CoreShopAttributeValue;
+
+export type Object_CoreShopProduct_Categories = Object_CoreShopCategory;
+
+export type Object_CoreShopProduct_Images = Asset;
+
+/** pseudo class for field mainVariant */
+export type Object_CoreShopProduct_MainVariant = Object_CoreShopProduct;
+
+/** pseudo class for field manufacturer */
+export type Object_CoreShopProduct_Manufacturer = Object_CoreShopManufacturer;
+
+export type Object_CoreShopUser = Element & {
+  __typename?: 'object_CoreShopUser';
+  _siblings?: Maybe<Array<Maybe<Object_Tree>>>;
+  children?: Maybe<Array<Maybe<Object_Tree>>>;
+  childrenSortBy?: Maybe<Scalars['String']['output']>;
+  classname?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['Int']['output']>;
+  customer?: Maybe<Object_CoreShopUser_Customer>;
+  id?: Maybe<Scalars['ID']['output']>;
+  index?: Maybe<Scalars['Int']['output']>;
+  loginIdentifier?: Maybe<Scalars['String']['output']>;
+  modificationDate?: Maybe<Scalars['Int']['output']>;
+  objectType?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Object_Tree>;
+  properties?: Maybe<Array<Maybe<ElementProperty>>>;
+  tags?: Maybe<Array<Maybe<Element_Tag>>>;
+};
+
+
+export type Object_CoreShopUser_SiblingsArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopUserChildrenArgs = {
+  objectTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopUserPropertiesArgs = {
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Object_CoreShopUserTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** pseudo class for field customer */
+export type Object_CoreShopUser_Customer = Object_CoreShopCustomer;
+
+export type Object_Tree = Object_CoreShopCategory | Object_CoreShopCustomer | Object_CoreShopOrder | Object_CoreShopOrderItem | Object_CoreShopProduct | Object_CoreShopUser;
+
+export type Property_Asset = {
+  __typename?: 'property_asset';
+  asset?: Maybe<Asset>;
+  name?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+export type Property_Checkbox = {
+  __typename?: 'property_checkbox';
+  checked?: Maybe<Scalars['Boolean']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+export type Property_Object = {
+  __typename?: 'property_object';
+  name?: Maybe<Scalars['String']['output']>;
+  object?: Maybe<Hotspot_Metadata_Object>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+export type Property_Select = {
+  __typename?: 'property_select';
+  name?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+export type Property_Text = {
+  __typename?: 'property_text';
+  name?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+export type Resolutions = {
+  __typename?: 'resolutions';
+  resolution?: Maybe<Scalars['Float']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+export type Srcset = {
+  __typename?: 'srcset';
+  descriptor?: Maybe<Scalars['String']['output']>;
+  resolutions?: Maybe<Array<Maybe<Resolutions>>>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type SrcsetResolutionsArgs = {
+  types?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+};
+
+export type CoreShopAuthorizeMutationVariables = Exact<{
+  username: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  orderToken?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CoreShopAuthorizeMutation = { __typename?: 'Mutations', CoreShopAuthorize?: { __typename?: 'CoreShopAuthorizeResult', token?: string | null } | { __typename?: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
+
+export type GetCoreShopCategoriesQueryVariables = Exact<{
+  storeName: Scalars['String']['input'];
+}>;
+
+
+export type GetCoreShopCategoriesQuery = { __typename?: 'Query', CoreShopCategories?: { __typename: 'CoreShopCategoriesResult', categories?: { __typename?: 'CoreShopCategoryConnection', totalCount?: number | null, edges?: Array<{ __typename: 'CoreShopCategoryEdge', node?: { __typename: 'object_CoreShopCategory', id?: string | null, name?: string | null } | null } | null> | null } | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
+
+export type CategoryFragment = { __typename: 'object_CoreShopCategory', id?: string | null, name?: string | null };
+
+export type GetCoreShopCategoryQueryVariables = Exact<{
+  categoryId: Scalars['Int']['input'];
+}>;
+
+
+export type GetCoreShopCategoryQuery = { __typename?: 'Query', CoreShopCategory?: { __typename: 'CoreShopCategoryResult', category?: { __typename: 'object_CoreShopCategory', id?: string | null, name?: string | null } | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
+
+export type ErrorFragment = { __typename: 'CoreShopError', message?: string | null };
+
+export type CoreShopAddToOrderMutationVariables = Exact<{
+  productId: Scalars['Int']['input'];
+  quantity: Scalars['Float']['input'];
+  storeName: Scalars['String']['input'];
+  token?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CoreShopAddToOrderMutation = { __typename?: 'Mutations', CoreShopAddToOrder?: { __typename?: 'CoreShopAddToOrderResult', order?: { __typename?: 'object_CoreShopOrder', id?: string | null, token?: string | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, items?: Array<{ __typename?: 'object_CoreShopOrderItem', id?: string | null, quantity?: number | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, itemRetailPriceGross?: number | null, itemRetailPriceNet?: number | null, itemDiscountNet?: number | null, itemDiscountGross?: number | null, itemDiscountPriceGross?: number | null, itemDiscountPriceNet?: number | null, product?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | null> | null, taxes?: Array<{ __typename?: 'fieldcollection_CoreShopTaxItem', name?: string | null, rate?: number | null, amount?: number | null } | null> | null, adjustmentItems?: Array<{ __typename?: 'fieldcollection_CoreShopAdjustment', typeIdentifier?: string | null, label?: string | null, pimcoreAmountNet?: number | null, pimcoreAmountGross?: number | null } | null> | null } | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
+
+export type CoreShopOrderQueryVariables = Exact<{
+  token: Scalars['String']['input'];
+}>;
+
+
+export type CoreShopOrderQuery = { __typename?: 'Query', CoreShopOrder?: { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopOrderResult', order?: { __typename?: 'object_CoreShopOrder', id?: string | null, token?: string | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, items?: Array<{ __typename?: 'object_CoreShopOrderItem', id?: string | null, quantity?: number | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, itemRetailPriceGross?: number | null, itemRetailPriceNet?: number | null, itemDiscountNet?: number | null, itemDiscountGross?: number | null, itemDiscountPriceGross?: number | null, itemDiscountPriceNet?: number | null, product?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | null> | null, taxes?: Array<{ __typename?: 'fieldcollection_CoreShopTaxItem', name?: string | null, rate?: number | null, amount?: number | null } | null> | null, adjustmentItems?: Array<{ __typename?: 'fieldcollection_CoreShopAdjustment', typeIdentifier?: string | null, label?: string | null, pimcoreAmountNet?: number | null, pimcoreAmountGross?: number | null } | null> | null } | null } | { __typename?: 'CoreShopValidationError' } | null };
+
+export type OrderFragment = { __typename?: 'object_CoreShopOrder', id?: string | null, token?: string | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, items?: Array<{ __typename?: 'object_CoreShopOrderItem', id?: string | null, quantity?: number | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, itemRetailPriceGross?: number | null, itemRetailPriceNet?: number | null, itemDiscountNet?: number | null, itemDiscountGross?: number | null, itemDiscountPriceGross?: number | null, itemDiscountPriceNet?: number | null, product?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | null> | null, taxes?: Array<{ __typename?: 'fieldcollection_CoreShopTaxItem', name?: string | null, rate?: number | null, amount?: number | null } | null> | null, adjustmentItems?: Array<{ __typename?: 'fieldcollection_CoreShopAdjustment', typeIdentifier?: string | null, label?: string | null, pimcoreAmountNet?: number | null, pimcoreAmountGross?: number | null } | null> | null };
+
+export type OrderItemFragment = { __typename?: 'object_CoreShopOrderItem', id?: string | null, quantity?: number | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, itemRetailPriceGross?: number | null, itemRetailPriceNet?: number | null, itemDiscountNet?: number | null, itemDiscountGross?: number | null, itemDiscountPriceGross?: number | null, itemDiscountPriceNet?: number | null, product?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null };
+
+export type CoreShopRemoveOrderItemMutationVariables = Exact<{
+  orderItemId: Scalars['Int']['input'];
+  token: Scalars['String']['input'];
+}>;
+
+
+export type CoreShopRemoveOrderItemMutation = { __typename?: 'Mutations', CoreShopRemoveOrderItem?: { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopRemoveOrderItemResult', order?: { __typename?: 'object_CoreShopOrder', id?: string | null, token?: string | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, items?: Array<{ __typename?: 'object_CoreShopOrderItem', id?: string | null, quantity?: number | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, itemRetailPriceGross?: number | null, itemRetailPriceNet?: number | null, itemDiscountNet?: number | null, itemDiscountGross?: number | null, itemDiscountPriceGross?: number | null, itemDiscountPriceNet?: number | null, product?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | null> | null, taxes?: Array<{ __typename?: 'fieldcollection_CoreShopTaxItem', name?: string | null, rate?: number | null, amount?: number | null } | null> | null, adjustmentItems?: Array<{ __typename?: 'fieldcollection_CoreShopAdjustment', typeIdentifier?: string | null, label?: string | null, pimcoreAmountNet?: number | null, pimcoreAmountGross?: number | null } | null> | null } | null } | { __typename?: 'CoreShopValidationError' } | null };
+
+export type CoreShopUpdateOrderItemMutationVariables = Exact<{
+  orderItemId: Scalars['Int']['input'];
+  quantity: Scalars['Float']['input'];
+  token: Scalars['String']['input'];
+}>;
+
+
+export type CoreShopUpdateOrderItemMutation = { __typename?: 'Mutations', CoreShopUpdateOrderItem?: { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopUpdateOrderItemResult', order?: { __typename?: 'object_CoreShopOrder', id?: string | null, token?: string | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, items?: Array<{ __typename?: 'object_CoreShopOrderItem', id?: string | null, quantity?: number | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, itemRetailPriceGross?: number | null, itemRetailPriceNet?: number | null, itemDiscountNet?: number | null, itemDiscountGross?: number | null, itemDiscountPriceGross?: number | null, itemDiscountPriceNet?: number | null, product?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | null> | null, taxes?: Array<{ __typename?: 'fieldcollection_CoreShopTaxItem', name?: string | null, rate?: number | null, amount?: number | null } | null> | null, adjustmentItems?: Array<{ __typename?: 'fieldcollection_CoreShopAdjustment', typeIdentifier?: string | null, label?: string | null, pimcoreAmountNet?: number | null, pimcoreAmountGross?: number | null } | null> | null } | null } | { __typename?: 'CoreShopValidationError' } | null };
+
+export type GetCoreShopLatestProductsQueryVariables = Exact<{
+  storeName: Scalars['String']['input'];
+}>;
+
+
+export type GetCoreShopLatestProductsQuery = { __typename?: 'Query', CoreShopLatestProducts?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopLatestProductsResult', products?: { __typename: 'CoreShopProductConnection', edges?: Array<{ __typename: 'CoreShopProductEdge', node?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | null> | null } | null } | { __typename?: 'CoreShopValidationError' } | null };
+
+export type GetCoreShopProductPriceQueryVariables = Exact<{
+  productId: Scalars['Int']['input'];
+  storeName: Scalars['String']['input'];
+}>;
+
+
+export type GetCoreShopProductPriceQuery = { __typename?: 'Query', CoreShopProductPrice?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopProductPriceResult', price_net?: number | null, price_gross?: number | null, retail_price_net?: number | null, retail_price_gross?: number | null, discount_price_net?: number | null, discount_price_gross?: number | null, discount_net?: number | null, discount_gross?: number | null, tax_amount?: number | null, tax_rate?: number | null } | { __typename?: 'CoreShopValidationError' } | null };
+
+export type ProductFragment = { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null };
+
+export type GetCoreShopProductQueryVariables = Exact<{
+  productId: Scalars['Int']['input'];
+}>;
+
+
+export type GetCoreShopProductQuery = { __typename?: 'Query', CoreShopProduct?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopProductResult', product?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | { __typename?: 'CoreShopValidationError' } | null };
+
+export type GetCoreShopProductsInCategoryQueryVariables = Exact<{
+  categoryId: Scalars['Int']['input'];
+  storeName: Scalars['String']['input'];
+}>;
+
+
+export type GetCoreShopProductsInCategoryQuery = { __typename?: 'Query', CoreShopProducts?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopProductsResult', products?: { __typename?: 'CoreShopProductConnection', totalCount?: number | null, edges?: Array<{ __typename?: 'CoreShopProductEdge', node?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | null> | null } | null } | { __typename?: 'CoreShopValidationError' } | null };
+
+export const Category = gql`
+    fragment category on object_CoreShopCategory {
+  __typename
+  id
+  name
+}
+    `;
+export const Error = gql`
+    fragment error on CoreShopError {
+  __typename
+  message
+}
+    `;
+export const Product = gql`
+    fragment product on object_CoreShopProduct {
+  __typename
+  id
+  name
+  ean
+  images {
+    ... on asset {
+      fullpath
+      dimensions {
+        width
+        height
+      }
+    }
+  }
+  imagesCartPreview: images {
+    ... on asset {
+      fullpath(thumbnail: "coreshop_productCartPreview")
+      dimensions(thumbnail: "coreshop_productCartPreview") {
+        width
+        height
+      }
+    }
+  }
+  imagesCartProduct: images {
+    ... on asset {
+      fullpath(thumbnail: "coreshop_productCart")
+      dimensions(thumbnail: "coreshop_productCart") {
+        width
+        height
+      }
+    }
+  }
+  imagesGrid: images {
+    ... on asset {
+      fullpath(thumbnail: "coreshop_productGrid")
+      dimensions(thumbnail: "coreshop_productGrid") {
+        width
+        height
+      }
+    }
+  }
+  imagesProductDetail: images {
+    ... on asset {
+      fullpath(thumbnail: "coreshop_productDetail")
+      dimensions(thumbnail: "coreshop_productDetail") {
+        width
+        height
+      }
+    }
+  }
+  imagesProductDetailPreview: images {
+    ... on asset {
+      fullpath(thumbnail: "coreshop_productDetailThumbnail")
+      dimensions(thumbnail: "coreshop_productDetailThumbnail") {
+        width
+        height
+      }
+    }
+  }
+  isTracked
+  stockAvailability
+  shortDescription
+}
+    `;
+export const OrderItem = gql`
+    fragment orderItem on object_CoreShopOrderItem {
+  id
+  quantity
+  totalGross
+  totalNet
+  subtotalGross
+  subtotalNet
+  itemRetailPriceGross
+  itemRetailPriceNet
+  itemDiscountNet
+  itemDiscountGross
+  itemDiscountPriceGross
+  itemDiscountPriceNet
+  itemRetailPriceNet
+  itemRetailPriceGross
+  product {
+    ...product
+  }
+}
+    ${Product}`;
+export const Order = gql`
+    fragment order on object_CoreShopOrder {
+  id
+  token
+  totalGross
+  totalNet
+  subtotalGross
+  subtotalNet
+  items {
+    ...orderItem
+  }
+  taxes {
+    ... on fieldcollection_CoreShopTaxItem {
+      name
+      rate
+      amount
+    }
+  }
+  adjustmentItems {
+    ... on fieldcollection_CoreShopAdjustment {
+      typeIdentifier
+      label
+      pimcoreAmountNet
+      pimcoreAmountGross
+    }
+  }
+}
+    ${OrderItem}`;
+export const CoreShopAuthorize = gql`
+    mutation CoreShopAuthorize($username: String!, $password: String!, $orderToken: String) {
+  CoreShopAuthorize(
+    authorize: {username: $username, password: $password, orderToken: $orderToken}
+  ) {
+    ... on CoreShopAuthorizeResult {
+      token
+    }
+    ... on CoreShopError {
+      message
+    }
+  }
+}
+    `;
+export const GetCoreShopCategories = gql`
+    query getCoreShopCategories($storeName: String!) {
+  CoreShopCategories(categoryListing: {store: {storeName: $storeName}}) {
+    ... on CoreShopCategoriesResult {
+      __typename
+      categories {
+        totalCount
+        edges {
+          __typename
+          node {
+            ...category
+          }
+        }
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Category}
+${Error}`;
+export const GetCoreShopCategory = gql`
+    query getCoreShopCategory($categoryId: Int!) {
+  CoreShopCategory(category: {categoryId: $categoryId}) {
+    ... on CoreShopCategoryResult {
+      __typename
+      category {
+        ...category
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Category}
+${Error}`;
+export const CoreShopAddToOrder = gql`
+    mutation CoreShopAddToOrder($productId: Int!, $quantity: Float!, $storeName: String!, $token: String) {
+  CoreShopAddToOrder(
+    addToOrder: {order: {token: $token}, orderItem: {productId: $productId, quantity: $quantity}, store: {storeName: $storeName}}
+  ) {
+    ... on CoreShopAddToOrderResult {
+      order {
+        ...order
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Order}
+${Error}`;
+export const CoreShopOrder = gql`
+    query CoreShopOrder($token: String!) {
+  CoreShopOrder(order: {token: $token}) {
+    ... on CoreShopOrderResult {
+      order {
+        ...order
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Order}
+${Error}`;
+export const CoreShopRemoveOrderItem = gql`
+    mutation CoreShopRemoveOrderItem($orderItemId: Int!, $token: String!) {
+  CoreShopRemoveOrderItem(
+    removeOrderItem: {order: {token: $token}, orderItem: {id: $orderItemId}}
+  ) {
+    ... on CoreShopRemoveOrderItemResult {
+      order {
+        ...order
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Order}
+${Error}`;
+export const CoreShopUpdateOrderItem = gql`
+    mutation CoreShopUpdateOrderItem($orderItemId: Int!, $quantity: Float!, $token: String!) {
+  CoreShopUpdateOrderItem(
+    updateOrderItem: {order: {token: $token}, orderItem: {id: $orderItemId, quantity: $quantity}}
+  ) {
+    ... on CoreShopUpdateOrderItemResult {
+      order {
+        ...order
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Order}
+${Error}`;
+export const GetCoreShopLatestProducts = gql`
+    query getCoreShopLatestProducts($storeName: String!) {
+  CoreShopLatestProducts(latestProducts: {store: {storeName: $storeName}}) {
+    ... on CoreShopLatestProductsResult {
+      __typename
+      products {
+        __typename
+        edges {
+          __typename
+          node {
+            ...product
+          }
+        }
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Product}
+${Error}`;
+export const GetCoreShopProductPrice = gql`
+    query getCoreShopProductPrice($productId: Int!, $storeName: String!) {
+  CoreShopProductPrice(
+    productPrice: {productId: $productId, context: {store: {storeName: $storeName}}}
+  ) {
+    ... on CoreShopProductPriceResult {
+      __typename
+      price_net
+      price_gross
+      retail_price_net
+      retail_price_gross
+      discount_price_net
+      discount_price_gross
+      discount_net
+      discount_gross
+      tax_amount
+      tax_rate
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Error}`;
+export const GetCoreShopProduct = gql`
+    query getCoreShopProduct($productId: Int!) {
+  CoreShopProduct(product: {productId: $productId}) {
+    ... on CoreShopProductResult {
+      __typename
+      product {
+        ...product
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Product}
+${Error}`;
+export const GetCoreShopProductsInCategory = gql`
+    query getCoreShopProductsInCategory($categoryId: Int!, $storeName: String!) {
+  CoreShopProducts(
+    productListing: {store: {storeName: $storeName}, category: {categoryId: $categoryId}}
+  ) {
+    ... on CoreShopProductsResult {
+      __typename
+      products {
+        totalCount
+        edges {
+          node {
+            ...product
+          }
+        }
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Product}
+${Error}`;

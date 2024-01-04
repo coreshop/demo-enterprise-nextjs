@@ -1,0 +1,51 @@
+stages:
+    - build
+    - manifest
+
+variables:
+    TAG: $CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
+    APP_ENV: dev
+    GCP_URL: europe-west3-docker.pkg.dev
+
+build_and_push:
+    stage: build
+    image: docker:stable
+    variables:
+        API_URL: https://demo4-enterprise.coreshop.org/pimcore-graphql-webservices/coreshop?apikey=cccffae4fb6834f6a3d7eef35e890777
+        BASE_URL: https://demo4-enterprise.coreshop.org/
+    rules:
+        -   if: $CI_COMMIT_REF_NAME == "main" && $CI_PIPELINE_SOURCE != "schedule"
+    before_script:
+        - base64 -d $GOOGLE_ARTIFACT_REGISTRY | docker login -u _json_key --password-stdin https://$GCP_URL
+        - export GCP_REGISTRY_IMAGE=$(echo "$GCP_URL/cors-wolke/cors/$CI_PROJECT_PATH" | tr '[:upper:]' '[:lower:]')
+    script:
+        - docker build . --tag $GCP_REGISTRY_IMAGE/headless:$TAG --build-arg API_URL=$API_URL
+        - docker push $GCP_REGISTRY_IMAGE/headless:$TAG
+    tags:
+        - cors
+
+update_manifest:
+    stage: manifest
+    image: alpine
+    needs:
+        - job: build_and_push
+    variables:
+        CD_CHART_REPO: coreshop4-enterprise-demo-manifest
+        CD_GIT_REPOSITORY: git.e-conomix.at/coreshop/$CD_CHART_REPO.git
+        CD_MANIFEST_FILE: Chart.yaml
+        CD_MANIFEST_VALUES_FILE: values.yaml
+    script:
+        - apk add --no-cache git yq
+        - git config --global user.name $CI_PROJECT_NAME
+        - git config --global user.email $CI_PROJECT_NAME"-manifest@cors.gmbh"
+        - git clone https://gitlab-ci-token:${CD_PUSH_TOKEN}@${CD_GIT_REPOSITORY}
+        - cd $CD_CHART_REPO
+        - git checkout $CI_COMMIT_REF_NAME 2>/dev/null || $CI_COMMIT_REF_NAME checkout -b foo
+
+        - yq -i eval ".headless_next.image.tag = \"$TAG\"" $CD_MANIFEST_VALUES_FILE
+
+        - cat $CD_MANIFEST_FILE
+        - git commit -am "[$CI_COMMIT_REF_NAME] update image Tag to \"$TAG\""
+        - git push origin $CI_COMMIT_REF_NAME
+    tags:
+        - cors

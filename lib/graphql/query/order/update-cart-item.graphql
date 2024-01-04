@@ -1,0 +1,15 @@
+#import "order-fragment.graphql"
+#import "../error.graphql"
+
+mutation CoreShopUpdateOrderItem($orderItemId: Int!, $quantity: Float!, $token: String!) {
+    CoreShopUpdateOrderItem(updateOrderItem: {order: {token: $token}, orderItem: {id: $orderItemId, quantity: $quantity}}) {
+        ... on CoreShopUpdateOrderItemResult {
+            order {
+                ...order
+            }
+        }
+        ... on CoreShopError {
+            ...error
+        }
+    }
+}
