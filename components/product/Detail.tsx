@@ -1,7 +1,8 @@
 import {ProductFragment} from "@/lib/graphql/types.generated";
 import Image from "next/image";
 import {pimcoreImage} from "@/lib/pimcoreLoader";
-import {PriceInfo} from "@/components/product/Price";
+import {PriceInfo} from "@/components/product/price";
+import {AddToCart} from "@/components/product/add-to-cart";
 
 type ProductDetailProps = {
     product: ProductFragment
@@ -72,7 +73,7 @@ export default async function ProductDetail({product}: ProductDetailProps) {
 
                     <div className="options">
                         <div className="cart-button btn-group">
-                            {/*<ProductAddToOrder product={product} />*/}
+                            <AddToCart product={product} />
                         </div>
                     </div>
 

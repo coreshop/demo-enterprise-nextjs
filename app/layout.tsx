@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './shop.css'
 import {Suspense} from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,8 +27,11 @@ export default function RootLayout({
               </div>
           </Suspense>
           <Footer />
+          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
           <script src="/js/vendor/jquery-1.11.1.min.js" />
+          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
           <script src="/js/vendor/popper.min.js" />
+          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
           <script src="/js/vendor/bootstrap.min.js" />
       </body>
     </html>

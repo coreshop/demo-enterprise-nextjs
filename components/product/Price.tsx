@@ -1,4 +1,4 @@
-import Currency from "@/components/common/Currency";
+import Currency from "@/components/common/currency";
 import {getProductPrice} from "@/lib";
 
 export async function PriceInfo({productId, showTax = false}: {

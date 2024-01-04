@@ -1,4 +1,4 @@
-import CategoriesWidget from "@/components/category/Widget";
+import CategoriesWidget from "@/components/category/widget";
 import Link from "next/link";
 import {Suspense} from "react";
 import Cart from "@/components/cart";

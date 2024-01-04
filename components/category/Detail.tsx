@@ -1,5 +1,5 @@
 import {ProductFragment} from "@/lib/graphql/types.generated";
-import ProductListEntry from "@/components/product/ProductListEntry";
+import ProductListEntry from "@/components/product/product-list-entry";
 
 type CategoryDetailProps = {
     products: ProductFragment[]

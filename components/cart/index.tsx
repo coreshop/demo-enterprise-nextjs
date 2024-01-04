@@ -1,6 +1,6 @@
 import {cookies} from "next/headers";
 import {getOrder} from "@/lib";
-import CartWidget from "@/components/cart/Widget";
+import CartWidget from "@/components/cart/widget";
 import { revalidateTag } from 'next/cache';
 export default async function Cart() {
     // const categories = await getCategories();

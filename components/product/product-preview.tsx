@@ -2,8 +2,8 @@ import {ProductFragment} from "@/lib/graphql/types.generated";
 import Image from "next/image";
 import {pimcoreImage} from "@/lib/pimcoreLoader";
 import Link from "next/link";
-import {PriceInfo} from "@/components/product/Price";
-import {AddToCart} from "@/components/product/AddToCart";
+import {PriceInfo} from "@/components/product/price";
+import {AddToCart} from "@/components/product/add-to-cart";
 
 type ProductPreviewProps = {
     product: ProductFragment

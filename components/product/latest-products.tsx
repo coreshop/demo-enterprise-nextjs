@@ -1,5 +1,5 @@
 import {getLatestProducts} from "@/lib";
-import ProductPreview from "@/components/product/ProductPreview";
+import ProductPreview from "@/components/product/product-preview";
 
 export default async function LatestProducts() {
     const latestProducts = await getLatestProducts();

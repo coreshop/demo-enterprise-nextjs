@@ -1,5 +1,5 @@
 import {OrderFragment} from "@/lib/graphql/types.generated";
-import Currency from "@/components/common/Currency";
+import Currency from "@/components/common/currency";
 import Link from "next/link";
 import {pimcoreImage} from "@/lib/pimcoreLoader";
 import Image from "next/image";

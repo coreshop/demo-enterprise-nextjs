@@ -2,7 +2,8 @@ import {ProductFragment} from "@/lib/graphql/types.generated";
 import Image from "next/image";
 import {pimcoreImage} from "@/lib/pimcoreLoader";
 import Link from "next/link";
-import {PriceInfo} from "@/components/product/Price";
+import {PriceInfo} from "@/components/product/price";
+import {AddToCart} from "@/components/product/add-to-cart";
 
 type ProductPreviewProps = {
     product: ProductFragment
@@ -44,7 +45,7 @@ export default async function ProductListEntry({product}: ProductPreviewProps) {
                             {product?.id && <PriceInfo productId={parseInt(product.id)} />}
 
                             <div className="cart-button">
-                                {/*<ProductAddToOrder product={product} />*/}
+                                <AddToCart product={product} />
                             </div>
                         </div>
                     </div>

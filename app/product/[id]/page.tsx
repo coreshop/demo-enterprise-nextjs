@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import {getProduct} from "@/lib";
 import {notFound} from "next/navigation";
-import ProductDetail from "@/components/product/Detail";
-import CategoryMenuLeft from "@/components/category/MenuLeft";
+import ProductDetail from "@/components/product/detail";
+import CategoryMenuLeft from "@/components/category/menu-left";
 
 export default async function ProductDetailPage({ params }: { params: { id: number } }) {
     const product = await getProduct({productId: Number(params.id)});

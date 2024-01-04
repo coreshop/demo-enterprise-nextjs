@@ -1,7 +1,7 @@
 import {getProductsInCategory} from "@/lib";
 import {notFound} from "next/navigation";
-import CategoryMenuLeft from "@/components/category/MenuLeft";
-import CategoryDetail from "@/components/category/Detail";
+import CategoryMenuLeft from "@/components/category/menu-left";
+import CategoryDetail from "@/components/category/detail";
 
 export default async function CategoryDetailPage({params}: { params: { id: string } }) {
     debugger;
