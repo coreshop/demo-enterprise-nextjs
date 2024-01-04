@@ -1,5 +1,5 @@
 "use server";
 
 export const pimcoreImage = (src:string): string => {
-    return `https://coreshop-headless.localhost/${src}`
+    return `https://${process.env.API_HOSTNAME}/${src}`
 }
