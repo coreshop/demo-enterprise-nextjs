@@ -127,7 +127,8 @@ export async function getOrder({cartToken} : {cartToken: string}): Promise<Order
         query: print(GetCoreShopOrder),
         variables: {
             token: cartToken,
-        }
+        },
+        cache: "no-cache"
     });
 
     if (res.data?.CoreShopOrder?.__typename === 'CoreShopOrderResult') {
@@ -143,7 +144,8 @@ export async function addItemToOrder({token, productId, quantity} : {token: stri
             token: token,
             productId: productId,
             quantity: quantity,
-        }
+        },
+        cache: "no-cache"
     });
 
     if (res.data?.CoreShopAddToOrder?.__typename === 'CoreShopAddToOrderResult') {
