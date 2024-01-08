@@ -4,10 +4,17 @@ import {
 import {
     CoreShopAddToOrder,
     CoreShopAddToOrderMutation,
-    CoreShopAddToOrderMutationVariables, CoreShopAuthorize,
+    CoreShopAddToOrderMutationVariables,
+    CoreShopAuthorize,
     CoreShopAuthorizeMutation,
     CoreShopAuthorizeMutationVariables,
     CoreShopProductPriceResult,
+    CoreShopRemoveOrderItem,
+    CoreShopRemoveOrderItemMutation,
+    CoreShopRemoveOrderItemMutationVariables,
+    CoreShopUpdateOrderItem,
+    CoreShopUpdateOrderItemMutation,
+    CoreShopUpdateOrderItemMutationVariables,
     GetCoreShopCategories,
     GetCoreShopCategoriesQuery,
     GetCoreShopCategoriesQueryVariables,
@@ -157,6 +164,40 @@ export async function addItemToOrder({token, productId, quantity} : {token: stri
 
     if (res.data?.CoreShopAddToOrder?.__typename === 'CoreShopAddToOrderResult') {
         return res.data.CoreShopAddToOrder.order as OrderFragment;
+    }
+
+    return null;
+}
+export async function updateOrderItem({token, orderItemId, quantity} : {token: string, orderItemId: number, quantity: number}): Promise<OrderFragment|null> {
+    const res = await coreShopFetch<CoreShopUpdateOrderItemMutation, CoreShopUpdateOrderItemMutationVariables>({
+        query: print(CoreShopUpdateOrderItem),
+        variables: {
+            token: token,
+            orderItemId: orderItemId,
+            quantity: quantity,
+        },
+        cache: "no-cache"
+    });
+
+    if (res.data?.CoreShopUpdateOrderItem?.__typename === 'CoreShopUpdateOrderItemResult') {
+        return res.data.CoreShopUpdateOrderItem.order as OrderFragment;
+    }
+
+    return null;
+}
+
+export async function removeOrderItem({token, orderItemId} : {token: string, orderItemId: number}): Promise<OrderFragment|null> {
+    const res = await coreShopFetch<CoreShopRemoveOrderItemMutation, CoreShopRemoveOrderItemMutationVariables>({
+        query: print(CoreShopRemoveOrderItem),
+        variables: {
+            token: token,
+            orderItemId: orderItemId,
+        },
+        cache: "no-cache"
+    });
+
+    if (res.data?.CoreShopRemoveOrderItem?.__typename === 'CoreShopRemoveOrderItemResult') {
+        return res.data.CoreShopRemoveOrderItem.order as OrderFragment;
     }
 
     return null;

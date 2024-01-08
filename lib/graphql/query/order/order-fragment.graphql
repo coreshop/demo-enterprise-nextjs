@@ -7,6 +7,10 @@ fragment order on object_CoreShopOrder {
     totalNet
     subtotalGross
     subtotalNet
+    currency {
+        __typename
+        isoCode
+    }
     items {
         ...orderItem
     }

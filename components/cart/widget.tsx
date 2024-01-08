@@ -79,7 +79,7 @@ export default async function CartWidget({cart}: CartWidgetProps) {
                             </tbody>
                         </table>
                         <p className="text-right btn-block1">
-                            <Link href="`/cart`">
+                            <Link href="/cart">
                                 Cart
                             </Link>
                         </p>

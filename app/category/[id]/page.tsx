@@ -4,7 +4,6 @@ import CategoryMenuLeft from "@/components/category/menu-left";
 import CategoryDetail from "@/components/category/detail";
 
 export default async function CategoryDetailPage({params}: { params: { id: string } }) {
-    debugger;
     const products = await getProductsInCategory({categoryId: Number(params.id)});
 
     if (!products?.length || products?.length === 0) {
