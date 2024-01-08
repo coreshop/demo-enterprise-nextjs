@@ -5,7 +5,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
-npm run dev
+NODE_TLS_REJECT_UNAUTHORIZED=0 API_URL=https://coreshop-headless.localhost/pimcore-graphql-webservices/test?apikey=cccffae4fb6834f6a3d7eef35e890777 BASE_URL=https://coreshop-headless.localhost npm run dev
 # or
 yarn dev  
 # or
