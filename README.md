@@ -14,6 +14,11 @@ pnpm dev
 bun dev
 ```
 
+## GraphQL Codegen
+```bash
+NODE_TLS_REJECT_UNAUTHORIZED=0 API_URL=https://coreshop-headless.localhost/pimcore-graphql-webservices/test?apikey=cccffae4fb6834f6a3d7eef35e890777 BASE_URL=https://coreshop-headless.localhost npm run codegen
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
