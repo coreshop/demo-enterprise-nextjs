@@ -1719,7 +1719,7 @@ export type CoreShopAuthorizeMutationVariables = Exact<{
 }>;
 
 
-export type CoreShopAuthorizeMutation = { __typename?: 'Mutations', CoreShopAuthorize?: { __typename?: 'CoreShopAuthorizeResult', token?: string | null } | { __typename?: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
+export type CoreShopAuthorizeMutation = { __typename?: 'Mutations', CoreShopAuthorize?: { __typename: 'CoreShopAuthorizeResult', token?: string | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
 
 export type GetCoreShopCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1935,9 +1935,11 @@ export const CoreShopAuthorize = gql`
     authorize: {username: $username, password: $password, orderToken: $orderToken}
   ) {
     ... on CoreShopAuthorizeResult {
+      __typename
       token
     }
     ... on CoreShopError {
+      __typename
       message
     }
   }

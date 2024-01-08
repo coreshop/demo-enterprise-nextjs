@@ -2,6 +2,7 @@ import CategoriesWidget from "@/components/category/widget";
 import Link from "next/link";
 import {Suspense} from "react";
 import Cart from "@/components/cart";
+import Image from "next/image";
 
 export default function Header() {
     return (
@@ -78,7 +79,7 @@ export default function Header() {
                         <div className="col-md-6">
                             <div id="logo">
                                 <Link href="/">
-                                    <img src="/images/logo-full.svg" title="CoreShop" alt="CoreShop" className="img-fluid" width="300" />
+                                    <Image src="/images/logo-full.svg" title="CoreShop" alt="CoreShop" className="img-fluid" width="300" height="78" />
                                 </Link>
                             </div>
                         </div>

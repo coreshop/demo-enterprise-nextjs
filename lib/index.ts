@@ -3,14 +3,20 @@ import {
 } from 'graphql';
 import {
     CoreShopAddToOrder,
-    CoreShopAddToOrderMutation, CoreShopAddToOrderMutationVariables,
+    CoreShopAddToOrderMutation,
+    CoreShopAddToOrderMutationVariables, CoreShopAuthorize,
+    CoreShopAuthorizeMutation,
+    CoreShopAuthorizeMutationVariables,
     CoreShopProductPriceResult,
     GetCoreShopCategories,
     GetCoreShopCategoriesQuery,
     GetCoreShopCategoriesQueryVariables,
     GetCoreShopLatestProducts,
     GetCoreShopLatestProductsQuery,
-    GetCoreShopLatestProductsQueryVariables, GetCoreShopOrder, GetCoreShopOrderQuery, GetCoreShopOrderQueryVariables,
+    GetCoreShopLatestProductsQueryVariables,
+    GetCoreShopOrder,
+    GetCoreShopOrderQuery,
+    GetCoreShopOrderQueryVariables,
     GetCoreShopProduct,
     GetCoreShopProductPrice,
     GetCoreShopProductPriceQuery,
@@ -20,7 +26,8 @@ import {
     GetCoreShopProductsInCategory,
     GetCoreShopProductsInCategoryQuery,
     GetCoreShopProductsInCategoryQueryVariables,
-    Object_CoreShopCategory, OrderFragment,
+    Object_CoreShopCategory,
+    OrderFragment,
     ProductFragment
 } from "@/lib/graphql/types.generated";
 const domain = process.env.API_URL;
@@ -150,6 +157,23 @@ export async function addItemToOrder({token, productId, quantity} : {token: stri
 
     if (res.data?.CoreShopAddToOrder?.__typename === 'CoreShopAddToOrderResult') {
         return res.data.CoreShopAddToOrder.order as OrderFragment;
+    }
+
+    return null;
+}
+export async function authorize({username, password, orderToken = null} : {username: string, password: string, orderToken:string|null}): Promise<string|null> {
+    const res = await coreShopFetch<CoreShopAuthorizeMutation, CoreShopAuthorizeMutationVariables>({
+        query: print(CoreShopAuthorize),
+        variables: {
+            username: username,
+            password: password,
+            orderToken: orderToken,
+        },
+        cache: "no-cache"
+    });
+
+    if (res.data?.CoreShopAuthorize?.__typename === 'CoreShopAuthorizeResult' && res.data.CoreShopAuthorize.token) {
+        return res.data.CoreShopAuthorize.token;
     }
 
     return null;
