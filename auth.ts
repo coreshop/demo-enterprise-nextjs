@@ -21,9 +21,9 @@ export const {auth, signIn, signOut} = NextAuth({
                 }
 
                 try {
-                    const jwtToken = await authorize({
-                        username: credentials.email,
-                        password: credentials.password,
+                    const jwtToken = await authorize({// @ts-ignore
+                        username: credentials.email, // @ts-ignore
+                        password: credentials.password,// @ts-ignore
                         orderToken: credentials.orderToken
                     })
 
