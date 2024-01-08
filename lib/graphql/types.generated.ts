@@ -80,6 +80,7 @@ export type CoreShopAddToOrderUnionResult = CoreShopAddToOrderResult | CoreShopE
 
 export type CoreShopAuthorizeResult = {
   __typename?: 'CoreShopAuthorizeResult';
+  activeOrderToken?: Maybe<Scalars['String']['output']>;
   token?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1719,7 +1720,7 @@ export type CoreShopAuthorizeMutationVariables = Exact<{
 }>;
 
 
-export type CoreShopAuthorizeMutation = { __typename?: 'Mutations', CoreShopAuthorize?: { __typename: 'CoreShopAuthorizeResult', token?: string | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
+export type CoreShopAuthorizeMutation = { __typename?: 'Mutations', CoreShopAuthorize?: { __typename: 'CoreShopAuthorizeResult', token?: string | null, activeOrderToken?: string | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
 
 export type GetCoreShopCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1736,6 +1737,11 @@ export type GetCoreShopCategoryQueryVariables = Exact<{
 export type GetCoreShopCategoryQuery = { __typename?: 'Query', CoreShopCategory?: { __typename: 'CoreShopCategoryResult', category?: { __typename: 'object_CoreShopCategory', id?: string | null, name?: string | null } | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
 
 export type ErrorFragment = { __typename: 'CoreShopError', message?: string | null };
+
+export type GetCoreShopActiveOrderQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCoreShopActiveOrderQuery = { __typename?: 'Query', CoreShopActiveOrder?: { __typename: 'CoreShopActiveOrderResult', order?: { __typename?: 'object_CoreShopOrder', id?: string | null, token?: string | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, currency?: { __typename: 'CoreshopCurrency', isoCode?: string | null } | null, items?: Array<{ __typename?: 'object_CoreShopOrderItem', id?: string | null, quantity?: number | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, itemRetailPriceGross?: number | null, itemRetailPriceNet?: number | null, itemDiscountNet?: number | null, itemDiscountGross?: number | null, itemDiscountPriceGross?: number | null, itemDiscountPriceNet?: number | null, product?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | null> | null, taxes?: Array<{ __typename?: 'fieldcollection_CoreShopTaxItem', name?: string | null, rate?: number | null, amount?: number | null } | null> | null, adjustmentItems?: Array<{ __typename?: 'fieldcollection_CoreShopAdjustment', typeIdentifier?: string | null, label?: string | null, pimcoreAmountNet?: number | null, pimcoreAmountGross?: number | null } | null> | null } | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
 
 export type CoreShopAddToOrderMutationVariables = Exact<{
   productId: Scalars['Int']['input'];
@@ -1941,6 +1947,7 @@ export const CoreShopAuthorize = gql`
     ... on CoreShopAuthorizeResult {
       __typename
       token
+      activeOrderToken
     }
     ... on CoreShopError {
       __typename
@@ -1986,6 +1993,22 @@ export const GetCoreShopCategory = gql`
   }
 }
     ${Category}
+${Error}`;
+export const GetCoreShopActiveOrder = gql`
+    query GetCoreShopActiveOrder {
+  CoreShopActiveOrder {
+    ... on CoreShopActiveOrderResult {
+      __typename
+      order {
+        ...order
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Order}
 ${Error}`;
 export const CoreShopAddToOrder = gql`
     mutation CoreShopAddToOrder($productId: Int!, $quantity: Float!, $token: String) {

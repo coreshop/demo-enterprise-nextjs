@@ -1,0 +1,16 @@
+#import "order-fragment.graphql"
+#import "../error.graphql"
+
+query GetCoreShopActiveOrder {
+    CoreShopActiveOrder {
+        ... on CoreShopActiveOrderResult {
+            __typename
+            order {
+                ...order
+            }
+        }
+        ... on CoreShopError {
+            ...error
+        }
+    }
+}

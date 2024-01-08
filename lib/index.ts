@@ -7,7 +7,7 @@ import {
     CoreShopAddToOrderMutationVariables,
     CoreShopAuthorize,
     CoreShopAuthorizeMutation,
-    CoreShopAuthorizeMutationVariables,
+    CoreShopAuthorizeMutationVariables, CoreShopAuthorizeResult,
     CoreShopProductPriceResult,
     CoreShopRemoveOrderItem,
     CoreShopRemoveOrderItemMutation,
@@ -15,6 +15,9 @@ import {
     CoreShopUpdateOrderItem,
     CoreShopUpdateOrderItemMutation,
     CoreShopUpdateOrderItemMutationVariables,
+    GetCoreShopActiveOrder,
+    GetCoreShopActiveOrderQuery,
+    GetCoreShopActiveOrderQueryVariables,
     GetCoreShopCategories,
     GetCoreShopCategoriesQuery,
     GetCoreShopCategoriesQueryVariables,
@@ -37,6 +40,8 @@ import {
     OrderFragment,
     ProductFragment
 } from "@/lib/graphql/types.generated";
+import {auth} from "@/auth";
+
 const domain = process.env.API_URL;
 const endpoint = `${domain}`;
 export async function coreShopFetch<TResult, TVariables>({
@@ -50,10 +55,20 @@ export async function coreShopFetch<TResult, TVariables>({
     headers?: HeadersInit;
     cache?: RequestCache;
 }): Promise<{data: TResult}> {
+    const session = await auth();
+    const authHeader = {};
+
+    // @ts-ignore
+    if (session?.accessToken) {
+        // @ts-ignore
+        authHeader['Authorization'] = `Bearer ${session.accessToken}`;
+    }
+
     const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
+            ... authHeader,
             ... headers
         },
         body: JSON.stringify({
@@ -64,6 +79,7 @@ export async function coreShopFetch<TResult, TVariables>({
     })
 
     if (response.status !== 200) {
+        debugger;
         throw new Error(`Failed to fetch: ${response.statusText}. Body: ${await response.text()}`)
     }
 
@@ -151,6 +167,19 @@ export async function getOrder({cartToken} : {cartToken: string}): Promise<Order
 
     return undefined;
 }
+export async function getActiveOrder(): Promise<OrderFragment|undefined> {
+    const res = await coreShopFetch<GetCoreShopActiveOrderQuery, GetCoreShopActiveOrderQueryVariables>({
+        query: print(GetCoreShopActiveOrder),
+        variables: {},
+        cache: "no-cache"
+    });
+
+    if (res.data?.CoreShopActiveOrder?.__typename === 'CoreShopActiveOrderResult') {
+        return res.data.CoreShopActiveOrder.order as OrderFragment;
+    }
+
+    return undefined;
+}
 export async function addItemToOrder({token, productId, quantity} : {token: string|undefined, productId: number, quantity: number}): Promise<OrderFragment|null> {
     const res = await coreShopFetch<CoreShopAddToOrderMutation, CoreShopAddToOrderMutationVariables>({
         query: print(CoreShopAddToOrder),
@@ -202,7 +231,7 @@ export async function removeOrderItem({token, orderItemId} : {token: string, ord
 
     return null;
 }
-export async function authorize({username, password, orderToken = null} : {username: string, password: string, orderToken:string|null}): Promise<string|null> {
+export async function authorize({username, password, orderToken = null} : {username: string, password: string, orderToken:string|null}): Promise<CoreShopAuthorizeResult|null> {
     const res = await coreShopFetch<CoreShopAuthorizeMutation, CoreShopAuthorizeMutationVariables>({
         query: print(CoreShopAuthorize),
         variables: {
@@ -213,8 +242,8 @@ export async function authorize({username, password, orderToken = null} : {usern
         cache: "no-cache"
     });
 
-    if (res.data?.CoreShopAuthorize?.__typename === 'CoreShopAuthorizeResult' && res.data.CoreShopAuthorize.token) {
-        return res.data.CoreShopAuthorize.token;
+    if (res.data?.CoreShopAuthorize?.__typename === 'CoreShopAuthorizeResult' && res.data.CoreShopAuthorize) {
+        return res.data.CoreShopAuthorize;
     }
 
     return null;

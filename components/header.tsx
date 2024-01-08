@@ -3,8 +3,12 @@ import Link from "next/link";
 import {Suspense} from "react";
 import Cart from "@/components/cart";
 import Image from "next/image";
+import {auth, signOut} from "@/auth";
+import {Logout} from "@/components/security/logout";
 
-export default function Header() {
+export default async function Header() {
+    const session = await auth()
+
     return (
         <header id="header-area">
             <div className="header-top">
@@ -16,51 +20,65 @@ export default function Header() {
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav mr-auto">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/en/shop">
+                                    <Link className="nav-link" href={'/'}>
                                         Home
-                                    </a>
+                                    </Link>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="/en/shop/register">
-                                        Register
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="/en/shop/login">
-                                        Login
-                                    </a>
-                                </li>
-
+                                {!session?.user &&
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" href={'/register'}>
+                                                Register
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" href={'/login'}>
+                                                Login
+                                            </Link>
+                                        </li>
+                                    </>
+                                }
+                                {session && session.user &&
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" href={'/account'}>
+                                                Account
+                                            </Link>
+                                        </li>
+                                    </>
+                                }
                             </ul>
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/en/shop/wishlist">
-                                        Wishlist
-                                    </a>
-                                </li>
-                                <li className="nav_item">
-                                </li><li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="currencyDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Currency
-                                </a>
-                                <div className="dropdown-menu" aria-labelledby="currencyDropdown">
-                                    {/*<a className="dropdown-item" href="/en/shop/switch-currency/EUR">*/}
-                                    {/*    Euro (EUR)*/}
+                                    {/*<a className="nav-link" href="/en/shop/wishlist">*/}
+                                    {/*    Wishlist*/}
                                     {/*</a>*/}
-                                </div>
-                            </li>
-
-
-                                <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Language
-                                    </a>
-                                    <div className="dropdown-menu" aria-labelledby="languageDropdown">
-                                        <a className="dropdown-item" href="/en">en</a>
-                                        <a className="dropdown-item" href="/de">de</a>
-                                        <a className="dropdown-item" href="/fr">fr</a>
-                                    </div>
                                 </li>
+                                {/*<li className="nav-item dropdown">*/}
+                                {/*    <a className="nav-link dropdown-toggle" href="#" id="currencyDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*/}
+                                {/*        Currency*/}
+                                {/*    </a>*/}
+                                {/*    <div className="dropdown-menu" aria-labelledby="currencyDropdown">*/}
+                                {/*        /!*<a className="dropdown-item" href="/en/shop/switch-currency/EUR">*!/*/}
+                                {/*        /!*    Euro (EUR)*!/*/}
+                                {/*        /!*</a>*!/*/}
+                                {/*    </div>*/}
+                                {/*</li>*/}
+
+                                {/*<li className="nav-item dropdown">*/}
+                                {/*    <a className="nav-link dropdown-toggle" href="#" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*/}
+                                {/*        Language*/}
+                                {/*    </a>*/}
+                                {/*    <div className="dropdown-menu" aria-labelledby="languageDropdown">*/}
+                                {/*        <a className="dropdown-item" href="/en">en</a>*/}
+                                {/*        <a className="dropdown-item" href="/de">de</a>*/}
+                                {/*        <a className="dropdown-item" href="/fr">fr</a>*/}
+                                {/*    </div>*/}
+                                {/*</li>*/}
+
+                                {session && session.user &&
+                                    <Logout />
+                                }
                             </ul>
 
                         </div>

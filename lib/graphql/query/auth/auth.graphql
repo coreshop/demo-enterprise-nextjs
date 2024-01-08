@@ -3,6 +3,7 @@ mutation CoreShopAuthorize($username: String!, $password: String!, $orderToken: 
         ... on CoreShopAuthorizeResult {
             __typename
             token
+            activeOrderToken
         }
         ... on CoreShopError {
             __typename
