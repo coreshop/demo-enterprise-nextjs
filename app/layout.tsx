@@ -4,6 +4,7 @@ import './shop.css'
 import {Suspense} from "react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Loader from "@/components/loader";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
           <Header />
-          <Suspense>
+          <Suspense fallback={<div className="text-center"><Loader /></div>}>
               <div className="main-container container">
                   {children}
               </div>

@@ -13,7 +13,7 @@ export async function addItemToCart(state: any, {productId, quantity}: { product
         cookies().set('cartToken', order.token as string);
     }
 
-    revalidateTag('cart');
+    // revalidateTag('cart');
 }
 
 export async function updateItemQuantity(state: any, {orderItemId, quantity}: { orderItemId: number, quantity: number }) {
@@ -30,5 +30,5 @@ export async function updateItemQuantity(state: any, {orderItemId, quantity}: { 
         await updateOrderItem({token, orderItemId, quantity});
     }
 
-    revalidateTag('cart');
+    // revalidateTag('cart');
 }

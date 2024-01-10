@@ -5,6 +5,7 @@ import Cart from "@/components/cart";
 import Image from "next/image";
 import {auth, signOut} from "@/auth";
 import {Logout} from "@/components/security/logout";
+import Loader from "@/components/loader";
 
 export default async function Header() {
     const session = await auth()
@@ -103,7 +104,7 @@ export default async function Header() {
                         </div>
 
                         <div className="col-md-3 p-sm-2">
-                            <Suspense fallback={<div />}>
+                            <Suspense fallback={<Loader />}>
                                 <Cart />
                             </Suspense>
                         </div>
