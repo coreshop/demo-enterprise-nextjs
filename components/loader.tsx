@@ -1,18 +1,6 @@
-export default function Loader() {
+export default function Loader({className="primary"}: {className?: string}) {
     return (
-        <div className="text-center lds-default">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+        <div className={`spinner-border text-${className}`} role="status">
         </div>
     );
 }

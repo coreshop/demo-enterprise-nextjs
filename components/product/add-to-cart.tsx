@@ -3,6 +3,7 @@
 import {useFormState, useFormStatus} from 'react-dom';
 import {ProductFragment} from "@/lib/graphql/types.generated";
 import {addItemToCart} from "@/components/cart/actions";
+import Loader from "@/components/loader";
 
 function SubmitButton() {
     const {pending} = useFormStatus();
@@ -20,6 +21,8 @@ function SubmitButton() {
             {/*    {pending ? <p>Loading</p> : <p />}*/}
             {/*</div>*/}
             Add To Cart
+
+            {pending && <Loader className={`light spinner-border-sm ml-2`} />}
         </button>
     );
 }
