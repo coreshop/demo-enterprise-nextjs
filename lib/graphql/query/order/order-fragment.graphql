@@ -21,6 +21,19 @@ fragment order on object_CoreShopOrder {
             amount
         }
     }
+    priceRuleItems {
+        ... on fieldcollection_CoreShopProposalCartPriceRuleItem {
+            cartPriceRule {
+                ... on CoreshopCartPriceRule {
+                    name
+                    isVoucherRule
+                }
+            }
+            voucherCode
+            discountNet
+            discountGross
+        }
+    }
     adjustmentItems {
         ... on fieldcollection_CoreShopAdjustment {
             typeIdentifier

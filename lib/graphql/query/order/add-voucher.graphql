@@ -1,0 +1,20 @@
+#import "order-fragment.graphql"
+#import "../error.graphql"
+#import "../validation-error.graphql"
+
+mutation CoreShopAddOrderVoucherCode($voucherCode: String!, $token: String!) {
+    CoreShopAddOrderVoucherCode(addOrderVoucherCode: {order: {token: $token}, orderVoucherCode: {code: $voucherCode}}) {
+        ... on CoreShopAddOrderVoucherCodeResult {
+            __typename
+            order {
+                ...order
+            }
+        }
+        ... on CoreShopError {
+            ...error
+        }
+        ... on CoreShopValidationError {
+            ...validation_error
+        }
+    }
+}

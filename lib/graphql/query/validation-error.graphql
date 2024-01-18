@@ -1,0 +1,4 @@
+fragment validation_error on CoreShopValidationError {
+    __typename
+    message
+}

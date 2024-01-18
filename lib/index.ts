@@ -2,16 +2,22 @@ import {
     print
 } from 'graphql';
 import {
+    CoreShopAddOrderVoucherCode,
+    CoreShopAddOrderVoucherCodeMutation,
+    CoreShopAddOrderVoucherCodeMutationVariables,
     CoreShopAddToOrder,
     CoreShopAddToOrderMutation,
     CoreShopAddToOrderMutationVariables,
     CoreShopAuthorize,
     CoreShopAuthorizeMutation,
-    CoreShopAuthorizeMutationVariables, CoreShopAuthorizeResult,
+    CoreShopAuthorizeMutationVariables,
+    CoreShopAuthorizeResult,
     CoreShopProductPriceResult,
     CoreShopRemoveOrderItem,
     CoreShopRemoveOrderItemMutation,
-    CoreShopRemoveOrderItemMutationVariables,
+    CoreShopRemoveOrderItemMutationVariables, CoreShopRemoveOrderVoucherCode,
+    CoreShopRemoveOrderVoucherCodeMutation,
+    CoreShopRemoveOrderVoucherCodeMutationVariables,
     CoreShopUpdateOrderItem,
     CoreShopUpdateOrderItemMutation,
     CoreShopUpdateOrderItemMutationVariables,
@@ -44,17 +50,18 @@ import {auth} from "@/auth";
 
 const domain = process.env.API_URL;
 const endpoint = `${domain}`;
+
 export async function coreShopFetch<TResult, TVariables>({
-       query,
-       variables,
-       headers,
-       cache = 'force-cache'
-   }: {
+                                                             query,
+                                                             variables,
+                                                             headers,
+                                                             cache = 'force-cache'
+                                                         }: {
     query: string;
     variables: TVariables;
     headers?: HeadersInit;
     cache?: RequestCache;
-}): Promise<{data: TResult}> {
+}): Promise<{ data: TResult }> {
     const session = await auth();
     const authHeader = {};
 
@@ -68,8 +75,8 @@ export async function coreShopFetch<TResult, TVariables>({
         method: 'POST',
         headers: {
             'content-type': 'application/json',
-            ... authHeader,
-            ... headers
+            ...authHeader,
+            ...headers
         },
         body: JSON.stringify({
             query,
@@ -83,7 +90,7 @@ export async function coreShopFetch<TResult, TVariables>({
         throw new Error(`Failed to fetch: ${response.statusText}. Body: ${await response.text()}`)
     }
 
-    return await response.json() as {data: TResult};
+    return await response.json() as { data: TResult };
 }
 
 export async function getCategories(): Promise<Object_CoreShopCategory[]> {
@@ -98,6 +105,7 @@ export async function getCategories(): Promise<Object_CoreShopCategory[]> {
 
     return [];
 }
+
 export async function getLatestProducts(): Promise<ProductFragment[]> {
     const res = await coreShopFetch<GetCoreShopLatestProductsQuery, GetCoreShopLatestProductsQueryVariables>({
         query: print(GetCoreShopLatestProducts),
@@ -110,7 +118,8 @@ export async function getLatestProducts(): Promise<ProductFragment[]> {
 
     return [];
 }
-export async function getProduct({productId} : {productId: number}): Promise<ProductFragment|undefined> {
+
+export async function getProduct({productId}: { productId: number }): Promise<ProductFragment | undefined> {
     const res = await coreShopFetch<GetCoreShopProductQuery, GetCoreShopProductQueryVariables>({
         query: print(GetCoreShopProduct),
         variables: {
@@ -124,7 +133,10 @@ export async function getProduct({productId} : {productId: number}): Promise<Pro
 
     return undefined;
 }
-export async function getProductsInCategory({categoryId} : {categoryId: number}): Promise<ProductFragment[]|undefined> {
+
+export async function getProductsInCategory({categoryId}: {
+    categoryId: number
+}): Promise<ProductFragment[] | undefined> {
     const res = await coreShopFetch<GetCoreShopProductsInCategoryQuery, GetCoreShopProductsInCategoryQueryVariables>({
         query: print(GetCoreShopProductsInCategory),
         variables: {
@@ -138,7 +150,10 @@ export async function getProductsInCategory({categoryId} : {categoryId: number})
 
     return undefined;
 }
-export async function getProductPrice({productId} : {productId: number}): Promise<CoreShopProductPriceResult|undefined> {
+
+export async function getProductPrice({productId}: {
+    productId: number
+}): Promise<CoreShopProductPriceResult | undefined> {
     const res = await coreShopFetch<GetCoreShopProductPriceQuery, GetCoreShopProductPriceQueryVariables>({
         query: print(GetCoreShopProductPrice),
         variables: {
@@ -152,7 +167,8 @@ export async function getProductPrice({productId} : {productId: number}): Promis
 
     return undefined;
 }
-export async function getOrder({cartToken} : {cartToken: string}): Promise<OrderFragment|undefined> {
+
+export async function getOrder({cartToken}: { cartToken: string }): Promise<OrderFragment | undefined> {
     const res = await coreShopFetch<GetCoreShopOrderQuery, GetCoreShopOrderQueryVariables>({
         query: print(GetCoreShopOrder),
         variables: {
@@ -167,7 +183,8 @@ export async function getOrder({cartToken} : {cartToken: string}): Promise<Order
 
     return undefined;
 }
-export async function getActiveOrder(): Promise<OrderFragment|undefined> {
+
+export async function getActiveOrder(): Promise<OrderFragment | undefined> {
     const res = await coreShopFetch<GetCoreShopActiveOrderQuery, GetCoreShopActiveOrderQueryVariables>({
         query: print(GetCoreShopActiveOrder),
         variables: {},
@@ -180,7 +197,12 @@ export async function getActiveOrder(): Promise<OrderFragment|undefined> {
 
     return undefined;
 }
-export async function addItemToOrder({token, productId, quantity} : {token: string|undefined, productId: number, quantity: number}): Promise<OrderFragment|null> {
+
+export async function addItemToOrder({token, productId, quantity}: {
+    token: string | undefined,
+    productId: number,
+    quantity: number
+}): Promise<OrderFragment | null> {
     const res = await coreShopFetch<CoreShopAddToOrderMutation, CoreShopAddToOrderMutationVariables>({
         query: print(CoreShopAddToOrder),
         variables: {
@@ -197,7 +219,12 @@ export async function addItemToOrder({token, productId, quantity} : {token: stri
 
     return null;
 }
-export async function updateOrderItem({token, orderItemId, quantity} : {token: string, orderItemId: number, quantity: number}): Promise<OrderFragment|null> {
+
+export async function updateOrderItem({token, orderItemId, quantity}: {
+    token: string,
+    orderItemId: number,
+    quantity: number
+}): Promise<OrderFragment | null> {
     const res = await coreShopFetch<CoreShopUpdateOrderItemMutation, CoreShopUpdateOrderItemMutationVariables>({
         query: print(CoreShopUpdateOrderItem),
         variables: {
@@ -215,7 +242,10 @@ export async function updateOrderItem({token, orderItemId, quantity} : {token: s
     return null;
 }
 
-export async function removeOrderItem({token, orderItemId} : {token: string, orderItemId: number}): Promise<OrderFragment|null> {
+export async function removeOrderItem({token, orderItemId}: {
+    token: string,
+    orderItemId: number
+}): Promise<OrderFragment | null> {
     const res = await coreShopFetch<CoreShopRemoveOrderItemMutation, CoreShopRemoveOrderItemMutationVariables>({
         query: print(CoreShopRemoveOrderItem),
         variables: {
@@ -231,7 +261,60 @@ export async function removeOrderItem({token, orderItemId} : {token: string, ord
 
     return null;
 }
-export async function authorize({username, password, orderToken = null} : {username: string, password: string, orderToken:string|null}): Promise<CoreShopAuthorizeResult|null> {
+
+export async function addVoucherCode({token, voucherCode}: {
+    token: string,
+    voucherCode: string
+}): Promise<OrderFragment | null> {
+    const res = await coreShopFetch<CoreShopAddOrderVoucherCodeMutation, CoreShopAddOrderVoucherCodeMutationVariables>({
+        query: print(CoreShopAddOrderVoucherCode),
+        variables: {
+            token: token,
+            voucherCode: voucherCode,
+        },
+        cache: "no-cache"
+    });
+
+    if (res.data?.CoreShopAddOrderVoucherCode?.__typename === 'CoreShopAddOrderVoucherCodeResult') {
+        return res.data.CoreShopAddOrderVoucherCode.order as OrderFragment;
+    }
+
+    if (res.data?.CoreShopAddOrderVoucherCode?.__typename === 'CoreShopError') {
+        throw new Error(res.data.CoreShopAddOrderVoucherCode.message ?? undefined);
+    }
+
+    if (res.data?.CoreShopAddOrderVoucherCode?.__typename === 'CoreShopValidationError') {
+        throw new Error(res.data.CoreShopAddOrderVoucherCode.message ?? undefined);
+    }
+
+    return null;
+}
+
+export async function removeVoucherCode({token, voucherCode}: {
+    token: string,
+    voucherCode: string
+}): Promise<OrderFragment | null> {
+    const res = await coreShopFetch<CoreShopRemoveOrderVoucherCodeMutation, CoreShopRemoveOrderVoucherCodeMutationVariables>({
+        query: print(CoreShopRemoveOrderVoucherCode),
+        variables: {
+            token: token,
+            voucherCode: voucherCode,
+        },
+        cache: "no-cache"
+    });
+
+    if (res.data?.CoreShopRemoveOrderVoucherCode?.__typename === 'CoreShopRemoveOrderVoucherCodeResult') {
+        return res.data.CoreShopRemoveOrderVoucherCode.order as OrderFragment;
+    }
+
+    return null;
+}
+
+export async function authorize({username, password, orderToken = null}: {
+    username: string,
+    password: string,
+    orderToken: string | null
+}): Promise<CoreShopAuthorizeResult | null> {
     const res = await coreShopFetch<CoreShopAuthorizeMutation, CoreShopAuthorizeMutationVariables>({
         query: print(CoreShopAuthorize),
         variables: {

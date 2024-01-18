@@ -4,6 +4,8 @@ import Currency from "@/components/common/currency";
 import {OrderFragment} from "@/lib/graphql/types.generated";
 import CartItemPage from "@/components/cart/cart-item";
 import {Suspense} from "react";
+import VoucherForm from "@/components/cart/voucher";
+import CartPriceRuleItem from "@/components/cart/cart-price-rule-item";
 
 export default async function CartPage() {
     const cartToken = cookies().get('cartToken')?.value;
@@ -21,7 +23,7 @@ export default async function CartPage() {
         return <div>No Cart</div>;
     }
 
-    return <div>
+    return <Suspense>
         <table className="table table-bordered">
             <thead>
             <tr>
@@ -47,11 +49,14 @@ export default async function CartPage() {
             {cart.items?.map((item, index) => (item && (
                 <CartItemPage key={item.id} cartItem={item}/>
             )))}
+            {cart.priceRuleItems?.map((item, index) => (item && (
+                <CartPriceRuleItem key={index} priceRule={item}/>
+            )))}
             </tbody>
             <tfoot>
             <tr>
                 <td colSpan={3} rowSpan={10}>
-
+                    <VoucherForm />
                 </td>
                 <td className="text-right">
                     <strong>Subtotal (incl. VAT):</strong>
@@ -121,6 +126,6 @@ export default async function CartPage() {
             </tr>
             </tfoot>
         </table>
-    </div>
+    </Suspense>
         ;
 }
