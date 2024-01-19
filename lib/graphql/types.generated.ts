@@ -1847,6 +1847,13 @@ export type GetCoreShopCategoryQueryVariables = Exact<{
 
 export type GetCoreShopCategoryQuery = { __typename?: 'Query', CoreShopCategory?: { __typename: 'CoreShopCategoryResult', category?: { __typename: 'object_CoreShopCategory', id?: string | null, name?: string | null } | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename?: 'CoreShopValidationError' } | null };
 
+export type CoreShopCarrierListQueryVariables = Exact<{
+  token: Scalars['String']['input'];
+}>;
+
+
+export type CoreShopCarrierListQuery = { __typename?: 'Query', CoreShopCarrierList?: { __typename: 'CoreShopCarrierListResult', carriers?: Array<{ __typename?: 'CoreShopCarrierPrice', price_net: number, price_gross: number, tax: number, carrier?: { __typename?: 'CoreshopCarrier', id?: number | null, identifier?: string | null, translations?: { __typename?: 'CoreshopCarrierTranslation__List', items?: Array<{ __typename?: 'CoreshopCarrierTranslation', title?: string | null, description?: string | null } | null> | null } | null } | null } | null> | null } | { __typename: 'CoreShopError' } | { __typename: 'CoreShopValidationError' } | null };
+
 export type CoreShopCheckoutGuestAddressMutationVariables = Exact<{
   invoiceAddress: AddressInput;
   shippingAddress?: InputMaybe<AddressInput>;
@@ -1864,6 +1871,29 @@ export type CoreShopCheckoutGuestRegistrationMutationVariables = Exact<{
 
 
 export type CoreShopCheckoutGuestRegistrationMutation = { __typename?: 'Mutations', CoreShopCheckoutGuestRegistration?: { __typename: 'CoreShopCheckoutGuestRegistrationResult' } | { __typename: 'CoreShopError' } | { __typename: 'CoreShopValidationError' } | null };
+
+export type CoreShopCheckoutPaymentProviderMutationVariables = Exact<{
+  token: Scalars['String']['input'];
+  paymentProvider: PaymentProviderEnumType;
+}>;
+
+
+export type CoreShopCheckoutPaymentProviderMutation = { __typename?: 'Mutations', CoreShopCheckoutPaymentProvider?: { __typename: 'CoreShopCheckoutPaymentProviderResult', order?: { __typename?: 'object_CoreShopOrder', id?: string | null, token?: string | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, carrier?: { __typename: 'CoreshopCarrier', identifier?: string | null } | null, currency?: { __typename: 'CoreshopCurrency', isoCode?: string | null } | null, paymentProvider?: { __typename: 'CoreshopPaymentProvider', identifier?: string | null } | null, items?: Array<{ __typename?: 'object_CoreShopOrderItem', id?: string | null, quantity?: number | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, itemRetailPriceGross?: number | null, itemRetailPriceNet?: number | null, itemDiscountNet?: number | null, itemDiscountGross?: number | null, itemDiscountPriceGross?: number | null, itemDiscountPriceNet?: number | null, product?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | null> | null, customer?: { __typename: 'object_CoreShopCustomer', salutation?: string | null, gender?: string | null, email?: string | null, firstname?: string | null, lastname?: string | null } | null, taxes?: Array<{ __typename?: 'fieldcollection_CoreShopTaxItem', name?: string | null, rate?: number | null, amount?: number | null } | null> | null, priceRuleItems?: Array<{ __typename?: 'fieldcollection_CoreShopProposalCartPriceRuleItem', voucherCode?: string | null, discountNet?: number | null, discountGross?: number | null, cartPriceRule?: { __typename?: 'CoreshopCartPriceRule', name?: string | null, isVoucherRule?: boolean | null } | null } | null> | null, adjustmentItems?: Array<{ __typename?: 'fieldcollection_CoreShopAdjustment', typeIdentifier?: string | null, label?: string | null, pimcoreAmountNet?: number | null, pimcoreAmountGross?: number | null } | null> | null, shippingAddress?: { __typename: 'object_CoreShopAddress', firstname?: string | null, lastname?: string | null, salutation?: string | null, company?: string | null, street?: string | null, number?: string | null, postcode?: string | null, city?: string | null, phoneNumber?: string | null, country?: { __typename?: 'CoreshopCountry', isoCode?: string | null } | null } | null, invoiceAddress?: { __typename: 'object_CoreShopAddress', firstname?: string | null, lastname?: string | null, salutation?: string | null, company?: string | null, street?: string | null, number?: string | null, postcode?: string | null, city?: string | null, phoneNumber?: string | null, country?: { __typename?: 'CoreshopCountry', isoCode?: string | null } | null } | null } | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopValidationError', message?: string | null } | null };
+
+export type CoreShopPaymentProviderListQueryVariables = Exact<{
+  token: Scalars['String']['input'];
+}>;
+
+
+export type CoreShopPaymentProviderListQuery = { __typename?: 'Query', CoreShopPaymentProviderList?: { __typename: 'CoreShopError' } | { __typename: 'CoreShopPaymentProviderListResult', paymentProviders?: Array<{ __typename?: 'CoreShopPaymentProviderPrice', price: number, paymentProvider?: { __typename?: 'CoreshopPaymentProvider', identifier?: string | null, translations?: { __typename?: 'CoreshopPaymentProviderTranslation__List', items?: Array<{ __typename?: 'CoreshopPaymentProviderTranslation', title?: string | null, description?: string | null, instructions?: string | null } | null> | null } | null } | null } | null> | null } | { __typename: 'CoreShopValidationError' } | null };
+
+export type CoreShopCheckoutShippingMutationVariables = Exact<{
+  token: Scalars['String']['input'];
+  carrier: CarrierEnumType;
+}>;
+
+
+export type CoreShopCheckoutShippingMutation = { __typename?: 'Mutations', CoreShopCheckoutShipping?: { __typename: 'CoreShopCheckoutShippingResult', order?: { __typename?: 'object_CoreShopOrder', id?: string | null, token?: string | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, carrier?: { __typename: 'CoreshopCarrier', identifier?: string | null } | null, currency?: { __typename: 'CoreshopCurrency', isoCode?: string | null } | null, paymentProvider?: { __typename: 'CoreshopPaymentProvider', identifier?: string | null } | null, items?: Array<{ __typename?: 'object_CoreShopOrderItem', id?: string | null, quantity?: number | null, totalGross?: number | null, totalNet?: number | null, subtotalGross?: number | null, subtotalNet?: number | null, itemRetailPriceGross?: number | null, itemRetailPriceNet?: number | null, itemDiscountNet?: number | null, itemDiscountGross?: number | null, itemDiscountPriceGross?: number | null, itemDiscountPriceNet?: number | null, product?: { __typename: 'object_CoreShopProduct', id?: string | null, name?: string | null, ean?: string | null, isTracked?: boolean | null, stockAvailability?: boolean | null, shortDescription?: string | null, images?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesCartProduct?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesGrid?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetail?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null, imagesProductDetailPreview?: Array<{ __typename?: 'asset', fullpath?: string | null, dimensions?: { __typename?: 'dimensions', width?: number | null, height?: number | null } | null } | null> | null } | null } | null> | null, customer?: { __typename: 'object_CoreShopCustomer', salutation?: string | null, gender?: string | null, email?: string | null, firstname?: string | null, lastname?: string | null } | null, taxes?: Array<{ __typename?: 'fieldcollection_CoreShopTaxItem', name?: string | null, rate?: number | null, amount?: number | null } | null> | null, priceRuleItems?: Array<{ __typename?: 'fieldcollection_CoreShopProposalCartPriceRuleItem', voucherCode?: string | null, discountNet?: number | null, discountGross?: number | null, cartPriceRule?: { __typename?: 'CoreshopCartPriceRule', name?: string | null, isVoucherRule?: boolean | null } | null } | null> | null, adjustmentItems?: Array<{ __typename?: 'fieldcollection_CoreShopAdjustment', typeIdentifier?: string | null, label?: string | null, pimcoreAmountNet?: number | null, pimcoreAmountGross?: number | null } | null> | null, shippingAddress?: { __typename: 'object_CoreShopAddress', firstname?: string | null, lastname?: string | null, salutation?: string | null, company?: string | null, street?: string | null, number?: string | null, postcode?: string | null, city?: string | null, phoneNumber?: string | null, country?: { __typename?: 'CoreshopCountry', isoCode?: string | null } | null } | null, invoiceAddress?: { __typename: 'object_CoreShopAddress', firstname?: string | null, lastname?: string | null, salutation?: string | null, company?: string | null, street?: string | null, number?: string | null, postcode?: string | null, city?: string | null, phoneNumber?: string | null, country?: { __typename?: 'CoreshopCountry', isoCode?: string | null } | null } | null } | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopValidationError', message?: string | null } | null };
 
 export type CustomerFragment = { __typename: 'object_CoreShopCustomer', salutation?: string | null, gender?: string | null, email?: string | null, firstname?: string | null, lastname?: string | null };
 
@@ -2210,6 +2240,30 @@ export const GetCoreShopCategory = gql`
 }
     ${Category}
 ${Error}`;
+export const CoreShopCarrierList = gql`
+    query CoreShopCarrierList($token: String!) {
+  CoreShopCarrierList(carrierList: {order: {token: $token}}) {
+    __typename
+    ... on CoreShopCarrierListResult {
+      carriers {
+        carrier {
+          id
+          identifier
+          translations {
+            items {
+              title
+              description
+            }
+          }
+        }
+        price_net
+        price_gross
+        tax
+      }
+    }
+  }
+}
+    `;
 export const CoreShopCheckoutGuestAddress = gql`
     mutation CoreShopCheckoutGuestAddress($invoiceAddress: AddressInput!, $shippingAddress: AddressInput, $token: String!, $invoiceAddressIsShippingAddress: Boolean!) {
   CoreShopCheckoutGuestAddress(
@@ -2241,6 +2295,72 @@ export const CoreShopCheckoutGuestRegistration = gql`
   }
 }
     `;
+export const CoreShopCheckoutPaymentProvider = gql`
+    mutation CoreShopCheckoutPaymentProvider($token: String!, $paymentProvider: PaymentProviderEnumType!) {
+  CoreShopCheckoutPaymentProvider(
+    checkoutPaymentProvider: {order: {token: $token}, paymentProvider: $paymentProvider}
+  ) {
+    ... on CoreShopCheckoutPaymentProviderResult {
+      __typename
+      order {
+        ...order
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+    ... on CoreShopValidationError {
+      ...validation_error
+    }
+  }
+}
+    ${Order}
+${Error}
+${Validation_Error}`;
+export const CoreShopPaymentProviderList = gql`
+    query CoreShopPaymentProviderList($token: String!) {
+  CoreShopPaymentProviderList(paymentProviderList: {order: {token: $token}}) {
+    __typename
+    ... on CoreShopPaymentProviderListResult {
+      paymentProviders {
+        paymentProvider {
+          identifier
+          translations {
+            items {
+              title
+              description
+              instructions
+            }
+          }
+        }
+        price
+      }
+    }
+  }
+}
+    `;
+export const CoreShopCheckoutShipping = gql`
+    mutation CoreShopCheckoutShipping($token: String!, $carrier: CarrierEnumType!) {
+  CoreShopCheckoutShipping(
+    checkoutShipping: {order: {token: $token}, carrier: $carrier}
+  ) {
+    ... on CoreShopCheckoutShippingResult {
+      __typename
+      order {
+        ...order
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+    ... on CoreShopValidationError {
+      ...validation_error
+    }
+  }
+}
+    ${Order}
+${Error}
+${Validation_Error}`;
 export const GetCoreShopActiveOrder = gql`
     query GetCoreShopActiveOrder {
   CoreShopActiveOrder {

@@ -3,6 +3,7 @@ import {
 } from 'graphql';
 import {
     AddressInput,
+    CarrierEnumType,
     CoreShopAddOrderVoucherCode,
     CoreShopAddOrderVoucherCodeMutation,
     CoreShopAddOrderVoucherCodeMutationVariables,
@@ -12,12 +13,25 @@ import {
     CoreShopAuthorize,
     CoreShopAuthorizeMutation,
     CoreShopAuthorizeMutationVariables,
-    CoreShopAuthorizeResult, CoreShopCheckoutGuestAddress,
+    CoreShopAuthorizeResult,
+    CoreShopCarrierList,
+    CoreShopCarrierListQuery,
+    CoreShopCarrierListQueryVariables,
+    CoreShopCarrierListResult,
+    CoreShopCheckoutGuestAddress,
     CoreShopCheckoutGuestAddressMutation,
     CoreShopCheckoutGuestAddressMutationVariables,
     CoreShopCheckoutGuestRegistration,
     CoreShopCheckoutGuestRegistrationMutation,
-    CoreShopCheckoutGuestRegistrationMutationVariables,
+    CoreShopCheckoutGuestRegistrationMutationVariables, CoreShopCheckoutPaymentProvider,
+    CoreShopCheckoutPaymentProviderMutation, CoreShopCheckoutPaymentProviderMutationVariables,
+    CoreShopCheckoutShipping,
+    CoreShopCheckoutShippingMutation,
+    CoreShopCheckoutShippingMutationVariables,
+    CoreShopPaymentProviderList,
+    CoreShopPaymentProviderListQuery,
+    CoreShopPaymentProviderListQueryVariables,
+    CoreShopPaymentProviderListResult,
     CoreShopProductPriceResult,
     CoreShopRemoveOrderItem,
     CoreShopRemoveOrderItemMutation,
@@ -52,6 +66,7 @@ import {
     GuestRegistrationInput,
     Object_CoreShopCategory,
     OrderFragment,
+    PaymentProviderEnumType,
     ProductFragment
 } from "@/lib/graphql/types.generated";
 import {auth} from "@/auth";
@@ -373,4 +388,75 @@ export async function checkoutGuestAddress({token, invoiceAddress, shippingAddre
     });
 
     return res.data?.CoreShopCheckoutGuestAddress?.__typename === 'CoreShopCheckoutGuestAddressResult';
+}
+
+
+export async function checkoutShipping({token, carrier}: {
+    token: string,
+    carrier: CarrierEnumType
+}): Promise<boolean> {
+    const res = await coreShopFetch<CoreShopCheckoutShippingMutation, CoreShopCheckoutShippingMutationVariables>({
+        query: print(CoreShopCheckoutShipping),
+        variables: {
+            token: token,
+            carrier: carrier
+        },
+        cache: "no-cache"
+    });
+
+    return res.data?.CoreShopCheckoutShipping?.__typename === 'CoreShopCheckoutShippingResult';
+}
+
+export async function checkoutPayment({token, paymentProvider}: {
+    token: string,
+    paymentProvider: PaymentProviderEnumType
+}): Promise<boolean> {
+    const res = await coreShopFetch<CoreShopCheckoutPaymentProviderMutation, CoreShopCheckoutPaymentProviderMutationVariables>({
+        query: print(CoreShopCheckoutPaymentProvider),
+        variables: {
+            token: token,
+            paymentProvider: paymentProvider
+        },
+        cache: "no-cache"
+    });
+
+    return res.data?.CoreShopCheckoutPaymentProvider?.__typename === 'CoreShopCheckoutPaymentProviderResult';
+}
+
+export async function listCarriers({token}: {
+    token: string,
+}): Promise<CoreShopCarrierListResult|null> {
+    const res = await coreShopFetch<CoreShopCarrierListQuery, CoreShopCarrierListQueryVariables>({
+        query: print(CoreShopCarrierList),
+        variables: {
+            token: token
+        },
+        cache: "no-cache"
+    });
+
+
+    if (res.data?.CoreShopCarrierList?.__typename === 'CoreShopCarrierListResult') {
+        return res.data.CoreShopCarrierList;
+    }
+
+    return null;
+}
+
+export async function listPaymentProviders({token}: {
+    token: string,
+}): Promise<CoreShopPaymentProviderListResult|null> {
+    const res = await coreShopFetch<CoreShopPaymentProviderListQuery, CoreShopPaymentProviderListQueryVariables>({
+        query: print(CoreShopPaymentProviderList),
+        variables: {
+            token: token
+        },
+        cache: "no-cache"
+    });
+
+
+    if (res.data?.CoreShopPaymentProviderList?.__typename === 'CoreShopPaymentProviderListResult') {
+        return res.data.CoreShopPaymentProviderList;
+    }
+
+    return null;
 }

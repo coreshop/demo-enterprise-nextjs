@@ -1,0 +1,22 @@
+query CoreShopPaymentProviderList(
+    $token: String!
+) {
+    CoreShopPaymentProviderList(paymentProviderList: {order: {token: $token}}) {
+        __typename
+        ... on CoreShopPaymentProviderListResult{
+            paymentProviders {
+                paymentProvider {
+                    identifier
+                    translations {
+                        items {
+                            title
+                            description
+                            instructions
+                        }
+                    }
+                }
+                price
+            }
+        }
+    }
+}

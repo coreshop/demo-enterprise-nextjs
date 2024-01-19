@@ -1,0 +1,23 @@
+#import "../order/order-fragment.graphql"
+#import "../error.graphql"
+#import "../validation-error.graphql"
+
+mutation CoreShopCheckoutShipping(
+    $token: String!
+    $carrier: CarrierEnumType!
+) {
+    CoreShopCheckoutShipping(checkoutShipping: {order: {token: $token}, carrier: $carrier}) {
+        ... on CoreShopCheckoutShippingResult {
+            __typename
+            order {
+                ...order
+            }
+        }
+        ... on CoreShopError {
+            ...error
+        }
+        ... on CoreShopValidationError {
+            ...validation_error
+        }
+    }
+}

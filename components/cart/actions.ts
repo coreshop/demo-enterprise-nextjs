@@ -4,13 +4,19 @@ import {cookies} from "next/headers";
 import {
     addItemToOrder,
     addVoucherCode, checkoutGuestAddress,
-    checkoutGuestRegistration,
+    checkoutGuestRegistration, checkoutPayment, checkoutShipping,
     removeOrderItem,
     removeVoucherCode,
     updateOrderItem
 } from "@/lib";
 import {revalidateTag} from "next/cache";
-import {AddressInput, CountryEnumType, GuestRegistrationInput} from "@/lib/graphql/types.generated";
+import {
+    AddressInput,
+    CarrierEnumType,
+    CountryEnumType,
+    GuestRegistrationInput,
+    PaymentProviderEnumType
+} from "@/lib/graphql/types.generated";
 import {redirect} from "next/navigation";
 
 export async function addItemToCart(state: any, {productId, quantity}: { productId: number, quantity: number }) {
@@ -110,6 +116,37 @@ export async function registerGuestCartAddress(state: any, formData: FormData): 
 
     if (result) {
         redirect('/checkout/shipping');
+    }
+}
+
+export async function checkoutShippingForm(state: any, formData: FormData): Promise<any> {
+    const carrier = formData.get('carrier') as CarrierEnumType;
+
+    const token = cookies().get('cartToken')?.value;
+
+    if (!token) {
+        return;
+    }
+
+    const result = await checkoutShipping({token, carrier});
+
+    if (result) {
+        redirect('/checkout/payment');
+    }
+}
+export async function checkoutPaymentForm(state: any, formData: FormData): Promise<any> {
+    const paymentProvider = formData.get('paymentProvider') as PaymentProviderEnumType;
+
+    const token = cookies().get('cartToken')?.value;
+
+    if (!token) {
+        return;
+    }
+
+    const result = await checkoutPayment({token, paymentProvider});
+
+    if (result) {
+        redirect('/checkout/summary');
     }
 }
 
