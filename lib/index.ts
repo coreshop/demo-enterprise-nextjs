@@ -2,6 +2,7 @@ import {
     print
 } from 'graphql';
 import {
+    AddressInput,
     CoreShopAddOrderVoucherCode,
     CoreShopAddOrderVoucherCodeMutation,
     CoreShopAddOrderVoucherCodeMutationVariables,
@@ -11,11 +12,17 @@ import {
     CoreShopAuthorize,
     CoreShopAuthorizeMutation,
     CoreShopAuthorizeMutationVariables,
-    CoreShopAuthorizeResult,
+    CoreShopAuthorizeResult, CoreShopCheckoutGuestAddress,
+    CoreShopCheckoutGuestAddressMutation,
+    CoreShopCheckoutGuestAddressMutationVariables,
+    CoreShopCheckoutGuestRegistration,
+    CoreShopCheckoutGuestRegistrationMutation,
+    CoreShopCheckoutGuestRegistrationMutationVariables,
     CoreShopProductPriceResult,
     CoreShopRemoveOrderItem,
     CoreShopRemoveOrderItemMutation,
-    CoreShopRemoveOrderItemMutationVariables, CoreShopRemoveOrderVoucherCode,
+    CoreShopRemoveOrderItemMutationVariables,
+    CoreShopRemoveOrderVoucherCode,
     CoreShopRemoveOrderVoucherCodeMutation,
     CoreShopRemoveOrderVoucherCodeMutationVariables,
     CoreShopUpdateOrderItem,
@@ -42,6 +49,7 @@ import {
     GetCoreShopProductsInCategory,
     GetCoreShopProductsInCategoryQuery,
     GetCoreShopProductsInCategoryQueryVariables,
+    GuestRegistrationInput,
     Object_CoreShopCategory,
     OrderFragment,
     ProductFragment
@@ -330,4 +338,39 @@ export async function authorize({username, password, orderToken = null}: {
     }
 
     return null;
+}
+
+export async function checkoutGuestRegistration({token, guestCustomer}: {
+    token: string,
+    guestCustomer: GuestRegistrationInput
+}): Promise<boolean> {
+    const res = await coreShopFetch<CoreShopCheckoutGuestRegistrationMutation, CoreShopCheckoutGuestRegistrationMutationVariables>({
+        query: print(CoreShopCheckoutGuestRegistration),
+        variables: {
+            token: token,
+            guestCustomer: guestCustomer,
+        },
+        cache: "no-cache"
+    });
+
+    return res.data?.CoreShopCheckoutGuestRegistration?.__typename === 'CoreShopCheckoutGuestRegistrationResult';
+}
+
+export async function checkoutGuestAddress({token, invoiceAddress, shippingAddress}: {
+    token: string,
+    invoiceAddress: AddressInput
+    shippingAddress: AddressInput|undefined
+}): Promise<boolean> {
+    const res = await coreShopFetch<CoreShopCheckoutGuestAddressMutation, CoreShopCheckoutGuestAddressMutationVariables>({
+        query: print(CoreShopCheckoutGuestAddress),
+        variables: {
+            token: token,
+            invoiceAddress: invoiceAddress,
+            shippingAddress: shippingAddress,
+            invoiceAddressIsShippingAddress: shippingAddress === undefined,
+        },
+        cache: "no-cache"
+    });
+
+    return res.data?.CoreShopCheckoutGuestAddress?.__typename === 'CoreShopCheckoutGuestAddressResult';
 }

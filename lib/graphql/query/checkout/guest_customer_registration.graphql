@@ -1,0 +1,11 @@
+mutation CoreShopCheckoutGuestRegistration(
+    $guestCustomer: GuestRegistrationInput!
+    $token: String!
+) {
+    CoreShopCheckoutGuestRegistration(checkoutGuestRegistration: {
+        customer: $guestCustomer
+        order: {token: $token}
+    }) {
+        __typename
+    }
+}

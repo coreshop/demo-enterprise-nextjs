@@ -1,0 +1,33 @@
+#import "../order/order-fragment.graphql"
+#import "../error.graphql"
+#import "../validation-error.graphql"
+
+mutation CoreShopCheckoutGuestAddress(
+    $invoiceAddress: AddressInput!
+    $shippingAddress: AddressInput
+    $token: String!
+    $invoiceAddressIsShippingAddress: Boolean!
+){
+    CoreShopCheckoutGuestAddress(checkoutGuestAddress: {
+        shippingAddress: $shippingAddress
+        invoiceAddress: $invoiceAddress
+        order: {
+            token: $token
+        }
+        invoiceAddressIsShippingAddress: $invoiceAddressIsShippingAddress
+    }) {
+        ... on CoreShopCheckoutGuestAddressResult {
+            __typename
+            order {
+                ...order
+            }
+        }
+
+        ... on CoreShopError {
+            ...error
+        }
+        ... on CoreShopValidationError {
+            ...validation_error
+        }
+    }
+}

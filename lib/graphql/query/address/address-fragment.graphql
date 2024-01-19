@@ -1,0 +1,17 @@
+fragment address on object_CoreShopAddress {
+    __typename
+    firstname
+    lastname
+    salutation
+    company
+    street
+    number
+    postcode
+    city
+    phoneNumber
+    country {
+        ... on CoreshopCountry {
+            isoCode
+        }
+    }
+}

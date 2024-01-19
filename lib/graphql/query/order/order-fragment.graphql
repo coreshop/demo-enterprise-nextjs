@@ -1,4 +1,6 @@
 #import "order-item-fragment.graphql"
+#import "../customer/customer-fragment.graphql"
+#import "../address/address-fragment.graphql"
 
 fragment order on object_CoreShopOrder {
     id
@@ -7,12 +9,23 @@ fragment order on object_CoreShopOrder {
     totalNet
     subtotalGross
     subtotalNet
+    carrier {
+        __typename
+        identifier
+    }
     currency {
         __typename
         isoCode
     }
+    paymentProvider {
+        __typename
+        identifier
+    }
     items {
         ...orderItem
+    }
+    customer {
+        ...customer
     }
     taxes {
         ... on fieldcollection_CoreShopTaxItem {
@@ -41,5 +54,11 @@ fragment order on object_CoreShopOrder {
             pimcoreAmountNet
             pimcoreAmountGross
         }
+    }
+    shippingAddress {
+        ...address
+    }
+    invoiceAddress {
+        ...address
     }
 }

@@ -1,0 +1,8 @@
+fragment customer on object_CoreShopCustomer {
+    __typename
+    salutation
+    gender
+    email
+    firstname
+    lastname
+}
