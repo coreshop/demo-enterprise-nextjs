@@ -18,6 +18,8 @@ import {
     PaymentProviderEnumType
 } from "@/lib/graphql/types.generated";
 import {redirect} from "next/navigation";
+import {AddressType, GuestCustomerType} from "@/schema/CustomerRegistration";
+import {safeLoad} from "yaml-ast-parser";
 
 export async function addItemToCart(state: any, {productId, quantity}: { productId: number, quantity: number }) {
     const token = cookies().get('cartToken')?.value;
@@ -58,24 +60,24 @@ export async function addVoucherForm(state: any, formData: FormData): Promise<an
     }
 }
 
-export async function registerGuestCustomer(state: any, formData: FormData): Promise<any> {
+export async function registerGuestCustomer(state: any, user: GuestCustomerType): Promise<any> {
     const guestCustomer: GuestRegistrationInput = {
-        gender: formData.get('gender') as string,
-        salutation: formData.get('salutation') as string,
-        firstname: formData.get('firstname') as string,
-        lastname: formData.get('lastname') as string,
-        email: formData.get('email') as string,
+        gender: user.gender,
+        salutation: user.salutation,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
         address: {
-            company: formData.get('address_company') as string,
-            salutation: formData.get('address_salutation') as string,
-            firstname: formData.get('address_firstname') as string,
-            lastname: formData.get('address_lastname') as string,
-            street: formData.get('address_street') as string,
-            number: formData.get('address_number') as string,
-            postcode: formData.get('address_postcode') as string,
-            city: formData.get('address_city') as string,
+            company: user.address.company,
+            salutation: user.address.salutation,
+            firstname: user.address.firstname,
+            lastname: user.address.lastname,
+            street: user.address.street,
+            number: user.address.number,
+            postcode: user.address.postcode,
+            city: user.address.city,
             country: CountryEnumType.Austria,
-            phoneNumber: formData.get('address_phoneNumber') as string,
+            phoneNumber: user.address.phoneNumber,
         },
     };
 
@@ -92,18 +94,18 @@ export async function registerGuestCustomer(state: any, formData: FormData): Pro
     }
 }
 
-export async function registerGuestCartAddress(state: any, formData: FormData): Promise<any> {
+export async function registerGuestCartAddress(state: any, address: AddressType): Promise<any> {
     const invoiceAddress: AddressInput = {
-        company: formData.get('invoiceAddress_company') as string,
-        salutation: formData.get('invoiceAddress_salutation') as string,
-        firstname: formData.get('invoiceAddress_firstname') as string,
-        lastname: formData.get('invoiceAddress_lastname') as string,
-        street: formData.get('invoiceAddress_street') as string,
-        number: formData.get('invoiceAddress_number') as string,
-        postcode: formData.get('invoiceAddress_postcode') as string,
-        city: formData.get('invoiceAddress_city') as string,
+        company: address.company,
+        salutation: address.salutation,
+        firstname: address.firstname,
+        lastname: address.lastname,
+        street: address.street,
+        number: address.number,
+        postcode: address.postcode,
+        city: address.city,
         country: CountryEnumType.Austria,
-        phoneNumber: formData.get('invoiceAddress_phoneNumber') as string,
+        phoneNumber: address.phoneNumber,
     };
 
     const token = cookies().get('cartToken')?.value;

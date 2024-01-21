@@ -19,5 +19,5 @@ export default async function CheckoutCustomerPage() {
         return <div>No Cart</div>;
     }
 
-    return <div><CheckoutGuestCustomer cart={cart} /></div>;
+    return <div><CheckoutGuestCustomer /></div>;
 }

@@ -20,7 +20,7 @@ export default function CheckoutPayment({cart, paymentProviders}: {cart: OrderFr
         <form action={formAction}>
             <div className="card">
                 <div className="card-header">
-                    Shipping
+                    Payment
                 </div>
                 <div className="card-body">
                     {paymentProviders.paymentProviders?.map((paymentProvider, index) => (paymentProvider &&
