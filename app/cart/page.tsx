@@ -6,6 +6,7 @@ import CartItemPage from "@/components/cart/cart-item";
 import {Suspense} from "react";
 import VoucherForm from "@/components/cart/voucher";
 import CartPriceRuleItem from "@/components/cart/cart-price-rule-item";
+import Link from "next/link";
 
 export default async function CartPage() {
     const cartToken = cookies().get('cartToken')?.value;
@@ -126,6 +127,9 @@ export default async function CartPage() {
             </tr>
             </tfoot>
         </table>
+        <Link href={`/checkout/customer`} className="btn btn-primary">
+            Checkout
+        </Link>
     </Suspense>
         ;
 }

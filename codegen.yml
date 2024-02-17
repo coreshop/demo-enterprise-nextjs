@@ -1,6 +1,6 @@
 overwrite: true
 schema:
-  - "https://coreshop-headless.localhost/pimcore-graphql-webservices/test?apikey=cccffae4fb6834f6a3d7eef35e890777"
+  - "https://coreshop-headless.localhost/pimcore-graphql-webservices/coreshop?apikey=cccffae4fb6834f6a3d7eef35e890777"
 documents:
   - "./lib/graphql/**/*.graphql"
 generates:

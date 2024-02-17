@@ -5,7 +5,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
-NODE_TLS_REJECT_UNAUTHORIZED=0 API_URL=https://coreshop-headless.localhost/pimcore-graphql-webservices/test?apikey=cccffae4fb6834f6a3d7eef35e890777 BASE_URL=https://coreshop-headless.localhost npm run dev
+NODE_TLS_REJECT_UNAUTHORIZED=0 API_URL=https://coreshop-headless.localhost/pimcore-graphql-webservices/coreshop?apikey=cccffae4fb6834f6a3d7eef35e890777 BASE_URL=https://coreshop-headless.localhost npm run dev
 # or
 yarn dev  
 # or
@@ -16,7 +16,7 @@ bun dev
 
 ## GraphQL Codegen
 ```bash
-NODE_TLS_REJECT_UNAUTHORIZED=0 API_URL=https://coreshop-headless.localhost/pimcore-graphql-webservices/test?apikey=cccffae4fb6834f6a3d7eef35e890777 BASE_URL=https://coreshop-headless.localhost npm run codegen
+NODE_TLS_REJECT_UNAUTHORIZED=0 API_URL=https://coreshop-headless.localhost/pimcore-graphql-webservices/coreshop?apikey=cccffae4fb6834f6a3d7eef35e890777 BASE_URL=https://coreshop-headless.localhost npm run codegen
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
