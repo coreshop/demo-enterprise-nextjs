@@ -14,9 +14,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        currency: '€',
-        offerPrice: '150.50',
-        price: '135.50',
-        vat: true
+        offerPrice: '€150.50EUR',
+        price: '€135.50EUR',
+        vat: true,
+        taxAmount: '€25.50EUR'
     },
 };
