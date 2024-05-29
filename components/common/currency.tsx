@@ -1,22 +1,22 @@
 import clsx from 'clsx';
 
 const Price = ({
-    amount,
+    amount = 0,
     className,
     currencyCode = 'EUR',
     currencyCodeClassName
 }: {
-    amount: number;
+    amount: number|undefined|null;
     className?: string;
     currencyCode: string;
     currencyCodeClassName?: string;
 } & React.ComponentProps<'span'>) => (
     <span suppressHydrationWarning={true} className={className}>
-        {`${new Intl.NumberFormat(undefined, {
+        {`${amount != null ? new Intl.NumberFormat(undefined, {
             style: 'currency',
             currency: currencyCode,
             currencyDisplay: 'narrowSymbol'
-        }).format(amount/100)}`}
+        }).format(amount / 100) : ''}`}
         <span className={clsx('ml-1 inline', currencyCodeClassName)}>{`${currencyCode}`}</span>
     </span>
 );

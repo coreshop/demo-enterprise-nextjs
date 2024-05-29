@@ -1,0 +1,80 @@
+@import "../../assets/scss/mixins";
+
+.badge {
+    --bs-badge-font-weight: var(--coreshop-font-600);
+
+    &.size-h1 {
+        font-size: clamp(24px, 2vw, 30px);
+    }
+    &.size-h2 {
+        font-size: clamp(22px, 2vw, 24px);
+    }
+    &.size-h3 {
+        font-size: clamp(20px, 2vw, 21px);
+    }
+    &.size-h4 {
+        font-size: clamp(18px, 2vw, 18px);
+    }
+    &.size-h5 {
+        font-size: clamp(15px, 2vw, 15px);
+    }
+    &.size-h6 {
+        font-size: clamp(12px, 2vw, 12px);
+    }
+
+    &.bg-light {
+        cursor: pointer;
+        color: var(--coreshop-body-color);
+        border: 1px solid var(--coreshop-gray-400);
+        background: var(--coreshop-gray-100);
+
+    }
+
+    &.text-14 {
+        --bs-badge-font-weight: var(--coreshop-font-400);
+    }
+
+    &.text-16 {
+        --bs-badge-font-weight: var(--coreshop-font-400);
+        font-size: 1rem;
+        padding-right: 1rem;
+
+        .badge-spec {
+            margin-right: 1rem;
+        }
+
+        &:not(.badge-spec-wrapper) {
+            padding: rem(10px) rem(20px);
+        }
+    }
+
+    &-spec {
+        width: rem(37px);
+        height: rem(37px);
+        margin-right: 0.35rem;
+
+        &-wrapper {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.5rem 0.25rem 0.25rem;
+        }
+    }
+
+    &.bg-outline-secondary {
+        cursor: pointer;
+        color: var(--coreshop-third);
+        border: 1px solid var(--coreshop-third-border);
+        background: var(--coreshop-white);
+
+        &:hover,
+        &.selected {
+            color: var(--coreshop-secondary);
+            border: 1px solid var(--coreshop-secondary);
+        }
+    }
+
+    &.disabled {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+}

@@ -11,6 +11,7 @@ export default async function Header() {
     const session = await auth()
 
     return (
+
         <header id="header-area">
             <div className="header-top">
                 <nav className="navbar navbar-expand-lg navbar-dark">

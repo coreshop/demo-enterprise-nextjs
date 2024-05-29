@@ -1,0 +1,10 @@
+@import '../../assets/scss/breakpoints.scss';
+@import '../../assets/scss/mixins.scss';
+
+.icon-card {
+    .card-body--details {
+        @media (max-width: $md-max) {
+            margin-left: 0 !important;
+        }
+    }
+}

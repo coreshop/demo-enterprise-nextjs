@@ -1,0 +1,17 @@
+@import 'mixins.scss';
+
+.text-14 {
+    font-size: rem(14px);;
+}
+
+.text-600 {
+    font-weight: var(--coreshop-font-600);
+}
+
+.gray-600 {
+    color: var(--coreshop-gray-600);
+}
+
+b, strong {
+    font-weight: 600;
+}

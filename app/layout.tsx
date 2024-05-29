@@ -1,12 +1,20 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './shop.css'
+import 'bootstrap/scss/bootstrap.scss';
+import '../stories/assets/scss/fonts.scss';
+import '../stories/assets/scss/variables.scss';
+import '../stories/assets/scss/mixins.scss';
+import '../stories/assets/scss/grid.scss';
+import '../stories/assets/scss/headlines.scss';
+import '../stories/assets/scss/form.scss';
+import '../stories/assets/scss/list.scss';
+import '../stories/assets/scss/typography.scss';
+import '../stories/assets/scss/table.scss';
+import '../stories/assets/scss/main.scss';
 import {Suspense} from "react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Loader from "@/components/loader";
 
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'CoreShop Demo NextJS',
@@ -20,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
           <Header />
           <Suspense fallback={<div className="text-center"><Loader /></div>}>
               <div className="main-container container">

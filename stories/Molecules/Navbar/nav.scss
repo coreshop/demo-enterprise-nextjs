@@ -1,0 +1,69 @@
+@import '../../assets/scss/breakpoints.scss';
+@import '../../assets/scss/mixins.scss';
+
+nav {
+    &.without-logo {
+        background-color: var(--coreshop-gray-200);
+        
+        .nav-link {
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            font-weight: var(--coreshop-font-700);
+            --bs-nav-link-font-size: var(--coreshop-nav-link-font-size);
+
+            &:hover,
+            &:focus,
+            &:active {
+                --bs-nav-link-hover-color: var(--coreshop-primary-hover);
+            }
+
+            &.active {
+                --bs-navbar-active-color: var(--coreshop-primary-hover);
+            }
+        }
+    }
+
+    .cart {
+        &-number {
+            position: absolute;
+            top: 2px;
+            left: rem(24px);
+            font-size: rem(10px);
+            width: rem(16px);
+            height: rem(16px);
+            background-color: var(--coreshop-gray-800);
+            color: var(--coreshop-white);
+            border-radius: 100%;
+            line-height: 1.5;
+        }
+
+        &-close-item {
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+
+            a.icon-only {
+                padding: 0;
+
+                svg {
+                    font-size: rem(22px);
+                }
+            }
+        }
+    }
+
+    .dropdown {
+        .dropdown-menu[data-bs-popper] {
+            left: auto;
+            right: 0;
+        }
+    }
+
+    &.navbar {
+        --bs-navbar-toggler-padding-y: 0;
+        --bs-navbar-toggler-padding-x: 0;
+        --bs-border-width: 0;
+        --bs-navbar-toggler-focus-width: 0;
+    }
+}

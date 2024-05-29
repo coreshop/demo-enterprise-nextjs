@@ -1,0 +1,49 @@
+@import '../../assets/scss/breakpoints.scss';
+@import '../../assets/scss/mixins.scss';
+
+.coreshop-main-nav {
+    display: none;
+        
+    @media(min-width: $lg) {
+        display: inline-block;
+    }
+
+    &-search {
+        display: none;
+
+        @media(min-width: $lg) {
+            display: inline-block;
+        }
+    }
+}
+
+.coreshop-basic-nav-wrapper {
+    .navbar {
+        --bs-navbar-toggler-padding-y: rem(20px);
+        --bs-navbar-toggler-padding-x: rem(20px);
+    }
+
+    .coreshop-main-nav {
+        display: flex;
+        width: 100%;
+
+        @media (max-width: $lg-max) {
+            flex-direction: column;
+
+            .navbar-toggler { 
+                > div {
+                    display: flex;
+                    align-items: center;
+                    font-size: rem(16px);
+                    justify-content: center;
+                }
+    
+                .navbar-toggler-icon {
+                    width: rem(16px);
+                    height: rem(16px);
+                    margin-right: rem(8px);
+                }
+            }
+        }
+    }
+}

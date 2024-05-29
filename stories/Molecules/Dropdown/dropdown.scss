@@ -1,0 +1,20 @@
+.dropdown-toggle {
+    border: 0;
+    
+    &:active,
+    &.active,
+    &:focus,
+    &:hover {
+        border: 0;
+    }
+
+    &::after {
+        vertical-align: middle;
+    }
+
+    &.show {
+        &::after {
+            transform: rotate(180deg);
+        }
+    }  
+}

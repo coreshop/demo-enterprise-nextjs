@@ -1,9 +1,9 @@
 import {ProductFragment} from "@/lib/graphql/types.generated";
-import Image from "next/image";
 import {pimcoreImage} from "@/lib/pimcoreLoader";
-import Link from "next/link";
 import {PriceInfo} from "@/components/product/price";
 import {AddToCart} from "@/components/product/add-to-cart";
+import React from "react";
+import {CoreCard} from "@/stories/Molecules/Cards/CoreCard";
 
 type ProductPreviewProps = {
     product: ProductFragment
@@ -13,36 +13,16 @@ export default async function ProductPreview({product}: ProductPreviewProps) {
     const firstImage = product.images?.[0];
 
     return (
-        <div className="product-col">
-            <div className="image">
-                {firstImage && firstImage.dimensions && firstImage.fullpath && (
-                    <Link href={`/product/${product.id}`}>
-                        <Image
-                            src={pimcoreImage(firstImage.fullpath)}
-                            alt={product.name ?? ""}
-                            className="img-fluid img-thumbnail"
-                            width={firstImage.dimensions.width ?? 0}
-                            height={firstImage.dimensions.height ?? 0}
-                        />
-                    </Link>
-                )}
-            </div>
-            <div className="caption">
-                <h4>
-                    <Link href={`/product/${product.id}`}>
-                        {product.name}
-                    </Link>
-                </h4>
-                <div className="description">
-                    {product.shortDescription}
-                </div>
+        <CoreCard
+            layout="layout1"
+            imageSrc={firstImage && firstImage.fullpath ? pimcoreImage(firstImage.fullpath) : ''}
+            imageSrc2={"https://dummyimage.com/576x576/000/fff"}
+            title={product.name ? product.name : ''}
+            description={product.shortDescription ? product.shortDescription : ''}
+            link={product.id ? `/product/${product.id}` : null}
+            btnBottom={product.id ? <AddToCart product={product} /> : null}
+            priceTag={product.id ? <PriceInfo productId={parseInt(product.id)} /> : null}
 
-                {product?.id && <PriceInfo productId={parseInt(product.id)} />}
-
-                <div className="cart-button">
-                    <AddToCart product={product} />
-                </div>
-            </div>
-        </div>
+        />
     );
 }

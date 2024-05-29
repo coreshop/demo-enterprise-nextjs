@@ -1,50 +1,38 @@
 'use client';
 
+import { useState } from 'react';
 import {useFormState, useFormStatus} from 'react-dom';
 import {ProductFragment} from "@/lib/graphql/types.generated";
 import {addItemToCart} from "@/components/cart/actions";
-import Loader from "@/components/loader";
+import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
+import {CoreButtontype} from "@/stories/Atoms/Button/types";
 
 function SubmitButton() {
     const {pending} = useFormStatus();
-
-    return (
-        <button
-            onClick={(e: React.FormEvent<HTMLButtonElement>) => {
-                if (pending) e.preventDefault();
-            }}
-            aria-label="Add to cart"
-            aria-disabled={pending}
-            className="btn btn-cart mt-0"
-        >
-            {/*<div className="absolute left-0 ml-4">*/}
-            {/*    {pending ? <p>Loading</p> : <p />}*/}
-            {/*</div>*/}
-            Add To Cart
-
-            {pending && <Loader className={`light spinner-border-sm ml-2`} />}
-        </button>
-    );
+    return <CoreButton
+        type="submit"
+        text="Add to Cart"
+        variant={CoreButtontype.Primary}
+        icon={false}
+        loader={pending}
+    />;
 }
 
 export function AddToCart({product}: {
     product: ProductFragment;
 }) {
     const [message, formAction] = useFormState(addItemToCart, null);
-    const action = formAction.bind(null, {productId: parseInt(product.id as string), quantity: 1});
+    const [quantity, setQuantity] = useState<number>(1);
+    const action = formAction.bind(null, {productId: parseInt(product.id as string), quantity: quantity});
 
     return (
         <form action={action}>
-            <div className="input-group">
+            <div className="d-inline-flex gap-2">
                 <div>
-                    <input type="number" name="quantity" className="form-control cart-item-quantity" defaultValue="1" min="1" />
+                    <input type="number" name="quantity" className="form-control cart-item-quantity" min="1"
+                       value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))}/>
                 </div>
-                <div className="input-group-append ml-2">
-                    <SubmitButton />
-                </div>
-                <p aria-live="polite" className="sr-only" role="status">
-                    {message ?? ''}
-                </p>
+                <SubmitButton />
             </div>
         </form>
     );

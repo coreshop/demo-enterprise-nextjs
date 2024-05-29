@@ -1,0 +1,25 @@
+.breadcrumb {
+    &-item {
+        &.with-icon {
+            &.active,
+            a {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        svg {
+            position: relative;
+            top: -0.0875rem;
+        }
+
+        &.style-2:not(:first-child)::before {
+           content: '>';
+        }
+
+        &.style-3:not(:first-child)::before {
+            content: '>';
+            font-weight: 700;
+         }
+    }
+}

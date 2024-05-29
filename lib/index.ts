@@ -75,11 +75,11 @@ const domain = process.env.API_URL;
 const endpoint = `${domain}`;
 
 export async function coreShopFetch<TResult, TVariables>({
-                                                             query,
-                                                             variables,
-                                                             headers,
-                                                             cache = 'force-cache'
-                                                         }: {
+     query,
+     variables,
+     headers,
+     cache = 'force-cache'
+ }: {
     query: string;
     variables: TVariables;
     headers?: HeadersInit;

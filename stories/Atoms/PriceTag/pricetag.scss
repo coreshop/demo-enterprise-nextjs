@@ -1,0 +1,21 @@
+@import "stories/assets/scss/mixins";
+
+.price-tag {
+    &-offer {
+        font-size: rem(14px);
+        color: var(--coreshop-primary);
+        text-decoration: line-through;
+    }
+
+    &-price {
+        font-size: rem(24px);
+        font-weight: var(--coreshop-font-500);
+        line-height: 1;
+    }
+
+    &.small {
+        .price-tag-price {
+            font-size: rem(16px);
+        }
+    }
+}

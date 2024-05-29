@@ -1,0 +1,15 @@
+.stock {
+    &-available,
+    &-completed {
+        color: var(--coreshop-available);
+    }
+
+    &-limited,
+    &-pending {
+        color: var(--coreshop-limited);
+    }
+
+    &-outofstock {
+        color: var(--coreshop-outofstock);
+    }
+}

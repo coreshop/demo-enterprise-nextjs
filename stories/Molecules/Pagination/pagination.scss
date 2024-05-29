@@ -1,0 +1,16 @@
+.pagination {
+    .page {
+        &-item {
+            &.active .page-link {
+                border-color: var(--coreshop-primary);
+                background-color: var(--coreshop-primary);
+                color: var(--coreshop-white);
+            }
+        }
+
+        &-link {
+            color: var(--coreshop-primary);
+        }
+    }
+
+}

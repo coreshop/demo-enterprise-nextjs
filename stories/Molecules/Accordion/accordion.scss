@@ -1,0 +1,18 @@
+.accordion {
+    --bs-accordion-btn-active-icon: var(--coreshop-accordion-btn-active-icon);
+    
+    &-item {
+        border-color: var(--coreshop-accordion-border-color);
+    }
+
+    &-button {
+        &:focus {
+            box-shadow: none;
+        }
+
+        &:not(.collapsed) {
+            --bs-accordion-active-bg: var(--coreshop-accordion-active-bg);
+            --bs-accordion-active-color: var(--coreshop-primary);
+        }
+    }
+}
