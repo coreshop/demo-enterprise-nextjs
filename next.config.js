@@ -2,6 +2,7 @@
 const nextConfig = {
     output: 'standalone',
     images: {
+        domains: [process.env.API_HOSTNAME],
         remotePatterns: [
             {
                 protocol: 'https',
@@ -13,4 +14,4 @@ const nextConfig = {
     }
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;

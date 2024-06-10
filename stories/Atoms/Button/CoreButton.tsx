@@ -47,15 +47,22 @@ export const CoreButton = ({
     const IconComponent = Icons[iconType];
     const buttonClassName = `d-flex align-items-center justify-content-${textAlign} ${icon ? "with-icon" : ""} ${text ? "" : "icon-only"}`;
 
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {
+        if (onClick) {
+            event.preventDefault();
+            onClick(event);
+        }
+    };
+
   return (
     buttonType === 'a' && href ? (
-      <a href={href} className={`btn btn-${variant} ${size ? `btn-${size}` : ''} ${buttonClassName}`} role="button" target={target ? target : '_self'}>
+      <a href={href} className={`btn btn-${variant} ${size ? `btn-${size}` : ''} ${buttonClassName}`} role="button" target={target ? target : '_self'} >
         {icon && iconPre && <IconComponent className={text ? "me-2" : "" } />}
         {text}
         {icon && iconPost && <IconComponent className={text ? "ms-2" : "" } />}
       </a>
     ) : (
-      <Button type={type} variant={variant} size={size as any} className={buttonClassName} disabled={disabled} aria-controls={ariaControls} aria-expanded={ariaExpanded} onClick={onClick}>
+      <Button type={type} variant={variant} size={size as any} className={buttonClassName} disabled={disabled} aria-controls={ariaControls} aria-expanded={ariaExpanded} onClick={handleClick}>
         {icon && iconPre && <IconComponent className={text ? "me-2" : "" } />}
         {text}
         {icon && iconPost && <IconComponent className={text ? "ms-2" : "" } />}

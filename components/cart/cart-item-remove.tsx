@@ -2,15 +2,16 @@
 
 import {OrderItemFragment} from "@/lib/graphql/types.generated";
 import {updateItemQuantity} from "@/components/cart/actions";
-import {useFormState} from "react-dom";
-import {ChangeEvent, ChangeEventHandler, useState} from "react";
+import React,{useActionState} from "react";
+import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
+import {CoreButtontype} from "@/stories/Atoms/Button/types";
 
 type CartItemPageProps = {
     cartItem: OrderItemFragment
 };
 
 export default function CartItemRemove({cartItem}: CartItemPageProps) {
-   const [message, formAction] = useFormState(updateItemQuantity, null);
+   const [message, formAction] = useActionState(updateItemQuantity, null);
     const action = formAction.bind(null, {
         orderItemId: parseInt(((cartItem.id ?? 0) as string)),
         quantity: 0
@@ -18,9 +19,7 @@ export default function CartItemRemove({cartItem}: CartItemPageProps) {
 
     return (
         <form action={action}>
-            <button title="Remove" className="btn btn-danger tool-tip">
-                <i className="fa fa-times-circle"></i>
-            </button>
+            <CoreButton text="Delete" type="submit" variant={CoreButtontype.Link} icon={true} iconType="Trash" iconPre={true} />
         </form>
     );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import {Header} from '../../Organisms/Header/Header';
 import {ProductProps} from './types';
 import {CoreBreadcrumb} from '../../Atoms/Breadcrumb/CoreBreadcrumb';
-import {Footer} from '../../Organisms/Footer/Footer';
+import {CoreFooter} from '../../Organisms/Footer/Footer';
 import {FooterPre} from '../../Organisms/FooterPre/FooterPre';
 import '../../assets/scss/cartprogress.scss';
 import {CoreLink} from "../../Atoms/Link/CoreLink";
@@ -139,7 +139,7 @@ export const ProductDetails = ({
                             </div>
                             <div className="mb-3">
                                 <div>Price p. unit:</div>
-                                <PriceTag currency="€" offerPrice="123.50" price="99.99" vat={true}/>
+                                <PriceTag offerPrice="123.50" price="99.99" vat={true}/>
                             </div>
                             <div className="d-flex gap-2">
                                 <div>Selection input</div>
@@ -152,7 +152,7 @@ export const ProductDetails = ({
 
 
             </main>
-            <Footer logo={logo} links1={links1} links2={links2} links3={links3}/>
+            <CoreFooter logo={logo} links1={links1} links2={links2} links3={links3}/>
             <FooterPre footerPreText={footerPreText} footerPreItems={footerPreItems}/>
         </div>
     )

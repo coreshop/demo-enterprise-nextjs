@@ -5,4 +5,5 @@ export interface DropdownItem {
     link: string;
     icon?: keyof typeof Icons | '';
     flagCode?: string;
+    language?: string;
 }

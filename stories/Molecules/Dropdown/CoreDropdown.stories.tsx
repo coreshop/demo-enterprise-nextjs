@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { CoreDropdown } from './CoreDropdown';
-import { CoreButtontype } from 'stories/Atoms/Button/types';
+import { CoreButtontype } from '../../Atoms/Button/types';
 
 const variantOptions = Object.values(CoreButtontype);
 
@@ -24,7 +24,7 @@ export const Default: Story = {
     variant: CoreButtontype.Primary,
     title: "Button dropdown",
     items: [
-        { description: "Ispum terum culum", link: "/", icon:"Search" ,flagCode:"",language:"" },
+        { description: "Ispum terum culum", link: "/", icon:"Search" ,flagCode:"", language:"" },
         { description: "Lorem ipsum inove terum", link: "/link-2",icon:"",flagCode:"US", language:"" },
         { description: "Inovec terium", link: "/link-3",icon:"Activity",flagCode:"", language:"" }
       ]

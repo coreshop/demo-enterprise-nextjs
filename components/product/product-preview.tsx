@@ -21,7 +21,7 @@ export default async function ProductPreview({product}: ProductPreviewProps) {
             description={product.shortDescription ? product.shortDescription : ''}
             link={product.id ? `/product/${product.id}` : null}
             btnBottom={product.id ? <AddToCart product={product} /> : null}
-            priceTag={product.id ? <PriceInfo productId={parseInt(product.id)} /> : null}
+            priceTag={product.id ? <PriceInfo productId={parseInt(product.id)} vat={true} /> : null}
 
         />
     );

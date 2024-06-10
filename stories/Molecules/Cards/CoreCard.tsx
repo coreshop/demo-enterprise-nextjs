@@ -85,7 +85,7 @@ export const CoreCard = ({
           <div className="ps-2">
             { title && <Card.Title as="h6" className="mb-1">{ title }</Card.Title> }
             <div className="text-14 mb-1">Attribute: Value Attribute:Value</div>
-            <div className="pt-1 mb-1"><PriceTag size="small" offerPrice="" price="125.50" vat={false} /></div>
+            <div className="pt-1 mb-1"><PriceTag size="small" offerPrice="" price="125.50" vat={false} showDiscount={true}/></div>
           </div>
           <CoreButton 
             text="Add to cart" 

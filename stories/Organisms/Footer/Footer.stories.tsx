@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Footer } from './Footer';
+import { CoreFooter } from './Footer';
 import Logo from '../../assets/img/coreshop.svg';
 
 const meta = {
   title: "Organisms/Footer",
-  component: Footer,
+  component: CoreFooter,
   argTypes: {
   }
-} as Meta<typeof Footer>;
+} as Meta<typeof CoreFooter>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

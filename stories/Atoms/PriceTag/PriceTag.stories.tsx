@@ -17,6 +17,7 @@ export const Default: Story = {
         offerPrice: '€150.50EUR',
         price: '€135.50EUR',
         vat: true,
-        taxAmount: '€25.50EUR'
+        taxAmount: '€25.50EUR',
+        showDiscount: true
     },
 };

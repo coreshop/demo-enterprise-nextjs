@@ -2,7 +2,7 @@ import React from 'react';
 import {Header} from '../../Organisms/Header/Header';
 import {HomeProps} from '../Home/types';
 import {CoreBreadcrumb} from '../../Atoms/Breadcrumb/CoreBreadcrumb';
-import {Footer} from '../../Organisms/Footer/Footer';
+import {CoreFooter} from '../../Organisms/Footer/Footer';
 import {FooterPre} from '../../Organisms/FooterPre/FooterPre';
 import {CoreLink} from '../../Atoms/Link/CoreLink';
 import {CoreCard} from '../../Molecules/Cards/CoreCard';
@@ -62,7 +62,7 @@ export const Cart = ({
                                 </td>
                                 <td>1 Piece(s) </td>
                                 <td>€123.45</td>
-                                <td><PriceTag currency="€" offerPrice="150.50" price="123.45" vat={false} /></td>
+                                <td><PriceTag offerPrice="150.50" price="123.45" vat={false} /></td>
                                 <td className="text-end text-md-start">
                                     <div className="d-none d-md-inline-block">
                                         <CoreLink text="" href="" icon={true} iconType="Trash" cssClass="text-secondary"/>
@@ -80,7 +80,7 @@ export const Cart = ({
                                 </td>
                                 <td>2 Piece(s)</td>
                                 <td>€43.73</td>
-                                <td><PriceTag currency="€" offerPrice="83.99" price="43.73" vat={false}/></td>
+                                <td><PriceTag offerPrice="83.99" price="43.73" vat={false}/></td>
                                 <td className="text-end text-md-start">
                                     <div className="d-none d-md-inline-block">
                                         <CoreLink text="" href="" icon={true} iconType="Trash"
@@ -101,17 +101,13 @@ export const Cart = ({
                                 </td>
                                 <td>1 Piece(s)</td>
                                 <td>€123.45</td>
-                                <td><PriceTag currency="€" offerPrice="153.45" price="123.45" vat={false}/></td>
+                                <td><PriceTag offerPrice="153.45" price="123.45" vat={false}/></td>
                                 <td className="text-end text-md-start">
-                                    <div className="d-none d-md-inline-block">
+                                    <div className="d-inline-block">
                                         <CoreLink text="" href="" icon={true} iconType="Trash"
                                                   cssClass="text-secondary"/>
                                     </div>
-                                    <div className="d-inline-block d-md-none ">
-                                        <CoreButton text="Delete" size="sm" icon={false}
-                                                    variant={CoreButtontype.Primary}
-                                                    href=""/>
-                                    </div>
+
                                 </td>
                             </tr>
                         </tbody>
@@ -129,7 +125,7 @@ export const Cart = ({
                 </section>
 
             </main>
-           <Footer logo={logo} links1={links1} links2={links2} links3={links3}/>
+           <CoreFooter logo={logo} links1={links1} links2={links2} links3={links3}/>
            <FooterPre footerPreText={footerPreText} footerPreItems={footerPreItems}/>
        </div>
     )

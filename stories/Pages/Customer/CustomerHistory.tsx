@@ -1,7 +1,7 @@
 import React from 'react';
 import {Header} from '../../Organisms/Header/Header';
 import {HomeProps} from '../Home/types';
-import {Footer} from '../../Organisms/Footer/Footer';
+import {CoreFooter} from '../../Organisms/Footer/Footer';
 import {FooterPre} from '../../Organisms/FooterPre/FooterPre';
 import {CoreBreadcrumb} from "../../Atoms/Breadcrumb/CoreBreadcrumb";
 import Table from 'react-bootstrap/Table';
@@ -69,7 +69,7 @@ export const CustomerHistory = ({
                     </div>
                 </section>
             </main>
-            <Footer logo={logo} links1={links1} links2={links2} links3={links3}/>
+            <CoreFooter logo={logo} links1={links1} links2={links2} links3={links3}/>
             <FooterPre footerPreText={footerPreText} footerPreItems={footerPreItems}/>
         </div>
     )

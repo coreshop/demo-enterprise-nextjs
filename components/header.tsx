@@ -1,19 +1,77 @@
-import CategoriesWidget from "@/components/category/widget";
-import Link from "next/link";
-import {Suspense} from "react";
+import React, {Suspense} from "react";
 import Cart from "@/components/cart";
-import Image from "next/image";
 import {auth, signOut} from "@/auth";
-import {Logout} from "@/components/security/logout";
 import Loader from "@/components/loader";
+import {Topbar} from "@/stories/Molecules/Topbar/Topbar";
+import {CoreLinkProps} from "@/stories/Atoms/Link/types";
+import {DropdownItem} from "@/stories/Molecules/Dropdown/types";
+import {CoreNavbar} from "@/stories/Molecules/Navbar/CoreNavbar";
+import {mockNavItems} from "@/mockdata/mockNavItems";
+import "@/stories/Organisms/Header/header.scss";
+import {CoreBreadcrumb} from "@/stories/Atoms/Breadcrumb/CoreBreadcrumb";
+import {BreadcrumbItem} from "@/stories/Atoms/Breadcrumb/types";
 
 export default async function Header() {
     const session = await auth()
+    const itemsTopbar = [
+        {
+            node: {
+                parent: {
+                    __typename: ''
+                },
+                id:"1",
+                title: "Page 1",
+                link: "/",
+                children: [],
+                current: false
+            }
+        },
+    ]
 
+    const items = mockNavItems;
+    const wishlist:CoreLinkProps = {text:"Wishlist", href:"/", iconType:"Heart" ,icon: true};
+    const dropdownItems: DropdownItem[] = [
+        { description: "(EUR)", link: "/", icon:"CurrencyEuro" ,flagCode:"" },
+        { description: "(USD)", link: "/link-3",icon:"CurrencyDollar",flagCode:"" }
+    ];
+    const dropdownItemsLanguage: DropdownItem[] = [
+        { description: "Austria", link: "/de", icon:"", flagCode:"AT" },
+        { description: "USA", link: "/en",icon:"", flagCode:"US" }
+    ];
+    const  logo = {
+        imgsrc: {
+            src: '/images/logo-full.svg',
+            height: 40,
+            width: 160,
+            blurDataURL: ''
+        },
+        link: '/'
+    };
+    const selectedOption = 1;
+    const   breadcrumbItems: BreadcrumbItem[] = [
+            { title: "Home", link: "/" },
+            { title: "Shop", link: "/shop"},
+            { title: "Cart", link: ""},
+        ];
     return (
 
         <header id="header-area">
-            <div className="header-top">
+            <Topbar items={itemsTopbar} wishlist={wishlist} dropdownItems={dropdownItems}
+                    dropdownItemsLanguage={dropdownItemsLanguage} selectedOption={selectedOption}/>
+            <div className="coreshop-main-nav-wrapper">
+                <CoreNavbar logo={logo} searchBar={true} logoActive={true}
+                            cart={true} navbar={false} cartWidget={<Suspense fallback={<Loader/>}><Cart/></Suspense>} authSession={session}/>
+            </div>
+            <div className="coreshop-basic-nav-wrapper">
+                <CoreNavbar items={items} searchBar={false} logoActive={false}
+                                                                    navbar={true}/>
+            </div>
+            <div className="mt-3">
+                <CoreBreadcrumb breadcrumbItems={breadcrumbItems} icon={true}/>
+            </div>
+
+
+            {/*<div className="header-top bg-dark">
                 <nav className="navbar navbar-expand-lg navbar-dark">
                     <div className="container">
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,33 +109,6 @@ export default async function Header() {
                                 }
                             </ul>
                             <ul className="navbar-nav">
-                                <li className="nav-item">
-                                    {/*<a className="nav-link" href="/en/shop/wishlist">*/}
-                                    {/*    Wishlist*/}
-                                    {/*</a>*/}
-                                </li>
-                                {/*<li className="nav-item dropdown">*/}
-                                {/*    <a className="nav-link dropdown-toggle" href="#" id="currencyDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*/}
-                                {/*        Currency*/}
-                                {/*    </a>*/}
-                                {/*    <div className="dropdown-menu" aria-labelledby="currencyDropdown">*/}
-                                {/*        /!*<a className="dropdown-item" href="/en/shop/switch-currency/EUR">*!/*/}
-                                {/*        /!*    Euro (EUR)*!/*/}
-                                {/*        /!*</a>*!/*/}
-                                {/*    </div>*/}
-                                {/*</li>*/}
-
-                                {/*<li className="nav-item dropdown">*/}
-                                {/*    <a className="nav-link dropdown-toggle" href="#" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*/}
-                                {/*        Language*/}
-                                {/*    </a>*/}
-                                {/*    <div className="dropdown-menu" aria-labelledby="languageDropdown">*/}
-                                {/*        <a className="dropdown-item" href="/en">en</a>*/}
-                                {/*        <a className="dropdown-item" href="/de">de</a>*/}
-                                {/*        <a className="dropdown-item" href="/fr">fr</a>*/}
-                                {/*    </div>*/}
-                                {/*</li>*/}
-
                                 {session && session.user &&
                                     <Logout />
                                 }
@@ -99,14 +130,15 @@ export default async function Header() {
                         <div className="col-md-6">
                             <div id="logo">
                                 <Link href="/">
-                                    <Image src="/images/logo-full.svg" title="CoreShop" alt="CoreShop" className="img-fluid" width="300" height="78" />
+                                    <Image src="/images/logo-full.svg" title="CoreShop" alt="CoreShop"
+                                           className="img-fluid" width="300" height="78"/>
                                 </Link>
                             </div>
                         </div>
 
                         <div className="col-md-3 p-sm-2">
-                            <Suspense fallback={<Loader />}>
-                                <Cart />
+                            <Suspense fallback={<Loader/>}>
+                                <Cart/>
                             </Suspense>
                         </div>
                     </div>
@@ -115,12 +147,14 @@ export default async function Header() {
 
             <nav className="navbar navbar-expand-lg navbar-main-menu navbar-dark bg-red">
                 <div className="container">
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCategories" aria-controls="navbarCategories" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarCategories" aria-controls="navbarCategories" aria-expanded="false"
+                            aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <CategoriesWidget />
+                    <CategoriesWidget/>
                 </div>
-            </nav>
+            </nav>*/}
         </header>
     );
 }

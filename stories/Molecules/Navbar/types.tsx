@@ -1,5 +1,10 @@
 export interface BrandItem {
-    imgsrc: string;
+    imgsrc: {
+        src: string;
+        height: number;
+        width: number;
+        blurDataURL: string;
+    };
     link: string;
 }
 

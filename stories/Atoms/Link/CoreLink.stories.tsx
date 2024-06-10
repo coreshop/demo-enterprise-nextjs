@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { CoreLink } from './CoreLink';
+import * as Icons from 'react-bootstrap-icons';
 
 const meta = {
   title: "Atoms/Link",
@@ -8,6 +9,10 @@ const meta = {
     target: {
         control: { type: 'select' },
         options: ['_self', '_blank'],
+    },
+    iconType: {
+        control: { type: 'select' },
+        options: Object.keys(Icons) as Array<keyof typeof Icons>
     },
   }
 } satisfies Meta<typeof CoreLink>;
@@ -23,6 +28,7 @@ export const Default: Story = {
     title: '',
     target: '_self',
     cssClass: '',
-    icon: false
+    icon: false,
+    iconType: "Search"
   },
 };

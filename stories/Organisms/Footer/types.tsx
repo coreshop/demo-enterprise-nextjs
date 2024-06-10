@@ -1,4 +1,4 @@
-import { BrandItem } from 'stories/Molecules/Navbar/types';
+import { BrandItem } from '../../Molecules/Navbar/types';
 
 export interface FooterLink {
     text: string;

@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/react";
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
 import 'bootstrap/scss/bootstrap.scss';
+import 'bootstrap/dist/js/bootstrap.bundle.js'
 import '../stories/assets/scss/fonts.scss';
 import '../stories/assets/scss/variables.scss';
 import '../stories/assets/scss/mixins.scss';
@@ -12,6 +13,7 @@ import '../stories/assets/scss/typography.scss';
 import '../stories/assets/scss/table.scss';
 import '../stories/assets/scss/main.scss';
 
+// @ts-ignore
 const preview: Preview = {
     decorators: [
         withThemeByDataAttribute({

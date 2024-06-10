@@ -3,10 +3,14 @@ import {cookies} from "next/headers";
 import Currency from "@/components/common/currency";
 import {OrderFragment} from "@/lib/graphql/types.generated";
 import CartItemPage from "@/components/cart/cart-item";
-import {Suspense} from "react";
+import React, {Suspense} from "react";
 import VoucherForm from "@/components/cart/voucher";
 import CartPriceRuleItem from "@/components/cart/cart-price-rule-item";
 import Link from "next/link";
+import { CoreLink } from "@/stories/Atoms/Link/CoreLink";
+import Table from "react-bootstrap/Table";
+import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
+import {CoreButtontype} from "@/stories/Atoms/Button/types";
 
 export default async function CartPage() {
     const cartToken = cookies().get('cartToken')?.value;
@@ -25,111 +29,125 @@ export default async function CartPage() {
     }
 
     return <Suspense>
-        <table className="table table-bordered">
-            <thead>
-            <tr>
-                <td className="text-center">
-                    Image
-                </td>
-                <td className="text-center">
-                    Product Details
-                </td>
-                <td className="text-center">
-                    Quantity
-                </td>
-                <td className="text-center">
-                    Price
-                </td>
-                <td className="text-center">
-                    Total
-                </td>
-                <td></td>
-            </tr>
-            </thead>
-            <tbody>
-            {cart.items?.map((item, index) => (item && (
-                <CartItemPage key={item.id} cartItem={item}/>
-            )))}
-            {cart.priceRuleItems?.map((item, index) => (item && (
-                <CartPriceRuleItem key={index} priceRule={item}/>
-            )))}
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colSpan={3} rowSpan={10}>
-                    <VoucherForm />
-                </td>
-                <td className="text-right">
-                    <strong>Subtotal (incl. VAT):</strong>
-                </td>
-                <td colSpan={2} className="text-right cart-sub-total">
-                    <Currency amount={cart.subtotalGross ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
-                </td>
-            </tr>
-            <tr>
-                <td className="text-right">
-                    <strong>Subtotal (excl. VAT):</strong>
-                </td>
-                <td colSpan={2} className="text-right cart-discount">
-                    <Currency amount={cart.subtotalNet ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
-                </td>
-            </tr>
-            {cart.adjustmentItems?.map((item, index) => (item && (
-                <>
-                    <tr>
-                        <td className="text-right">
-                            <strong>{item.typeIdentifier} (incl. VAT):</strong>
-                        </td>
-                        <td colSpan={2} className="text-right cart-shipping">
-                            <Currency amount={item.pimcoreAmountGross ?? 0}
-                                      currencyCode={cart?.currency?.isoCode ?? 'EUR'}/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="text-right">
-                            <strong>{item.typeIdentifier} (excl. VAT):</strong>
-                        </td>
-                        <td colSpan={2} className="text-right cart-shipping">
-                            <Currency amount={item.pimcoreAmountNet ?? 0}
-                                      currencyCode={cart?.currency?.isoCode ?? 'EUR'}/>
-                        </td>
-                    </tr>
-                </>
-            )))}
+        <section className="container">
+            <div className="cartprogress">
+                <CoreLink text="cart" href="/cart" icon={false} cssClass="active"/>
+                <CoreLink text="customer" href="/cart" icon={false}/>
+                <CoreLink text="address" href="/cart" icon={false}/>
+                <CoreLink text="shipping" href="/cart" icon={false}/>
+                <CoreLink text="payment" href="/cart" icon={false}/>
+                <CoreLink text="summary" href="/cart" icon={false}/>
+            </div>
+        </section>
+        <section className="container">
+            <Table>
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {cart.items?.map((item, index) => (item && (
+                    <CartItemPage key={item.id} cartItem={item}/>
+                )))}
+                {/* start what is about ? */}
+                {/*{cart.priceRuleItems?.map((item, index) => (item && (
+                    <CartPriceRuleItem key={index} priceRule={item}/>
+                )))}*/}
+                {/* end what is about ? */}
+                </tbody>
 
-            {cart.taxes?.map((item, index) => (item && (
-                <tr key={index}>
-                    <td className="text-right cart-tax-detail">
-                        <strong>Tax {item.name}:</strong>
+                <tfoot>
+                <tr>
+                    <td colSpan={6} className="border-0"></td>
+                </tr>
+
+                <tr>
+                <td colSpan={6} className="border-0"></td>
+                </tr>
+                <tr>
+                    <td colSpan={3} rowSpan={10} valign="top" className="border-0">
+                        <VoucherForm/>
                     </td>
-                    <td colSpan={2} className="text-right cart-tax-detail">
-                        <Currency amount={item.amount ?? 0} currencyCode={cart?.currency?.isoCode ?? 'EUR'}/>
+                    <td className="text-right border-0">
+                        <strong>Subtotal (incl. VAT):</strong>
+                    </td>
+                    <td colSpan={2} className="text-right cart-sub-total border-0">
+                        <Currency amount={cart.subtotalGross ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
                     </td>
                 </tr>
-            )))}
+                <tr>
+                    <td className="text-right border-0">
+                        <strong>Subtotal (excl. VAT):</strong>
+                    </td>
+                    <td colSpan={2} className="text-right cart-discount border-0">
+                        <Currency amount={cart.subtotalNet ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
+                    </td>
+                </tr>
+                {cart.adjustmentItems?.map((item, index) => (item && (
+                    <>
+                        <tr>
+                            <td className="text-right border-0">
+                                <strong>{item.typeIdentifier} (incl. VAT):</strong>
+                            </td>
+                            <td colSpan={2} className="text-right cart-shipping border-0">
+                                <Currency amount={item.pimcoreAmountGross ?? 0}
+                                          currencyCode={cart?.currency?.isoCode ?? 'EUR'}/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="text-right border-0">
+                                <strong>{item.typeIdentifier} (excl. VAT):</strong>
+                            </td>
+                            <td colSpan={2} className="text-right cart-shipping border-0">
+                                <Currency amount={item.pimcoreAmountNet ?? 0}
+                                          currencyCode={cart?.currency?.isoCode ?? 'EUR'}/>
+                            </td>
+                        </tr>
+                    </>
+                )))}
 
-            <tr>
-                <td className="text-right">
-                    <strong>Total Tax:</strong>
-                </td>
-                <td colSpan={2} className="text-right cart-tax">
-                    <Currency amount={(cart.totalGross ?? 0) - (cart.totalNet ?? 0) ?? 0}
-                              currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
-                </td>
-            </tr>
-            <tr>
-                <td className="text-right">
-                    <strong>Total:</strong>
-                </td>
-                <td colSpan={2} className="text-right cart-total-price">
-                    <Currency amount={cart.totalGross ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
-                </td>
-            </tr>
-            </tfoot>
-        </table>
-        <Link href={`/checkout/customer`} className="btn btn-primary">
-            Checkout
-        </Link>
+                {cart.taxes?.map((item, index) => (item && (
+                    <tr key={index}>
+                        <td className="text-right cart-tax-detail border-0">
+                            <strong>Tax {item.name}:</strong>
+                        </td>
+                        <td colSpan={2} className="text-right cart-tax-detail border-0">
+                            <Currency amount={item.amount ?? 0} currencyCode={cart?.currency?.isoCode ?? 'EUR'}/>
+                        </td>
+                    </tr>
+                )))}
+
+                <tr>
+                    <td className="text-right">
+                        <strong>Total Tax:</strong>
+                    </td>
+                    <td colSpan={2} className="text-right cart-tax">
+                        <Currency amount={(cart.totalGross ?? 0) - (cart.totalNet ?? 0) ?? 0}
+                                  currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
+                    </td>
+                </tr>
+                <tr>
+                    <td className="text-right border-0">
+                        <strong>Total:</strong>
+                    </td>
+                    <td colSpan={2} className="text-right cart-total-price border-0">
+                        <Currency amount={cart.totalGross ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
+                    </td>
+                </tr>
+                </tfoot>
+            </Table>
+
+            <div className="d-flex flex-column flex-md-row justify-content-end mt-3 gap-2">
+                <CoreButton buttonType="a" text="Continue Shopping" variant={CoreButtontype.Secondary} icon={false} href="/cart" />
+                <CoreButton buttonType="a" text="Proceed to Customer Data" variant={CoreButtontype.Primary} icon={false} href="/checkout/customer" />
+            </div>
+        </section>
+
     </Suspense>
-        ;
+;
 }

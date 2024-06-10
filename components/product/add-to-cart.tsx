@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import {useFormState, useFormStatus} from 'react-dom';
+import {useState,useActionState} from 'react';
+import {useFormStatus} from 'react-dom';
 import {ProductFragment} from "@/lib/graphql/types.generated";
 import {addItemToCart} from "@/components/cart/actions";
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
@@ -21,7 +21,7 @@ function SubmitButton() {
 export function AddToCart({product}: {
     product: ProductFragment;
 }) {
-    const [message, formAction] = useFormState(addItemToCart, null);
+    const [message, formAction] = useActionState(addItemToCart, null);
     const [quantity, setQuantity] = useState<number>(1);
     const action = formAction.bind(null, {productId: parseInt(product.id as string), quantity: quantity});
 

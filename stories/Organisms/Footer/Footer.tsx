@@ -1,10 +1,10 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
+import NavbarBrand from 'react-bootstrap/NavbarBrand';
 import { CoreLink } from '../../Atoms/Link/CoreLink';
 import { FooterProps } from './types';
 import './footer.scss';
 
-export const Footer = ({
+export const CoreFooter = ({
     logo,
     links1,
     links2,
@@ -15,15 +15,15 @@ export const Footer = ({
             <div className="container">
                 <div className="row">
                     <div className="col-12 col-lg-6 col-xl-3 mb-3">
-                        <Navbar.Brand href={ logo && logo.link }>
+                        <NavbarBrand href={ logo && logo.link }>
                             <img
-                            src={logo && logo.imgsrc}
-                            width="160"
-                            height="40"
-                            className="d-inline-block align-top"
-                            alt="Coreshop logo"
+                                src={logo && logo.imgsrc.src}
+                                width="160"
+                                height="40"
+                                className="d-inline-block align-top"
+                                alt="Coreshop logo"
                             />
-                        </Navbar.Brand>
+                        </NavbarBrand>
                         <div className="gap-3 mt-3">
                             <div>CoreShop GmbH</div>
                             <div>Zeileisstraße 6</div>
