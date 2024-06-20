@@ -5,8 +5,8 @@ import {CoreButtontype} from '../../../Atoms/Button/types';
 import { CoreFormProps} from "../types";
 
 export const AddressForm = ({
-                              bg = true
-                          }: CoreFormProps) => {
+  bg = true
+}: CoreFormProps) => {
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event: { currentTarget: any; preventDefault: () => void; stopPropagation: () => void; }) => {

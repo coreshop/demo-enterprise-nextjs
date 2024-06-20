@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import {CoreLink} from "@/stories/Atoms/Link/CoreLink";
 
 export default function StepComponent ({ currentStep }: {currentStep: string}) {
     const [steps] = useState(['cart', 'customer', 'address', 'shipping', 'payment', 'summary']);
@@ -24,23 +25,17 @@ export default function StepComponent ({ currentStep }: {currentStep: string}) {
     };
 
     return (
-        <div className="row bs-wizard" style={{ borderBottom: 0 }}>
-            {steps.map((stepName) => (
-                <div
-                    key={stepName}
-                    className={`col-sm-2 bs-wizard-step ${
+        <section className="container">
+            <div className="cartprogress">
+                {steps.map((stepName) => (
+                    <CoreLink key={stepName} text={stepName} href="#" icon={false} cssClass={` ${
                         isStepActive(stepName) ? 'active' : ''} ${
-                        isStepComplete(stepName) ? 'complete' : ''} ${
+                        isStepComplete(stepName) ? 'completed' : ''} ${
                         isStepDisabled(stepName) ? 'disabled' : ''}`}
-                >
-                    <div className="text-center bs-wizard-stepnum">{stepName}</div>
-                    <div className="progress">
-                        <div className="progress-bar"></div>
-                    </div>
-                    <a href="#" className="bs-wizard-dot"></a>
-                    <div className="bs-wizard-info text-center"></div>
-                </div>
-            ))}
-        </div>
+                        />
+                ))}
+
+            </div>
+        </section>
     );
 };

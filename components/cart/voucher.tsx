@@ -1,7 +1,8 @@
 'use client';
 
 import {addVoucherForm} from "@/components/cart/actions";
-import {useActionState, useRef} from "react";
+import {useRef} from "react";
+import {useFormState} from 'react-dom';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
@@ -11,7 +12,7 @@ export default function VoucherForm() {
     const initialState = {
         message: '',
     }
-    const [state, formAction] = useActionState(addVoucherForm, initialState);
+    const [state, formAction] = useFormState(addVoucherForm, initialState);
     const ref = useRef<HTMLFormElement>(null)
 
     return (

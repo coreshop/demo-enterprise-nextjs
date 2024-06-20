@@ -1,6 +1,6 @@
 import React, {Suspense} from "react";
 import Cart from "@/components/cart";
-import {auth, signOut} from "@/auth";
+import {auth} from "@/auth";
 import Loader from "@/components/loader";
 import {Topbar} from "@/stories/Molecules/Topbar/Topbar";
 import {CoreLinkProps} from "@/stories/Atoms/Link/types";
@@ -10,6 +10,7 @@ import {mockNavItems} from "@/mockdata/mockNavItems";
 import "@/stories/Organisms/Header/header.scss";
 import {CoreBreadcrumb} from "@/stories/Atoms/Breadcrumb/CoreBreadcrumb";
 import {BreadcrumbItem} from "@/stories/Atoms/Breadcrumb/types";
+import {Logout} from "@/components/security/logout";
 
 export default async function Header() {
     const session = await auth()
@@ -59,8 +60,8 @@ export default async function Header() {
             <Topbar items={itemsTopbar} wishlist={wishlist} dropdownItems={dropdownItems}
                     dropdownItemsLanguage={dropdownItemsLanguage} selectedOption={selectedOption}/>
             <div className="coreshop-main-nav-wrapper">
-                <CoreNavbar logo={logo} searchBar={true} logoActive={true}
-                            cart={true} navbar={false} cartWidget={<Suspense fallback={<Loader/>}><Cart/></Suspense>} authSession={session}/>
+                <CoreNavbar logo={logo} logoActive={true}
+                            cart={true} navbar={false} cartWidget={<Suspense fallback={<Loader/>}><Cart/></Suspense>} authSession={session} logout={<Logout />} searchBar={false}/>
             </div>
             <div className="coreshop-basic-nav-wrapper">
                 <CoreNavbar items={items} searchBar={false} logoActive={false}

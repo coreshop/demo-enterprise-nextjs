@@ -3,7 +3,7 @@
 import {cookies} from "next/headers";
 import {
     addItemToOrder,
-    addVoucherCode, checkoutGuestAddress,
+    addVoucherCode, checkoutCustomerAddress, checkoutGuestAddress,
     checkoutGuestRegistration, checkoutPayment, checkoutShipping,
     removeOrderItem,
     removeVoucherCode,
@@ -121,6 +121,34 @@ export async function registerGuestCartAddress(state: any, address: AddressType)
     }
 }
 
+export async function registerCustomerCartAddress(state: any, invoiceAddress: AddressType): Promise<any> {
+    const address: AddressInput = {
+        company: invoiceAddress.company,
+        salutation: invoiceAddress.salutation,
+        firstname: invoiceAddress.firstname,
+        lastname: invoiceAddress.lastname,
+        street: invoiceAddress.street,
+        number: invoiceAddress.number,
+        postcode: invoiceAddress.postcode,
+        city: invoiceAddress.city,
+        country: CountryEnumType.Austria,
+        phoneNumber: invoiceAddress.phoneNumber,
+    };
+
+    const token = cookies().get('cartToken')?.value;
+
+    if (!token) {
+        return;
+    }
+
+    const result = await checkoutCustomerAddress({address});
+
+    console.log(result);
+    if (result) {
+        redirect('/checkout/shipping');
+    }
+}
+
 export async function checkoutShippingForm(state: any, formData: FormData): Promise<any> {
     const carrier = formData.get('carrier') as CarrierEnumType;
 
@@ -181,3 +209,4 @@ export async function removeVoucher(state: any, {voucherCode}: { voucherCode: st
 
     revalidateTag('cart');
 }
+

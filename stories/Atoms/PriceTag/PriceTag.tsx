@@ -23,7 +23,7 @@ export const PriceTag = ({
         <div className={`price-tag ${size}`}>
             {offerPrice && showDiscount && <div className="price-tag-offer">{offerPrice}</div>}
             <div className="price-tag-price">{price}</div>
-            {vat && taxAmount && <div className="price-tag-vat">{taxAmount} VAT</div>}
+            {vat && taxAmount && <div className="price-tag-vat">{taxAmount} incl VAT</div>}
         </div>
     );
 };

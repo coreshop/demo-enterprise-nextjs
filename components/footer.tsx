@@ -15,24 +15,12 @@ export default function Footer() {
     };
 
     const links1 = [
-            {text:"Item", href:"/"},
-            {text:"Item", href:"/"},
-            {text:"Item", href:"/"},
-            {text:"Item", href:"/"},
         ];
 
     const links2 = [
-            {text:"Item", href:"/"},
-            {text:"Item", href:"/"},
-            {text:"Item", href:"/"},
-            {text:"Item", href:"/"},
         ];
 
     const links3 = [
-            {text:"Item", href:"/"},
-            {text:"Item", href:"/"},
-            {text:"Item", href:"/"},
-            {text:"Item", href:"/"},
         ];
 
     const footerPreItems = mockNavItems;

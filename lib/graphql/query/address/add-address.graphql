@@ -1,0 +1,23 @@
+#import "../order/order-fragment.graphql"
+#import "../error.graphql"
+#import "../validation-error.graphql"
+
+mutation CoreShopCreateAddress(
+    $address: AddressInput!,
+){
+    CoreShopCreateAddress(createAddress: {
+       address: $address
+    }) {
+        ... on CoreShopCreateAddressResult {
+            __typename
+
+        }
+
+        ... on CoreShopError {
+            ...error
+        }
+        ... on CoreShopValidationError {
+            ...validation_error
+        }
+    }
+}

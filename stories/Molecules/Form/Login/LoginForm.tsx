@@ -18,7 +18,7 @@ export const LoginForm = ({
 
     return (
         <Form className={`${bg && "bg-light p-3" }`} noValidate validated={validated} onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="email">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" placeholder="Enter email" required />
                 <Form.Control.Feedback type="invalid">

@@ -2,6 +2,7 @@ import {
     print
 } from 'graphql';
 import {
+    AddressFragment,
     AddressInput,
     CarrierEnumType,
     CoreShopAddOrderVoucherCode,
@@ -67,7 +68,13 @@ import {
     Object_CoreShopCategory,
     OrderFragment,
     PaymentProviderEnumType,
-    ProductFragment
+    ProductFragment,
+    GetCoreShopAddressList,
+    GetCoreShopAddressListQuery,
+    GetCoreShopAddressListQueryVariables,
+    CoreShopCreateAddress,
+    CoreShopCreateAddressMutation,
+    CoreShopCreateAddressMutationVariables
 } from "@/lib/graphql/types.generated";
 import {auth} from "@/auth";
 
@@ -78,7 +85,7 @@ export async function coreShopFetch<TResult, TVariables>({
      query,
      variables,
      headers,
-     cache = 'force-cache'
+     cache = 'reload'
  }: {
     query: string;
     variables: TVariables;
@@ -109,7 +116,6 @@ export async function coreShopFetch<TResult, TVariables>({
     })
 
     if (response.status !== 200) {
-        debugger;
         throw new Error(`Failed to fetch: ${response.statusText}. Body: ${await response.text()}`)
     }
 
@@ -135,7 +141,7 @@ export async function getLatestProducts(): Promise<ProductFragment[]> {
         variables: {}
     });
 
-    if (res.data.CoreShopLatestProducts?.__typename === 'CoreShopLatestProductsResult') {
+     if (res.data.CoreShopLatestProducts?.__typename === 'CoreShopLatestProductsResult') {
         return res.data.CoreShopLatestProducts?.products?.edges?.map((data) => data?.node) as ProductFragment[];
     }
 
@@ -349,6 +355,7 @@ export async function authorize({username, password, orderToken = null}: {
     });
 
     if (res.data?.CoreShopAuthorize?.__typename === 'CoreShopAuthorizeResult' && res.data.CoreShopAuthorize) {
+        console.log(res);
         return res.data.CoreShopAuthorize;
     }
 
@@ -381,7 +388,7 @@ export async function checkoutGuestAddress({token, invoiceAddress, shippingAddre
         variables: {
             token: token,
             invoiceAddress: invoiceAddress,
-            shippingAddress: shippingAddress,
+            shippingAddress: invoiceAddress,
             invoiceAddressIsShippingAddress: shippingAddress === undefined,
         },
         cache: "no-cache"
@@ -389,7 +396,6 @@ export async function checkoutGuestAddress({token, invoiceAddress, shippingAddre
 
     return res.data?.CoreShopCheckoutGuestAddress?.__typename === 'CoreShopCheckoutGuestAddressResult';
 }
-
 
 export async function checkoutShipping({token, carrier}: {
     token: string,
@@ -459,4 +465,41 @@ export async function listPaymentProviders({token}: {
     }
 
     return null;
+}
+
+
+
+export async function getCustomerAddresses(sessionToken: string): Promise<AddressFragment[]> {
+    try {
+        const res = await coreShopFetch<GetCoreShopAddressListQuery, GetCoreShopAddressListQueryVariables>({
+            query: print(GetCoreShopAddressList),
+            variables: {},
+            headers: {
+                'Authorization': `Bearer ${sessionToken}`
+            },
+        });
+
+        if (res.data?.CoreShopAddressList?.__typename === 'CoreShopAddressListResult') {
+            return res.data.CoreShopAddressList.addresses as AddressFragment[];
+        } else {
+            throw new Error('Failed to fetch addresses: Unexpected response structure.');
+        }
+    } catch (error) {
+        throw new Error('Failed to fetch addresses: GraphQL error.');
+    }
+}
+
+export async function checkoutCustomerAddress({address}: {
+    address: AddressInput
+}): Promise<boolean> {
+    const res = await coreShopFetch<CoreShopCreateAddressMutation, CoreShopCreateAddressMutationVariables>({
+        query: print(CoreShopCreateAddress),
+        variables: {
+            address: address,
+        },
+        cache: "no-cache"
+    });
+    console.log(res);
+    return false;
+    //return res.data?.CoreShopCreateAddressUnionResult?.__typename === 'CoreShopCheckoutGuestAddressResult';
 }

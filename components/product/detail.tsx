@@ -68,7 +68,7 @@ export default async function ProductDetail({product}: ProductDetailProps) {
                     </ul>
                     <hr/>
 
-                    {product?.id && <PriceInfo productId={parseInt(product.id)} showTax={true} />}
+                    {product?.id && <PriceInfo productId={parseInt(product.id)} vat={true} />}
                     <hr/>
 
                     <div className="options">

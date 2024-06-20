@@ -4,6 +4,7 @@ import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
+import {CallbackRouteError, CredentialsSignin} from "@auth/core/errors";
 
 export async function authenticate(
     prevState: string | undefined,
@@ -19,15 +20,14 @@ export async function authenticate(
         await signIn('credentials', formData);
 
         return redirect('/');
+
     } catch (error) {
-        if (error instanceof AuthError) {
-            switch (error.type) {
-                case 'CredentialsSignin':
-                    return 'Invalid credentials.';
-                default:
-                    return 'Something went wrong.';
-            }
+        if (error instanceof CredentialsSignin || error instanceof CallbackRouteError) {
+            return 'Invalid credentials.';
+        } else if (error instanceof AuthError) {
+            return 'Something went wrong.';
+        } else {
+                throw error;
         }
-        throw error;
     }
 }

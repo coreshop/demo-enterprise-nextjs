@@ -1,0 +1,16 @@
+#import "../error.graphql"
+#import "./address-fragment.graphql"
+
+query GetCoreShopAddressList {
+    CoreShopAddressList {
+        __typename
+        ... on CoreShopAddressListResult {
+            addresses {
+                ...address
+            }
+        }
+        ... on CoreShopError {
+            ...error
+        }
+    }
+}

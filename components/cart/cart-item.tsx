@@ -9,10 +9,11 @@ import React from "react";
 import {PriceInfo} from "@/components/product/price";
 
 type CartItemPageProps = {
-    cartItem: OrderItemFragment
+    cartItem: OrderItemFragment,
+    summary?: boolean
 };
 
-export default function CartItemPage({cartItem}: CartItemPageProps) {
+export default function CartItemPage({cartItem, summary=false}: CartItemPageProps) {
 
     return <tr className="shopping-cart-item">
         <td>
@@ -31,8 +32,8 @@ export default function CartItemPage({cartItem}: CartItemPageProps) {
             )}
         </td>
 
-        <td className="text-center">
-            <CartItemUpdate cartItem={cartItem}/>
+        <td>
+            <CartItemUpdate cartItem={cartItem} summary ={summary}/>
         </td>
         <td className="text-right cart-item-price">
             <span className="price-new">
@@ -43,9 +44,10 @@ export default function CartItemPage({cartItem}: CartItemPageProps) {
 
             <PriceInfo cartItem={cartItem} mode="total" vat={true}/>
         </td>
+        { !summary &&
         <td className="text-center">
             <CartItemRemove cartItem={cartItem}/>
-        </td>
+        </td> }
     </tr>
         ;
 }

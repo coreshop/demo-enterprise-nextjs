@@ -1,8 +1,6 @@
 import React from 'react';
 import * as Icons from "react-bootstrap-icons";
 import Link from "next/link";
-import Image from "next/image";
-import {pimcoreImage} from "@/lib/pimcoreLoader";
 import Currency from "@/components/common/currency";
 import {OrderFragment} from "@/lib/graphql/types.generated";
 import './cartwidget.scss';

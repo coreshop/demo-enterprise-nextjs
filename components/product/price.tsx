@@ -46,21 +46,15 @@ export async function PriceInfo({productId, cartItem, mode = 'single', vat = fal
                         ) : (
                         <PriceTag
                             offerPrice={cartItem.itemRetailPriceGross !== 0 ? (
-                                <Currency amount={cartItem.quantity > 1 ? cartItem && cartItem.itemRetailPriceGross && cartItem.itemRetailPriceGross * cartItem.quantity : cartItem.itemRetailPriceGross} currencyCode="EUR"/>
+                                <Currency amount={cartItem && cartItem.itemRetailPriceGross &&  cartItem.itemRetailPriceGross * cartItem.quantity } currencyCode="EUR"/>
                             ) : null }
-                            price={cartItem.itemDiscountPriceGross ? (
+                            price={cartItem.totalGross ? (
                                 <Currency
-                                    amount={cartItem && cartItem.quantity && cartItem.quantity > 1 ?
-                                        (cartItem.itemDiscountPriceNet && cartItem.itemDiscountPriceNet > 0 ?
-                                            cartItem.itemDiscountPriceNet * cartItem.quantity :
-                                            cartItem && cartItem.itemRetailPriceNet && cartItem.itemRetailPriceNet * cartItem.quantity) :
-                                        (cartItem.itemDiscountPriceNet && cartItem.itemDiscountPriceNet > 0 ?
-                                            cartItem.itemDiscountPriceNet :
-                                            cartItem.itemRetailPriceNet)}
+                                    amount={cartItem.totalGross}
                                     currencyCode="EUR"
                                 />
                             ) :  <Currency
-                                amount={cartItem.itemRetailPriceNet }
+                                amount={cartItem.totalGross }
                                 currencyCode="EUR"
                                 />
                             }
@@ -79,10 +73,10 @@ export async function PriceInfo({productId, cartItem, mode = 'single', vat = fal
                 </div>
             ) : (
                 <PriceTag
-                    offerPrice={productPrice ? <Currency amount={productPrice.discount_price_net != 0 ? productPrice.price_gross : 0 } currencyCode="EUR"/> : null}
-                    price={productPrice ? <Currency amount={productPrice.discount_price_net != 0 ? productPrice.discount_price_net : productPrice.price_net} currencyCode="EUR"/> : null}
+                    offerPrice={productPrice ? <Currency amount={productPrice.discount_price_gross != 0 ? productPrice.price_gross : 0 } currencyCode="EUR"/> : null}
+                    price={productPrice ? <Currency amount={productPrice.discount_price_gross != 0 ? productPrice.discount_price_gross : productPrice.price_gross} currencyCode="EUR"/> : null}
                     taxAmount={productPrice ? <Currency amount={productPrice.tax_amount} currencyCode="EUR"/> : null}
-                    showDiscount={productPrice && productPrice.discount_price_net != 0 ? true : false }
+                    showDiscount={productPrice && productPrice.discount_price_gross != 0 ? true : false }
                     vat={true}
                 />
 

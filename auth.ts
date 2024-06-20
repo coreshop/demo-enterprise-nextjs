@@ -31,6 +31,8 @@ export const {auth, signIn, signOut} = NextAuth({
                 }
 
                 try {
+
+
                     const result = await authorize({// @ts-ignore
                         username: credentials.email, // @ts-ignore
                         password: credentials.password,// @ts-ignore

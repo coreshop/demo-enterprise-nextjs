@@ -62,7 +62,7 @@ export const CoreButton = ({
         {icon && iconPost && <IconComponent className={text ? "ms-2" : "" } />}
       </a>
     ) : (
-      <Button type={type} variant={variant} size={size as any} className={buttonClassName} disabled={disabled} aria-controls={ariaControls} aria-expanded={ariaExpanded} onClick={handleClick}>
+      <Button type={type} variant={variant} size={size as any} className={buttonClassName} disabled={disabled} aria-controls={ariaControls} aria-expanded={ariaExpanded} >
         {icon && iconPre && <IconComponent className={text ? "me-2" : "" } />}
         {text}
         {icon && iconPost && <IconComponent className={text ? "ms-2" : "" } />}

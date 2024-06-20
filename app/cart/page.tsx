@@ -11,6 +11,7 @@ import { CoreLink } from "@/stories/Atoms/Link/CoreLink";
 import Table from "react-bootstrap/Table";
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
 import {CoreButtontype} from "@/stories/Atoms/Button/types";
+import StepComponent from "@/components/checkout/steps";
 
 export default async function CartPage() {
     const cartToken = cookies().get('cartToken')?.value;
@@ -29,16 +30,7 @@ export default async function CartPage() {
     }
 
     return <Suspense>
-        <section className="container">
-            <div className="cartprogress">
-                <CoreLink text="cart" href="/cart" icon={false} cssClass="active"/>
-                <CoreLink text="customer" href="/cart" icon={false}/>
-                <CoreLink text="address" href="/cart" icon={false}/>
-                <CoreLink text="shipping" href="/cart" icon={false}/>
-                <CoreLink text="payment" href="/cart" icon={false}/>
-                <CoreLink text="summary" href="/cart" icon={false}/>
-            </div>
-        </section>
+        <StepComponent currentStep={"cart"} />
         <section className="container">
             <Table>
                 <thead>
@@ -70,9 +62,10 @@ export default async function CartPage() {
                 <td colSpan={6} className="border-0"></td>
                 </tr>
                 <tr>
-                    <td colSpan={3} rowSpan={10} valign="top" className="border-0">
+                    <td colSpan={2} rowSpan={10} valign="top" className="border-0">
                         <VoucherForm/>
                     </td>
+                    <td className="border-0"></td>
                     <td className="text-right border-0">
                         <strong>Subtotal (incl. VAT):</strong>
                     </td>
@@ -81,6 +74,7 @@ export default async function CartPage() {
                     </td>
                 </tr>
                 <tr>
+                    <td className="border-0"></td>
                     <td className="text-right border-0">
                         <strong>Subtotal (excl. VAT):</strong>
                     </td>
@@ -91,6 +85,7 @@ export default async function CartPage() {
                 {cart.adjustmentItems?.map((item, index) => (item && (
                     <>
                         <tr>
+                            <td className="border-0"></td>
                             <td className="text-right border-0">
                                 <strong>{item.typeIdentifier} (incl. VAT):</strong>
                             </td>
@@ -100,6 +95,7 @@ export default async function CartPage() {
                             </td>
                         </tr>
                         <tr>
+                            <td className="border-0"></td>
                             <td className="text-right border-0">
                                 <strong>{item.typeIdentifier} (excl. VAT):</strong>
                             </td>
@@ -113,6 +109,7 @@ export default async function CartPage() {
 
                 {cart.taxes?.map((item, index) => (item && (
                     <tr key={index}>
+                        <td className="border-0"></td>
                         <td className="text-right cart-tax-detail border-0">
                             <strong>Tax {item.name}:</strong>
                         </td>
@@ -123,6 +120,7 @@ export default async function CartPage() {
                 )))}
 
                 <tr>
+                    <td className="border-0"></td>
                     <td className="text-right">
                         <strong>Total Tax:</strong>
                     </td>
@@ -132,6 +130,7 @@ export default async function CartPage() {
                     </td>
                 </tr>
                 <tr>
+                    <td className="border-0"></td>
                     <td className="text-right border-0">
                         <strong>Total:</strong>
                     </td>

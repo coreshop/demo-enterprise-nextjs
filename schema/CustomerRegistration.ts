@@ -11,7 +11,8 @@ export const AddressSchema = z.object({
     city: z.string().min(1),
     postcode: z.string().min(1),
     country: z.nativeEnum(CountryEnumType),
-    phoneNumber: z.string().min(1)
+    phoneNumber: z.string().min(1),
+    termsAccepted: z.literal(true, {}),
 });
 
 export type AddressType = z.infer<typeof AddressSchema>;
@@ -26,3 +27,4 @@ export const CustomerSchema = z.object({
 });
 
 export type GuestCustomerType = z.infer<typeof CustomerSchema>;
+

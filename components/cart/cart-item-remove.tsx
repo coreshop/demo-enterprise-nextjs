@@ -2,7 +2,8 @@
 
 import {OrderItemFragment} from "@/lib/graphql/types.generated";
 import {updateItemQuantity} from "@/components/cart/actions";
-import React,{useActionState} from "react";
+import React from "react";
+import { useFormState } from 'react-dom';
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
 import {CoreButtontype} from "@/stories/Atoms/Button/types";
 
@@ -11,7 +12,7 @@ type CartItemPageProps = {
 };
 
 export default function CartItemRemove({cartItem}: CartItemPageProps) {
-   const [message, formAction] = useActionState(updateItemQuantity, null);
+   const [message, formAction] = useFormState(updateItemQuantity, null);
     const action = formAction.bind(null, {
         orderItemId: parseInt(((cartItem.id ?? 0) as string)),
         quantity: 0

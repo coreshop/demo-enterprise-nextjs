@@ -1,5 +1,6 @@
 fragment address on object_CoreShopAddress {
     __typename
+    id
     firstname
     lastname
     salutation
@@ -9,6 +10,9 @@ fragment address on object_CoreShopAddress {
     postcode
     city
     phoneNumber
+    addressIdentifier {
+        name
+    }
     country {
         ... on CoreshopCountry {
             isoCode

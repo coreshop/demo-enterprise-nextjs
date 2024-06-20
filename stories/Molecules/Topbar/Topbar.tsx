@@ -27,17 +27,18 @@ export const Topbar = ({
         <div className="topbar">
 
             <div className="d-flex justify-content-between align-items-center container-lg">
-                <CoreNavbar items={items} searchBar={false} logoActive={false} navbar={true}/>
-                <div className="d-flex align-items-center">
+                {/*<CoreNavbar items={items} searchBar={false} logoActive={false} navbar={true}/>*/}
+                <div className="text-white h6 my-2 mx-auto">CoreShop Next.js Demo</div>
+                <div className="d-flex align-items-center d-none">
                     <div className="topbar__wishlist">{wishlist &&
                         <CoreLink text={wishlist.text} href={wishlist.href} cssClass={wishlist.cssClass}
                                   icon={wishlist.icon} iconType={wishlist.iconType}/>}</div>
-                    <div className="topbar__currency">{dropdownItems && dropdownItems[0] &&
-                        <CoreDropdown variant={CoreButtontype.Link} title={dropdownItems[0].description}
-                                      items={dropdownItems} select={true} iconType="CurrencyEuro"/>}</div>
-                    <div className="topbar__language">{dropdownItemsLanguage && dropdownItemsLanguage[0] &&
-                        <CoreDropdown variant={CoreButtontype.Link} title={dropdownItemsLanguage[0].description}
-                                      items={dropdownItemsLanguage} select={false} flagCode="AT" selectedOption={selectedOption}/>}</div>
+                    {/*<div className="topbar__currency">{dropdownItems && dropdownItems[0] &&*/}
+                    {/*    <CoreDropdown variant={CoreButtontype.Link} title={dropdownItems[0].description}*/}
+                    {/*                  items={dropdownItems} select={true} iconType="CurrencyEuro"/>}</div>*/}
+                    {/*<div className="topbar__language">{dropdownItemsLanguage && dropdownItemsLanguage[0] &&*/}
+                    {/*    <CoreDropdown variant={CoreButtontype.Link} title={dropdownItemsLanguage[0].description}*/}
+                    {/*                  items={dropdownItemsLanguage} select={false} flagCode="AT" selectedOption={selectedOption}/>}</div>*/}
                 </div>
             </div>
         </div>

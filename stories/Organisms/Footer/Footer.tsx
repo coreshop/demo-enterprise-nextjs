@@ -32,30 +32,30 @@ export const CoreFooter = ({
                             <div>Email <CoreLink href="mailto:info@coreshop.org" text="info@coreshop.org" icon={false} /></div>
                         </div>
                     </div>
-                    <div className="col-12 col-lg-6 col-xl-3 mb-3">
-                        <h5>Product</h5>
-                        <div className="gap-3 mt-3">
-                            {links1?.map((item, index) => (
-                                <div key={index} ><CoreLink href={item.href} text={item.text} icon={false} /></div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="col-12 col-lg-6 col-xl-3 mb-3">
-                        <h5>Text Title</h5>
-                        <div className="gap-3 mt-3">
-                            {links2?.map((item, index) => (
-                                <div key={index}><CoreLink href={item.href} text={item.text} icon={false} /></div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="col-12 col-lg-6 col-xl-3">
-                        <h5>Text Title</h5>
-                        <div className="gap-3 mt-3">
-                            {links3?.map((item, index) => (
-                                <div key={index}><CoreLink href={item.href} text={item.text} icon={false} /></div>
-                            ))}
-                        </div>
-                    </div>
+                    {/*<div className="col-12 col-lg-6 col-xl-3 mb-3">*/}
+                    {/*    <h5>Product</h5>*/}
+                    {/*    <div className="gap-3 mt-3">*/}
+                    {/*        {links1?.map((item, index) => (*/}
+                    {/*            <div key={index} ><CoreLink href={item.href} text={item.text} icon={false} /></div>*/}
+                    {/*        ))}*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    {/*<div className="col-12 col-lg-6 col-xl-3 mb-3">*/}
+                    {/*    <h5>Text Title</h5>*/}
+                    {/*    <div className="gap-3 mt-3">*/}
+                    {/*        {links2?.map((item, index) => (*/}
+                    {/*            <div key={index}><CoreLink href={item.href} text={item.text} icon={false} /></div>*/}
+                    {/*        ))}*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    {/*<div className="col-12 col-lg-6 col-xl-3">*/}
+                    {/*    <h5>Text Title</h5>*/}
+                    {/*    <div className="gap-3 mt-3">*/}
+                    {/*        {links3?.map((item, index) => (*/}
+                    {/*            <div key={index}><CoreLink href={item.href} text={item.text} icon={false} /></div>*/}
+                    {/*        ))}*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </footer>

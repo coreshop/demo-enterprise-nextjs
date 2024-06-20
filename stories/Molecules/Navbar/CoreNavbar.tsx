@@ -1,9 +1,10 @@
 'use client';
 
-import React, {useState} from "react";
+import React, {Suspense, useState} from "react";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { BrandItem, NavItem } from './types';
 import Form from 'react-bootstrap/Form';
 import { CoreButton } from '../../Atoms/Button/CoreButton';
@@ -11,7 +12,9 @@ import { CoreButtontype } from '../../Atoms/Button/types';
 import './nav.scss';
 import '../Dropdown/dropdown.scss';
 import {Session} from "next-auth";
-
+import * as Icons from 'react-bootstrap-icons';
+import {CoreLink} from "@/stories/Atoms/Link/CoreLink";
+import Loader from "@/components/loader";
 
 interface CoreNavbarProps {
     logo?: BrandItem;
@@ -22,6 +25,7 @@ interface CoreNavbarProps {
     navbar?: boolean;
     cartWidget?: React.ReactNode;
     authSession?: Session|null;
+    logout?: React.ReactNode;
 }
 
 export const CoreNavbar = ({
@@ -32,7 +36,8 @@ export const CoreNavbar = ({
     cart,
     navbar,
     cartWidget,
-    authSession
+    authSession,
+    logout
 }:CoreNavbarProps) => {
     const renderNavItem = (item: NavItem) => {
         if (item.node?.children && item.node?.children.length > 0) {
@@ -107,9 +112,29 @@ export const CoreNavbar = ({
                     </div>
                 }
                 { cart && logoActive && 
-                    <div className={`${!navbar && "ms-auto" }`}>
-                        {authSession && authSession.user ? <div>{authSession.user.email}</div> : <div>Logged out</div>}
+                    <div className={`${!navbar && "d-flex align-items-center ms-auto" }`}>
+
+                        {authSession && authSession.user ?
+                            <div>
+                                <Suspense fallback={<Loader/>}>
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="link" id="dropdown-basic">
+                                            <Icons.Person />
+                                        </Dropdown.Toggle>
+
+                                        <Dropdown.Menu>
+                                            <div className="px-3 mb-3">{authSession.user.email}</div>
+                                            <Dropdown.Item href="#/profile">Profile</Dropdown.Item>
+                                            <Dropdown.Item href="#/settings">Settings</Dropdown.Item>
+                                            <Dropdown.Item href="#/">{logout}</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </Suspense>
+                            </div> :
+                            <CoreLink text="Log in" href="/login" icon={false} />
+                        }
                         {cartWidget}
+
                     </div>
                 }
                 
