@@ -2,6 +2,7 @@ import React from "react";
 import { CoreFooter } from "@/stories/Organisms/Footer/Footer";
 import {FooterPre} from "@/stories/Organisms/FooterPre/FooterPre";
 import {mockNavItems} from "@/mockdata/mockNavItems";
+import {FooterLink} from "@/stories/Organisms/Footer/types";
 
 export default function Footer() {
     const logo = {
@@ -14,15 +15,6 @@ export default function Footer() {
         link: '/'
     };
 
-    const links1 = [
-        ];
-
-    const links2 = [
-        ];
-
-    const links3 = [
-        ];
-
     const footerPreItems = mockNavItems;
     const footerPreText = {
         text:"© CoreShop GmbH (GPLv3 and CoreShop Commercial License)",
@@ -31,7 +23,7 @@ export default function Footer() {
 
     return (
         <footer>
-            <CoreFooter logo={logo} links1={links1} links2={links2} links3={links3}/>
+            <CoreFooter logo={logo} />
             <FooterPre footerPreText={footerPreText} footerPreItems={footerPreItems}/>
         </footer>
     );

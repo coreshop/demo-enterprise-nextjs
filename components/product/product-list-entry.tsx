@@ -42,7 +42,7 @@ export default async function ProductListEntry({product}: ProductPreviewProps) {
                                 {product.shortDescription}
                             </div>
 
-                            {product?.id && <PriceInfo productId={parseInt(product.id)} />}
+                            {product?.id && <PriceInfo vat={true} productId={parseInt(product.id)} />}
 
                             <div className="cart-button">
                                 <AddToCart product={product} />
