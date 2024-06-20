@@ -9,6 +9,11 @@ RUN apk update && apk add python3 py3-setuptools make g++ && rm -rf /var/cache/a
 COPY ./package.json ./package-lock.json ./
 RUN yarn install
 
+ARG API_URL
+ENV API_URL=$API_URL
+ARG API_HOSTNAME
+ENV API_HOSTNAME=$API_HOSTNAME
+
 COPY . .
 RUN yarn run build-storybook
 

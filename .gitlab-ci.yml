@@ -20,7 +20,7 @@ build_and_push:
         - export GCP_REGISTRY_IMAGE=$(echo "$GCP_URL/cors-wolke/cors/$CI_PROJECT_PATH" | tr '[:upper:]' '[:lower:]')
     script:
         - docker build . --tag $GCP_REGISTRY_IMAGE/headless:$TAG --build-arg API_URL=$API_URL --build-arg API_HOSTNAME=$API_HOSTNAME
-        - docker build . --tag $GCP_REGISTRY_IMAGE/storybook:$TAG -f Dockerfile-storybook
+        - docker build . --tag $GCP_REGISTRY_IMAGE/storybook:$TAG --build-arg API_URL=$API_URL --build-arg API_HOSTNAME=$API_HOSTNAME -f Dockerfile-storybook
         - docker push $GCP_REGISTRY_IMAGE/headless:$TAG
         - docker push $GCP_REGISTRY_IMAGE/storybook:$TAG
     tags:
