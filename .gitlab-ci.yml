@@ -20,7 +20,9 @@ build_and_push:
         - export GCP_REGISTRY_IMAGE=$(echo "$GCP_URL/cors-wolke/cors/$CI_PROJECT_PATH" | tr '[:upper:]' '[:lower:]')
     script:
         - docker build . --tag $GCP_REGISTRY_IMAGE/headless:$TAG --build-arg API_URL=$API_URL --build-arg API_HOSTNAME=$API_HOSTNAME
+        - docker build . --tag $GCP_REGISTRY_IMAGE/storybook:$TAG -f Dockerfile-storybook
         - docker push $GCP_REGISTRY_IMAGE/headless:$TAG
+        - docker push $GCP_REGISTRY_IMAGE/storybook:$TAG
     tags:
         - cors
 
@@ -43,6 +45,7 @@ update_manifest:
         - git checkout $CI_COMMIT_REF_NAME 2>/dev/null || $CI_COMMIT_REF_NAME checkout -b foo
 
         - yq -i eval ".headless_nextjs.image.tag = \"$TAG\"" $CD_MANIFEST_VALUES_FILE
+        - yq -i eval ".storybook.image.tag = \"$TAG\"" $CD_MANIFEST_VALUES_FILE
 
         - cat $CD_MANIFEST_FILE
         - git commit -am "[$CI_COMMIT_REF_NAME] update image Tag to \"$TAG\""
