@@ -3,18 +3,28 @@
 import React from 'react';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { HouseDoor } from 'react-bootstrap-icons';
-import { CoreBreadcrumbProps } from './types';
+import {BreadcrumbItem, CoreBreadcrumbProps, generateBreadcrumbs} from './types';
 import './breadcrumb.scss';
+import { usePathname } from 'next/navigation'
 
 export const CoreBreadcrumb = ({
     breadcrumbItems,
     icon,
     divider
 }:CoreBreadcrumbProps) => {
+    const pathname = usePathname();
+    let breadcrumbItemsRouter: BreadcrumbItem[];
+
+    if(pathname) {
+        breadcrumbItemsRouter = generateBreadcrumbs(pathname);
+    } else {
+        breadcrumbItemsRouter = breadcrumbItems
+    }
+
     return (
         <div className="container-lg">
             <Breadcrumb>
-                {breadcrumbItems.map((item, index) => (
+                {breadcrumbItemsRouter.map((item, index) => (
                     <Breadcrumb.Item
                         key={index}
                         href={item.link}

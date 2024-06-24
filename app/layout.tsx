@@ -17,6 +17,7 @@ import '../stories/assets/scss/table.scss';
 import '../stories/assets/scss/main.scss';
 import '../stories/assets/scss/cartprogress.scss';
 
+
 export const metadata: Metadata = {
     title: 'CoreShop Demo NextJS',
     description: 'CoreShop Demo with NextJS',
@@ -31,11 +32,11 @@ export default function RootLayout({
         <html lang="en">
         <body>
         <Header />
-        <Suspense fallback={<div className="text-center"><Loader /></div>}>
-            <div className="main-container container">
-                {children}
-            </div>
-        </Suspense>
+            <Suspense fallback={<div className="text-center"><Loader /></div>}>
+                <div className="main-container container">
+                    {children}
+                </div>
+            </Suspense>
         <Footer />
 
         <Script src="/js/vendor/bootstrap.min.js" strategy="beforeInteractive" />

@@ -1,22 +1,28 @@
 @import '../../assets/scss/breakpoints.scss';
 @import '../../assets/scss/mixins.scss';
 
-.card:not(.layout1) {
-    img {
-        margin-bottom: rem(8px);
+.card {
+    &:not(.layout1) {
+        img {
+            margin-bottom: rem(8px);
 
-        @media (min-width: $sm) {
-            margin-bottom: 0;
-            max-width: rem(110px);
+            @media (min-width: $sm) {
+                margin-bottom: 0;
+                max-width: rem(110px);
+            }
         }
     }
-}
 
-.card.layout3 {
-    .card-body {
-        @media (min-width: $sm) and (max-width: $md-max) {
-            display: flex;
-            align-items: center;
+    &.layout1 {
+        height: 100%;
+    }
+
+    &.layout3 {
+        .card-body {
+            @media (min-width: $sm) and (max-width: $md-max) {
+                display: flex;
+                align-items: center;
+            }
         }
     }
 }

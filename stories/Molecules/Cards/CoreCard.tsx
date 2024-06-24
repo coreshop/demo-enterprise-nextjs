@@ -2,14 +2,12 @@
 
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import { CoreButton } from '../../Atoms/Button/CoreButton';
-import { CoreButtontype } from '../../Atoms/Button/types';
+import {CoreButton} from '../../Atoms/Button/CoreButton';
+import {CoreButtontype} from '../../Atoms/Button/types';
 import "./cards.scss";
 import {PriceTag} from "../../Atoms/PriceTag/PriceTag";
 import Link from "next/link";
 import {CoreCardProps} from "@/stories/Molecules/Cards/types";
-
-
 
 
 export const CoreCard = ({
@@ -61,7 +59,14 @@ export const CoreCard = ({
             </div>
           )}
           <Card.Body className="d-flex flex-column">
-              { title && <Card.Title>{ title }</Card.Title> }
+              { link ? (
+                  <Link href={link} className="text-black text-decoration-none">
+                        { title && <Card.Title >{ title }</Card.Title> }
+                  </Link>
+              ) : (
+                   <>{ title && <Card.Title>{ title }</Card.Title> }</>
+                  )
+              }
               { subtitle && <Card.Subtitle className="my-2 gray-600">{ subtitle }</Card.Subtitle> }
               { description &&
                 <Card.Text>
@@ -72,7 +77,16 @@ export const CoreCard = ({
                   <div className="mb-3">
                       { priceTag && priceTag }
                   </div>
-                  {btnBottom && btnBottom}
+                  {btnBottom ? (
+                      <>{btnBottom && btnBottom}</>
+                  ) : (
+                      <div className="row">
+                        <div className="col-12 col-lg-6 offset-lg-6">
+                            { link && <CoreButton text="more" variant={CoreButtontype.Primary} icon={false} buttonType="a" href={link} /> }
+                        </div>
+                      </div>
+                      )
+                  }
               </div>
           </Card.Body>
       </Card>

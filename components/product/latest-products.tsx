@@ -11,6 +11,7 @@ export default async function LatestProducts() {
                 {latestProducts.map(item => (
                     <div key={item.id} className="col-12 col-md-6 col-lg-3 mb-3 d-flex align-items-stretch">
                         <ProductPreview product={item} />
+
                     </div>
                 ))}
             </div>

@@ -16,7 +16,7 @@ export default async function CategoryDetailPage({params}: { params: { id: strin
                 <CategoryMenuLeft/>
             </div>
             <div className="col-md-9">
-                <CategoryDetail products={products} />
+                <CategoryDetail products={products} categoryId={Number(params.id)}/>
             </div>
         </div>
     )

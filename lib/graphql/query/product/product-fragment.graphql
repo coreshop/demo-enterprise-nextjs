@@ -3,6 +3,12 @@ fragment product on object_CoreShopProduct {
     id
     name
     ean
+    categories {
+        __typename
+        ... on object_CoreShopCategory {
+            name
+        }
+    }
     images {
         ... on asset {
             fullpath

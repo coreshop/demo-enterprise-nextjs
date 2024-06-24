@@ -49,7 +49,9 @@ export const CoreButton = ({
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {
         if (onClick) {
-            event.preventDefault();
+            if (buttonType === 'a') {
+                event.preventDefault();
+            }
             onClick(event);
         }
     };
@@ -62,7 +64,7 @@ export const CoreButton = ({
         {icon && iconPost && <IconComponent className={text ? "ms-2" : "" } />}
       </a>
     ) : (
-      <Button type={type} variant={variant} size={size as any} className={buttonClassName} disabled={disabled} aria-controls={ariaControls} aria-expanded={ariaExpanded} >
+      <Button type={type} variant={variant} size={size as any} className={buttonClassName} disabled={disabled} aria-controls={ariaControls} aria-expanded={ariaExpanded} {...(type !== 'submit' && { onClick: handleClick })}  >
         {icon && iconPre && <IconComponent className={text ? "me-2" : "" } />}
         {text}
         {icon && iconPost && <IconComponent className={text ? "ms-2" : "" } />}

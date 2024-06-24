@@ -2,4 +2,5 @@ fragment category on object_CoreShopCategory {
     __typename
     id
     name
+    description
 }

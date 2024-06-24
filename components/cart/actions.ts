@@ -114,6 +114,7 @@ export async function registerGuestCartAddress(state: any, address: AddressType)
         return;
     }
 
+
     const result = await checkoutGuestAddress({token, invoiceAddress, shippingAddress: undefined});
 
     if (result) {
@@ -143,7 +144,6 @@ export async function registerCustomerCartAddress(state: any, invoiceAddress: Ad
 
     const result = await checkoutCustomerAddress({address});
 
-    console.log(result);
     if (result) {
         redirect('/checkout/shipping');
     }

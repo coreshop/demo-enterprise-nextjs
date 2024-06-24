@@ -4,17 +4,15 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, {useEffect} from 'react';
 import { Form } from 'react-bootstrap';
-import {registerCustomerCartAddress, registerGuestCartAddress} from '@/components/cart/actions';
+import {registerCustomerCartAddress} from '@/components/cart/actions';
 import { AddressSchema, AddressType } from '@/schema/CustomerRegistration';
 import Loading from '@/app/loading';
 import {AddressFragment, CountryEnumType, OrderFragment} from '@/lib/graphql/types.generated';
 import { CoreButton } from '@/stories/Atoms/Button/CoreButton';
 import { CoreButtontype } from '@/stories/Atoms/Button/types';
 
-export default function ChooseAddresses({ cart, addresses, selectedInvoice = 0 }: {
+export default function CreateAddress({ cart}: {
     cart: OrderFragment,
-    addresses: AddressFragment[],
-    selectedInvoice: number
 }) {
     const {
         register,
@@ -28,6 +26,7 @@ export default function ChooseAddresses({ cart, addresses, selectedInvoice = 0 }
 
     const onSubmit = async (address: AddressType) => {
         await registerCustomerCartAddress(null, address);
+        reset();
     };
 
 

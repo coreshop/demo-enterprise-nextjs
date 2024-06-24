@@ -46,6 +46,9 @@ import {
     GetCoreShopActiveOrder,
     GetCoreShopActiveOrderQuery,
     GetCoreShopActiveOrderQueryVariables,
+    GetCoreShopCategory,
+    GetCoreShopCategoryQuery,
+    GetCoreShopCategoryQueryVariables,
     GetCoreShopCategories,
     GetCoreShopCategoriesQuery,
     GetCoreShopCategoriesQueryVariables,
@@ -68,6 +71,7 @@ import {
     Object_CoreShopCategory,
     OrderFragment,
     PaymentProviderEnumType,
+    CategoryFragment,
     ProductFragment,
     GetCoreShopAddressList,
     GetCoreShopAddressListQuery,
@@ -135,6 +139,21 @@ export async function getCategories(): Promise<Object_CoreShopCategory[]> {
     return [];
 }
 
+export async function getCategory({categoryId}: { categoryId: number }) {
+    const res = await coreShopFetch<GetCoreShopCategoryQuery, GetCoreShopCategoryQueryVariables>({
+        query: print(GetCoreShopCategory),
+        variables: {
+            categoryId: categoryId
+        }
+    });
+
+    if (res.data?.CoreShopCategory?.__typename === 'CoreShopCategoryResult') {
+        return res.data.CoreShopCategory?.category as CategoryFragment;
+    }
+
+    return undefined;
+}
+
 export async function getLatestProducts(): Promise<ProductFragment[]> {
     const res = await coreShopFetch<GetCoreShopLatestProductsQuery, GetCoreShopLatestProductsQueryVariables>({
         query: print(GetCoreShopLatestProducts),
@@ -178,6 +197,7 @@ export async function getProductsInCategory({categoryId}: {
     }
 
     return undefined;
+
 }
 
 export async function getProductPrice({productId}: {
@@ -393,6 +413,8 @@ export async function checkoutGuestAddress({token, invoiceAddress, shippingAddre
         },
         cache: "no-cache"
     });
+
+    console.log(res);
 
     return res.data?.CoreShopCheckoutGuestAddress?.__typename === 'CoreShopCheckoutGuestAddressResult';
 }
