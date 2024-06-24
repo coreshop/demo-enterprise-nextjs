@@ -3,8 +3,8 @@
 import {cookies} from "next/headers";
 import {
     addItemToOrder,
-    addVoucherCode, checkoutCustomerAddress, checkoutGuestAddress,
-    checkoutGuestRegistration, checkoutPayment, checkoutShipping,
+    addVoucherCode, checkoutAddress, checkoutCustomerAddress, checkoutGuestAddress,
+    checkoutGuestRegistration, checkoutPayment, checkoutShipping, getOrder,
     removeOrderItem,
     removeVoucherCode,
     updateOrderItem
@@ -12,14 +12,13 @@ import {
 import {revalidateTag} from "next/cache";
 import {
     AddressInput,
-    CarrierEnumType,
+    CarrierEnumType, CheckoutAddressInput,
     CountryEnumType,
     GuestRegistrationInput,
     PaymentProviderEnumType
 } from "@/lib/graphql/types.generated";
 import {redirect} from "next/navigation";
 import {AddressType, GuestCustomerType} from "@/schema/CustomerRegistration";
-import {safeLoad} from "yaml-ast-parser";
 
 export async function addItemToCart(state: any, {productId, quantity}: { productId: number, quantity: number }) {
     const token = cookies().get('cartToken')?.value;
@@ -145,7 +144,7 @@ export async function registerCustomerCartAddress(state: any, invoiceAddress: Ad
     const result = await checkoutCustomerAddress({address});
 
     if (result) {
-        redirect('/checkout/shipping');
+        revalidateTag('cart');
     }
 }
 
@@ -210,3 +209,25 @@ export async function removeVoucher(state: any, {voucherCode}: { voucherCode: st
     revalidateTag('cart');
 }
 
+
+export async function setCustomerCartAddress(state: any, address: CheckoutAddressInput): Promise<any> {
+
+    const cartAddresses: CheckoutAddressInput = {
+        invoiceAddressId: address.invoiceAddressId,
+        shippingAddressId: address.invoiceAddressIsShippingAddress ? address.invoiceAddressId : address.shippingAddressId,
+        invoiceAddressIsShippingAddress: address.invoiceAddressIsShippingAddress,
+        order: {token: ''}
+    };
+
+    const token = cookies().get('cartToken')?.value;
+
+    if (!token) {
+        return;
+    }
+
+    const result = await checkoutAddress({token, address: cartAddresses});
+
+    if (result) {
+        revalidateTag('cart');
+    }
+}

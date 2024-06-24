@@ -62,6 +62,13 @@ export type CategoryListingInput = {
   limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type CheckoutAddressInput = {
+  invoiceAddressId: Scalars['Int']['input'];
+  invoiceAddressIsShippingAddress?: InputMaybe<Scalars['Boolean']['input']>;
+  order: OrderInput;
+  shippingAddressId?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type CheckoutCarrierInput = {
   carrier?: InputMaybe<CarrierEnumType>;
   order?: InputMaybe<OrderInput>;
@@ -171,6 +178,13 @@ export type CoreShopCategoryResult = {
 };
 
 export type CoreShopCategoryUnionResult = CoreShopCategoryResult | CoreShopError | CoreShopValidationError;
+
+export type CoreShopCheckoutAddressResult = {
+  __typename?: 'CoreShopCheckoutAddressResult';
+  order?: Maybe<Object_CoreShopOrder>;
+};
+
+export type CoreShopCheckoutAddressUnionResult = CoreShopCheckoutAddressResult | CoreShopError | CoreShopValidationError;
 
 export type CoreShopCheckoutGuestAddressResult = {
   __typename?: 'CoreShopCheckoutGuestAddressResult';
@@ -752,6 +766,7 @@ export type Mutations = {
   CoreShopAddOrderVoucherCode?: Maybe<CoreShopAddOrderVoucherCodeUnionResult>;
   CoreShopAddToOrder?: Maybe<CoreShopAddToOrderUnionResult>;
   CoreShopAuthorize?: Maybe<CoreShopAuthorizeUnionResult>;
+  CoreShopCheckoutAddress?: Maybe<CoreShopCheckoutAddressUnionResult>;
   CoreShopCheckoutGuestAddress?: Maybe<CoreShopCheckoutGuestAddressUnionResult>;
   CoreShopCheckoutGuestRegistration?: Maybe<CoreShopCheckoutGuestRegistrationUnionResult>;
   CoreShopCheckoutOrder?: Maybe<CoreShopCheckoutOrderUnionResult>;
@@ -783,6 +798,12 @@ export type MutationsCoreShopAddToOrderArgs = {
 
 export type MutationsCoreShopAuthorizeArgs = {
   authorize?: InputMaybe<LoginInput>;
+  locale?: InputMaybe<LocaleInput>;
+};
+
+
+export type MutationsCoreShopCheckoutAddressArgs = {
+  checkoutAddress?: InputMaybe<CheckoutAddressInput>;
   locale?: InputMaybe<LocaleInput>;
 };
 
@@ -2678,6 +2699,16 @@ export type GetCoreShopAddressListQueryVariables = Exact<{ [key: string]: never;
 
 export type GetCoreShopAddressListQuery = { __typename?: 'Query', CoreShopAddressList?: { __typename: 'CoreShopAddressListResult', addresses?: Array<{ __typename: 'object_CoreShopAddress', id?: string | null, firstname?: string | null, lastname?: string | null, salutation?: string | null, company?: string | null, street?: string | null, number?: string | null, postcode?: string | null, city?: string | null, phoneNumber?: string | null, addressIdentifier?: { __typename?: 'CoreshopAddressIdentifier', name?: string | null } | null, country?: { __typename?: 'CoreshopCountry', isoCode?: string | null } | null } | null> | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopValidationError' } | null };
 
+export type CoreShopCheckoutAddressMutationVariables = Exact<{
+  invoiceAddress: Scalars['Int']['input'];
+  shippingAddress?: InputMaybe<Scalars['Int']['input']>;
+  token: Scalars['String']['input'];
+  invoiceAddressIsShippingAddress: Scalars['Boolean']['input'];
+}>;
+
+
+export type CoreShopCheckoutAddressMutation = { __typename?: 'Mutations', CoreShopCheckoutAddress?: { __typename: 'CoreShopCheckoutAddressResult', order?: { __typename?: 'object_CoreShopOrder', shippingAddress?: { __typename?: 'object_CoreShopAddress', id?: string | null } | null, invoiceAddress?: { __typename?: 'object_CoreShopAddress', id?: string | null } | null } | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopValidationError' } | null };
+
 export type CoreShopAuthorizeMutationVariables = Exact<{
   username: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -3083,6 +3114,32 @@ export const GetCoreShopAddressList = gql`
 }
     ${Address}
 ${Error}`;
+export const CoreShopCheckoutAddress = gql`
+    mutation CoreShopCheckoutAddress($invoiceAddress: Int!, $shippingAddress: Int, $token: String!, $invoiceAddressIsShippingAddress: Boolean!) {
+  CoreShopCheckoutAddress(
+    checkoutAddress: {shippingAddressId: $shippingAddress, invoiceAddressId: $invoiceAddress, invoiceAddressIsShippingAddress: $invoiceAddressIsShippingAddress, order: {token: $token}}
+  ) {
+    __typename
+    ... on CoreShopCheckoutAddressResult {
+      order {
+        shippingAddress {
+          ... on object_CoreShopAddress {
+            id
+          }
+        }
+        invoiceAddress {
+          ... on object_CoreShopAddress {
+            id
+          }
+        }
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Error}`;
 export const CoreShopAuthorize = gql`
     mutation CoreShopAuthorize($username: String!, $password: String!, $orderToken: String) {
   CoreShopAuthorize(

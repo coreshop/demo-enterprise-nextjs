@@ -26,10 +26,12 @@ export default async function CheckoutAddressPage() {
     if (cart === undefined) {
         return <div>No Cart</div>;
     }
-    console.log(cart);
+    const setInvoiceAddressId: string = cart?.invoiceAddress?.id ?? '';
+    const setShippingAddressId: string = cart?.shippingAddress?.id ?? '';
+
     return <div>
         {session?.user ?
-            <CheckoutCustomerAddress cart={cart} authSession={session} addresses={allAddresses}/>
+            <CheckoutCustomerAddress cart={cart} authSession={session} addresses={allAddresses} selectedInvoiceAddressId={setInvoiceAddressId} selectedShippingAddressId={setShippingAddressId}/>
             :
             <CheckoutGuestAddress cart={cart} authSession={session} />
         }

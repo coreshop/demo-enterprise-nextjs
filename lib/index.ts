@@ -19,6 +19,9 @@ import {
     CoreShopCarrierListQuery,
     CoreShopCarrierListQueryVariables,
     CoreShopCarrierListResult,
+    CoreShopCheckoutAddress,
+    CoreShopCheckoutAddressMutation,
+    CoreShopCheckoutAddressMutationVariables,
     CoreShopCheckoutGuestAddress,
     CoreShopCheckoutGuestAddressMutation,
     CoreShopCheckoutGuestAddressMutationVariables,
@@ -78,7 +81,7 @@ import {
     GetCoreShopAddressListQueryVariables,
     CoreShopCreateAddress,
     CoreShopCreateAddressMutation,
-    CoreShopCreateAddressMutationVariables
+    CoreShopCreateAddressMutationVariables, CheckoutAddressInput
 } from "@/lib/graphql/types.generated";
 import {auth} from "@/auth";
 
@@ -414,8 +417,6 @@ export async function checkoutGuestAddress({token, invoiceAddress, shippingAddre
         cache: "no-cache"
     });
 
-    console.log(res);
-
     return res.data?.CoreShopCheckoutGuestAddress?.__typename === 'CoreShopCheckoutGuestAddressResult';
 }
 
@@ -521,7 +522,27 @@ export async function checkoutCustomerAddress({address}: {
         },
         cache: "no-cache"
     });
+
+    return res.data?.CoreShopCreateAddress?.__typename === 'CoreShopCreateAddressResult';
+}
+
+
+export async function checkoutAddress({token,address}: {
+    token: string,
+    address: CheckoutAddressInput
+}): Promise<boolean> {
+    const res = await coreShopFetch<CoreShopCheckoutAddressMutation, CoreShopCheckoutAddressMutationVariables>({
+        query: print(CoreShopCheckoutAddress),
+        variables: {
+            shippingAddress: address.shippingAddressId,
+            invoiceAddress: address.invoiceAddressId,
+            token: token,
+            invoiceAddressIsShippingAddress: address.invoiceAddressIsShippingAddress ?? true
+        },
+        cache: "no-cache"
+    });
+
     console.log(res);
-    return false;
-    //return res.data?.CoreShopCreateAddressUnionResult?.__typename === 'CoreShopCheckoutGuestAddressResult';
+
+    return res.data?.CoreShopCheckoutAddress?.__typename === 'CoreShopCheckoutAddressResult';
 }
