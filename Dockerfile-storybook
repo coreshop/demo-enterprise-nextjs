@@ -1,0 +1,22 @@
+ARG NODE_VERSION=18
+
+FROM node:${NODE_VERSION}-alpine AS cors_builder
+
+WORKDIR /usr/app
+
+RUN apk update && apk add python3 py3-setuptools make g++ && rm -rf /var/cache/apk/*
+
+COPY ./package.json ./package-lock.json ./
+RUN yarn install
+
+ARG API_URL
+ENV API_URL=$API_URL
+ARG API_HOSTNAME
+ENV API_HOSTNAME=$API_HOSTNAME
+
+COPY . .
+RUN yarn run build-storybook
+
+FROM nginx:1.27-alpine3.19 AS cors_runner
+
+COPY --from=cors_builder /usr/app/storybook-static /usr/share/nginx/html
