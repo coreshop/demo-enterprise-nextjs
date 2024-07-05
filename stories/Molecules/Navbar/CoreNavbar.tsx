@@ -124,8 +124,7 @@ export const CoreNavbar = ({
 
                                         <Dropdown.Menu>
                                             <div className="px-3 mb-3">{authSession.user.email}</div>
-                                            <Dropdown.Item href="#/profile">Profile</Dropdown.Item>
-                                            <Dropdown.Item href="#/settings">Settings</Dropdown.Item>
+                                            <Dropdown.Item href="/profile">Profile</Dropdown.Item>
                                             <Dropdown.Item href="#/">{logout}</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>

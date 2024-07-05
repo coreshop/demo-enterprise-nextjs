@@ -7,6 +7,7 @@ import './cartwidget.scss';
 import {ListGroup} from "react-bootstrap";
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
 import {CoreButtontype} from "@/stories/Atoms/Button/types";
+import CartItemRemove from "@/components/cart/cart-item-remove";
 
 type CartWidgetProps = {
     cart: OrderFragment | null
@@ -46,10 +47,7 @@ export const CoreCartWidget = ({cart}:CartWidgetProps) => {
                                         <div>x{item.quantity} - <Currency amount={item.totalGross ? item.totalGross : 0}
                                                                           currencyCode="EUR"/></div>
                                         <div className="cart-close-item">
-                                            <CoreButton variant={CoreButtontype.Link} buttonType="a" text="" href="/"
-                                                        icon={true} iconPre={true} iconType="X" onClick={(event) => {
-                                                event.preventDefault();
-                                            }}/>
+                                            <CartItemRemove cartItem={item}/>
                                         </div>
 
                                     </ListGroup.Item>

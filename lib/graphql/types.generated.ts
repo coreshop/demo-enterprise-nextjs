@@ -2782,6 +2782,11 @@ export type CoreShopCheckoutShippingMutation = { __typename?: 'Mutations', CoreS
 
 export type CustomerFragment = { __typename: 'object_CoreShopCustomer', salutation?: string | null, gender?: string | null, email?: string | null, firstname?: string | null, lastname?: string | null, localeCode?: string | null };
 
+export type GetCoreShopMeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCoreShopMeQuery = { __typename?: 'Query', CoreShopMe?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopMeResult', user?: { __typename?: 'object_CoreShopUser', id?: string | null, customer?: { __typename?: 'object_CoreShopCustomer', id?: string | null, firstname?: string | null, lastname?: string | null, email?: string | null } | null } | null } | { __typename?: 'CoreShopValidationError' } | null };
+
 export type ErrorFragment = { __typename: 'CoreShopError', message?: string | null };
 
 export type GetCoreShopActiveOrderQueryVariables = Exact<{ [key: string]: never; }>;
@@ -3316,6 +3321,31 @@ export const CoreShopCheckoutShipping = gql`
     ${Order}
 ${Error}
 ${Validation_Error}`;
+export const GetCoreShopMe = gql`
+    query getCoreShopMe {
+  CoreShopMe {
+    ... on CoreShopMeResult {
+      __typename
+      user {
+        id
+        ... on object_CoreShopUser {
+          customer {
+            ... on object_CoreShopCustomer {
+              id
+              firstname
+              lastname
+              email
+            }
+          }
+        }
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Error}`;
 export const GetCoreShopActiveOrder = gql`
     query GetCoreShopActiveOrder {
   CoreShopActiveOrder {

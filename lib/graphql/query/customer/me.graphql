@@ -1,0 +1,25 @@
+#import "../error.graphql"
+
+query getCoreShopMe {
+    CoreShopMe {
+        ... on CoreShopMeResult {
+            __typename
+            user {
+                id
+                ... on object_CoreShopUser {
+                    customer {
+                        ... on object_CoreShopCustomer {
+                            id
+                            firstname
+                            lastname
+                            email
+                        }
+                    }
+                }
+            }
+        }
+        ... on CoreShopError {
+            ...error
+        }
+    }
+}

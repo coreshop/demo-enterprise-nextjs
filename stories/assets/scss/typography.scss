@@ -20,3 +20,7 @@ svg {
 b, strong {
     font-weight: 600;
 }
+
+.dropdown-item.active, .dropdown-item:active {
+    --bs-dropdown-link-active-bg: var(--coreshop-primary);
+}

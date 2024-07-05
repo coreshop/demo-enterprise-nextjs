@@ -1,8 +1,4 @@
 import {getCategories} from "@/lib";
-import Link from "next/link";
-import {pimcoreImage} from "@/lib/pimcoreLoader";
-import {AddToCart} from "@/components/product/add-to-cart";
-import {PriceInfo} from "@/components/product/price";
 import {CoreCard} from "@/stories/Molecules/Cards/CoreCard";
 import React from "react";
 

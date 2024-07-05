@@ -20,6 +20,7 @@ export const generateBreadcrumbs = (pathname: string): BreadcrumbItem[] => {
 
     pathSegments.forEach((segment, index) => {
         let link = `/${pathSegments.slice(0, index + 1).join('/')}`;
+
         let title = segment.charAt(0).toUpperCase() + segment.slice(1);
 
         breadcrumbItems.push({

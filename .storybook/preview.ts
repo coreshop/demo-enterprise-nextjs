@@ -12,6 +12,7 @@ import '../stories/assets/scss/list.scss';
 import '../stories/assets/scss/typography.scss';
 import '../stories/assets/scss/table.scss';
 import '../stories/assets/scss/main.scss';
+import '../stories/assets/scss/buttons.scss';
 
 // @ts-ignore
 const preview: Preview = {

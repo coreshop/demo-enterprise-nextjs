@@ -6,6 +6,7 @@ import {FooterPre} from '../../Organisms/FooterPre/FooterPre';
 import {CoreBreadcrumb} from "../../Atoms/Breadcrumb/CoreBreadcrumb";
 import {CoreIconCard} from "../../Molecules/IconCard/CoreIconCard";
 import {CustomerMenu} from "./CustomerMenu";
+import {mockUser} from "@/mockdata/mockUser";
 
 export const CustomerOverview = ({
                          logo,
@@ -32,7 +33,7 @@ export const CustomerOverview = ({
                 <section className="container">
                     <div className="row">
                         <div className="col-12 col-lg-3 mb-3">
-                            <CustomerMenu />
+                            <CustomerMenu user={mockUser}/>
                         </div>
                         <div className="col-12 col-lg-9">
                             <div className="row">

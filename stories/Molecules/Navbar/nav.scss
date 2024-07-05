@@ -38,17 +38,17 @@ nav {
         }
 
         &-close-item {
-            position: absolute;
-            top: 0;
-            right: 0;
-            cursor: pointer;
+            position: relative;
 
-            a.icon-only {
-                padding: 0;
+            form {
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
 
-                svg {
-                    font-size: rem(22px);
-                }
+        &-widget {
+            .dropdown-menu {
+                --bs-dropdown-min-width: 18rem;
             }
         }
     }

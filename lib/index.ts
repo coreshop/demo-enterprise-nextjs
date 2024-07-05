@@ -1,10 +1,10 @@
-import {
-    print
-} from 'graphql';
+import {print} from 'graphql';
 import {
     AddressFragment,
     AddressInput,
     CarrierEnumType,
+    CategoryFragment,
+    CheckoutAddressInput,
     CoreShopAddOrderVoucherCode,
     CoreShopAddOrderVoucherCodeMutation,
     CoreShopAddOrderVoucherCodeMutationVariables,
@@ -27,11 +27,16 @@ import {
     CoreShopCheckoutGuestAddressMutationVariables,
     CoreShopCheckoutGuestRegistration,
     CoreShopCheckoutGuestRegistrationMutation,
-    CoreShopCheckoutGuestRegistrationMutationVariables, CoreShopCheckoutPaymentProvider,
-    CoreShopCheckoutPaymentProviderMutation, CoreShopCheckoutPaymentProviderMutationVariables,
+    CoreShopCheckoutGuestRegistrationMutationVariables,
+    CoreShopCheckoutPaymentProvider,
+    CoreShopCheckoutPaymentProviderMutation,
+    CoreShopCheckoutPaymentProviderMutationVariables,
     CoreShopCheckoutShipping,
     CoreShopCheckoutShippingMutation,
     CoreShopCheckoutShippingMutationVariables,
+    CoreShopCreateAddress,
+    CoreShopCreateAddressMutation,
+    CoreShopCreateAddressMutationVariables,
     CoreShopPaymentProviderList,
     CoreShopPaymentProviderListQuery,
     CoreShopPaymentProviderListQueryVariables,
@@ -49,15 +54,21 @@ import {
     GetCoreShopActiveOrder,
     GetCoreShopActiveOrderQuery,
     GetCoreShopActiveOrderQueryVariables,
-    GetCoreShopCategory,
-    GetCoreShopCategoryQuery,
-    GetCoreShopCategoryQueryVariables,
+    GetCoreShopAddressList,
+    GetCoreShopAddressListQuery,
+    GetCoreShopAddressListQueryVariables,
     GetCoreShopCategories,
     GetCoreShopCategoriesQuery,
     GetCoreShopCategoriesQueryVariables,
+    GetCoreShopCategory,
+    GetCoreShopCategoryQuery,
+    GetCoreShopCategoryQueryVariables,
     GetCoreShopLatestProducts,
     GetCoreShopLatestProductsQuery,
     GetCoreShopLatestProductsQueryVariables,
+    GetCoreShopMe,
+    GetCoreShopMeQuery,
+    GetCoreShopMeQueryVariables,
     GetCoreShopOrder,
     GetCoreShopOrderQuery,
     GetCoreShopOrderQueryVariables,
@@ -74,14 +85,7 @@ import {
     Object_CoreShopCategory,
     OrderFragment,
     PaymentProviderEnumType,
-    CategoryFragment,
     ProductFragment,
-    GetCoreShopAddressList,
-    GetCoreShopAddressListQuery,
-    GetCoreShopAddressListQueryVariables,
-    CoreShopCreateAddress,
-    CoreShopCreateAddressMutation,
-    CoreShopCreateAddressMutationVariables, CheckoutAddressInput
 } from "@/lib/graphql/types.generated";
 import {auth} from "@/auth";
 
@@ -123,7 +127,7 @@ export async function coreShopFetch<TResult, TVariables>({
     })
 
     if (response.status !== 200) {
-        throw new Error(`Failed to fetch: ${response.statusText}. Body: ${await response.text()}`)
+       throw new Error(`Failed to fetch: ${response.statusText}. Body: ${await response.text()}`)
     }
 
     return await response.json() as { data: TResult };
@@ -545,4 +549,18 @@ export async function checkoutAddress({token,address}: {
     console.log(res);
 
     return res.data?.CoreShopCheckoutAddress?.__typename === 'CoreShopCheckoutAddressResult';
+}
+export async function getCoreshopMe(): Promise<object | undefined | null > {
+    const res = await coreShopFetch<GetCoreShopMeQuery, GetCoreShopMeQueryVariables>({
+        query: print(GetCoreShopMe),
+        variables: {},
+        cache: "no-cache"
+    });
+
+    if (res.data?.CoreShopMe?.__typename === "CoreShopMeResult") {
+        const customer = res.data.CoreShopMe.user?.customer;
+        return customer || null;
+    } else {
+        return null;
+    }
 }

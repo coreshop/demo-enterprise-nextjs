@@ -20,7 +20,7 @@ export default function CartItemRemove({cartItem}: CartItemPageProps) {
 
     return (
         <form action={action}>
-            <CoreButton text="Delete" type="submit" variant={CoreButtontype.Link} icon={true} iconType="Trash" iconPre={true} />
+            <CoreButton text="Remove" type="submit" variant={CoreButtontype.Link} icon={true} iconType="Trash" iconPre={true} />
         </form>
     );
 }

@@ -80,7 +80,7 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
             </tr>
             <tr>
                 <td colSpan={2} rowSpan={10} valign="top" className="border-0">
-                    <VoucherForm/>
+
                 </td>
                 <td className="border-0"></td>
                 <td className="text-right border-0">

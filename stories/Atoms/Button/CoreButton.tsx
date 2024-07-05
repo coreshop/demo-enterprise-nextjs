@@ -2,7 +2,6 @@ import React from 'react';
 import Button, { ButtonProps } from 'react-bootstrap/Button';
 import * as Icons from 'react-bootstrap-icons';
 import { CoreButtontype } from './types';
-import './buttons.scss';
 import Loader from "@/components/loader";
 
 interface CoreButtonProps extends Omit<ButtonProps, 'size'> {
@@ -64,7 +63,7 @@ export const CoreButton = ({
         {icon && iconPost && <IconComponent className={text ? "ms-2" : "" } />}
       </a>
     ) : (
-      <Button type={type} variant={variant} size={size as any} className={buttonClassName} disabled={disabled} aria-controls={ariaControls} aria-expanded={ariaExpanded} {...(type !== 'submit' && { onClick: handleClick })}  >
+      <Button type={type} variant={variant} size={size as any} className={buttonClassName} disabled={disabled} aria-controls={ariaControls} aria-expanded={ariaExpanded} {...(type !== 'submit' &&  { onClick: handleClick })}  >
         {icon && iconPre && <IconComponent className={text ? "me-2" : "" } />}
         {text}
         {icon && iconPost && <IconComponent className={text ? "ms-2" : "" } />}
