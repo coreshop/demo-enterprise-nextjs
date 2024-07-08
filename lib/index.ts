@@ -86,6 +86,10 @@ import {
     OrderFragment,
     PaymentProviderEnumType,
     ProductFragment,
+    CoreShopUpdateAddress,
+    CoreShopUpdateAddressMutation,
+    CoreShopUpdateAddressMutationVariables,
+    CoreShopUpdateAddressResult,
 } from "@/lib/graphql/types.generated";
 import {auth} from "@/auth";
 
@@ -546,8 +550,6 @@ export async function checkoutAddress({token,address}: {
         cache: "no-cache"
     });
 
-    console.log(res);
-
     return res.data?.CoreShopCheckoutAddress?.__typename === 'CoreShopCheckoutAddressResult';
 }
 export async function getCoreshopMe(): Promise<object | undefined | null > {
@@ -564,3 +566,30 @@ export async function getCoreshopMe(): Promise<object | undefined | null > {
         return null;
     }
 }
+
+export async function updateCustomerAddress({addressId,  address }: { addressId: number, address: AddressInput }): Promise<CoreShopUpdateAddressResult | null> {
+
+    const res = await coreShopFetch<CoreShopUpdateAddressMutation, CoreShopUpdateAddressMutationVariables>({
+        query: print(CoreShopUpdateAddress),
+        variables: {
+            addressId,
+            address,
+        },
+        cache: "no-cache"
+    });
+    
+    if (res.data?.CoreShopUpdateAddress?.__typename === 'CoreShopUpdateAddressResult') {
+        return res.data.CoreShopUpdateAddress;
+    }
+
+    if (res.data?.CoreShopUpdateAddress?.__typename === 'CoreShopError') {
+        throw new Error(res.data.CoreShopUpdateAddress.message ?? 'An unknown error occurred.');
+    }
+
+    if (res.data?.CoreShopUpdateAddress?.__typename === 'CoreShopValidationError') {
+        throw new Error(res.data.CoreShopUpdateAddress.message ?? 'Validation errors occurred.');
+    }
+
+    return null;
+}
+

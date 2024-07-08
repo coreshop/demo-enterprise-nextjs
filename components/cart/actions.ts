@@ -6,7 +6,7 @@ import {
     addVoucherCode, checkoutAddress, checkoutCustomerAddress, checkoutGuestAddress,
     checkoutGuestRegistration, checkoutPayment, checkoutShipping, getOrder,
     removeOrderItem,
-    removeVoucherCode,
+    removeVoucherCode, updateCustomerAddress,
     updateOrderItem
 } from "@/lib";
 import {revalidateTag} from "next/cache";
@@ -229,5 +229,12 @@ export async function setCustomerCartAddress(state: any, address: CheckoutAddres
 
     if (result) {
         revalidateTag('cart');
+    }
+}
+export async function updateCustomerAddressAction(state: any, addressId: number, address: Omit<AddressType, "termsAccepted">): Promise<any> {
+    const result = await updateCustomerAddress({addressId: addressId, address: address});
+    console.log(result);
+    if (result) {
+        redirect('/profile/addresses');
     }
 }

@@ -1,50 +1,52 @@
-import {getCustomerAddresses} from "@/lib";
-import React, {Suspense} from "react";
+import {getCustomerAddresses, getOrder, updateCustomerAddress} from "@/lib";
+import React, { Suspense } from "react";
 import ProfileMenu from "@/components/profile/ProfileMenu";
-import {auth} from "@/auth";
-import {redirect} from "next/navigation";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 import Loader from "@/components/loader";
-import {AddressFragment} from "@/lib/graphql/types.generated";
-import Table from "react-bootstrap/Table";
+import {AddressFragment, AddressInput, CountryEnumType, OrderFragment} from "@/lib/graphql/types.generated";
+import AddressesTable from "@/components/profile/AddressesTable";
+import {cookies} from "next/headers";
 
 export default async function AddressesPage() {
     const session = await auth();
+    const cartToken = cookies().get('cartToken')?.value;
     let addresses: AddressFragment[] = [];
+
     if (!session) {
-        return (redirect('/'));
+        return redirect('/');
     }
-    if(session?.accessToken) {
+
+    if (session?.accessToken) {
         addresses = await getCustomerAddresses(session?.accessToken);
     }
-    return <>
+
+    let cart: OrderFragment | undefined;
+
+    if (!cartToken) {
+        return <div>No Cart</div>;
+    }
+
+    if (cartToken) {
+        cart = await getOrder({cartToken: cartToken});
+    }
+
+    if (cart === undefined) {
+        return <div>No Cart</div>;
+    }
+
+    return (
         <section className="container">
             <div className="row">
-                <Suspense fallback={<Loader/>}>
+                <Suspense fallback={<Loader />}>
                     <div className="col-12 col-lg-3 mb-3">
-                        <ProfileMenu active="addresses"/>
+                        <ProfileMenu active="addresses" />
                     </div>
                     <div className="col-12 col-lg-9">
-                        <Table>
-                            <thead>
-                                <tr>
-                                    <th>Street</th>
-                                    <th>Number</th>
-                                    <th>ZIP</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {addresses.map(address => (
-                                <tr>
-                                    <td>{address.street}</td>
-                                    <td>{address.number}</td>
-                                    <td>{address.postcode}</td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </Table>
+                        <AddressesTable addresses={addresses} cart={cart} sessionToken={session?.accessToken}/>
                     </div>
                 </Suspense>
             </div>
         </section>
-    </>
+    );
 }

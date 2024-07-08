@@ -1,0 +1,30 @@
+#import "../error.graphql"
+#import "../validation-error.graphql"
+mutation CoreShopUpdateAddress(
+    $addressId: Int!,
+    $address: AddressInput!
+) {
+    CoreShopUpdateAddress(updateAddress: {
+        addressId: $addressId, address: $address
+    }) {
+        __typename
+        ... on CoreShopUpdateAddressResult {
+            address {
+                id
+                street
+                number
+                postcode
+                city
+                country {
+                    isoCode
+                }
+            }
+        }
+        ... on CoreShopError {
+            ...error
+        }
+        ... on CoreShopValidationError {
+            ...validation_error
+        }
+    }
+}

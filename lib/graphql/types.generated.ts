@@ -2709,6 +2709,14 @@ export type CoreShopCheckoutAddressMutationVariables = Exact<{
 
 export type CoreShopCheckoutAddressMutation = { __typename?: 'Mutations', CoreShopCheckoutAddress?: { __typename: 'CoreShopCheckoutAddressResult', order?: { __typename?: 'object_CoreShopOrder', shippingAddress?: { __typename?: 'object_CoreShopAddress', id?: string | null } | null, invoiceAddress?: { __typename?: 'object_CoreShopAddress', id?: string | null } | null } | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopValidationError' } | null };
 
+export type CoreShopUpdateAddressMutationVariables = Exact<{
+  addressId: Scalars['Int']['input'];
+  address: AddressInput;
+}>;
+
+
+export type CoreShopUpdateAddressMutation = { __typename?: 'Mutations', CoreShopUpdateAddress?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopUpdateAddressResult', address?: { __typename?: 'object_CoreShopAddress', id?: string | null, street?: string | null, number?: string | null, postcode?: string | null, city?: string | null, country?: { __typename?: 'CoreshopCountry', isoCode?: string | null } | null } | null } | { __typename: 'CoreShopValidationError', message?: string | null } | null };
+
 export type CoreShopAuthorizeMutationVariables = Exact<{
   username: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -3145,6 +3153,32 @@ export const CoreShopCheckoutAddress = gql`
   }
 }
     ${Error}`;
+export const CoreShopUpdateAddress = gql`
+    mutation CoreShopUpdateAddress($addressId: Int!, $address: AddressInput!) {
+  CoreShopUpdateAddress(updateAddress: {addressId: $addressId, address: $address}) {
+    __typename
+    ... on CoreShopUpdateAddressResult {
+      address {
+        id
+        street
+        number
+        postcode
+        city
+        country {
+          isoCode
+        }
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+    ... on CoreShopValidationError {
+      ...validation_error
+    }
+  }
+}
+    ${Error}
+${Validation_Error}`;
 export const CoreShopAuthorize = gql`
     mutation CoreShopAuthorize($username: String!, $password: String!, $orderToken: String) {
   CoreShopAuthorize(
