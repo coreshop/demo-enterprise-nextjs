@@ -1,7 +1,7 @@
 'use client';
 
 import {Fieldcollection_CoreShopProposalCartPriceRuleItem} from "@/lib/graphql/types.generated";
-import {removeVoucher} from "@/components/cart/actions";
+import {removeVoucher} from "@/components/actions";
 import {useFormState} from "react-dom";
 
 type CartPriceRuleItemRemoveProps = {

@@ -1,0 +1,17 @@
+#import "../error.graphql"
+#import "../validation-error.graphql"
+mutation CoreShopDeleteAddress (
+    $addressId: Int!,
+) {
+    CoreShopDeleteAddress(deleteAddress: {
+        addressId: $addressId
+    }) {
+        __typename
+        ... on CoreShopError {
+            ...error
+        }
+        ... on CoreShopValidationError {
+            ...validation_error
+        }
+    }
+}

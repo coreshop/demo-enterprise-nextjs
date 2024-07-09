@@ -11,7 +11,7 @@ import Loading from "@/app/loading";
 import {Form} from "react-bootstrap";
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
 import {CoreButtontype} from "@/stories/Atoms/Button/types";
-import {updateCustomerAddressAction} from "@/components/cart/actions";
+import {updateCustomerAddressAction} from "@/components/actions";
 
 type ClientAddressFormProps = {
     address: AddressFragment | null;

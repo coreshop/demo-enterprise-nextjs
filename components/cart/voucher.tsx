@@ -1,6 +1,6 @@
 'use client';
 
-import {addVoucherForm} from "@/components/cart/actions";
+import {addVoucherForm} from "@/components/actions";
 import {useRef} from "react";
 import {useFormState} from 'react-dom';
 import InputGroup from 'react-bootstrap/InputGroup';

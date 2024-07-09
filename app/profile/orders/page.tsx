@@ -4,17 +4,17 @@ import ProfileMenu from "@/components/profile/ProfileMenu";
 import {auth} from "@/auth";
 import {redirect} from "next/navigation";
 import Loader from "@/components/loader";
-import {AddressFragment} from "@/lib/graphql/types.generated";
+import {AddressFragment, OrderFragment} from "@/lib/graphql/types.generated";
 import Table from "react-bootstrap/Table";
 
 export default async function OrdersPage() {
     const session = await auth();
-    let addresses: AddressFragment[] = [];
+    let orders: OrderFragment[] = [];
     if (!session) {
         return (redirect('/'));
     }
     if(session?.accessToken) {
-        addresses = await getCustomerAddresses(session?.accessToken);
+        //orders = await getOrders(session?.accessToken);
     }
     return <>
         <section className="container">
@@ -27,17 +27,13 @@ export default async function OrdersPage() {
                         <Table>
                             <thead>
                             <tr>
-                                <th>Street</th>
-                                <th>Number</th>
-                                <th>ZIP</th>
+                                <th>Order</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {addresses.map(address => (
+                            {orders.map(order => (
                                 <tr>
-                                    <td>{address.street}</td>
-                                    <td>{address.number}</td>
-                                    <td>{address.postcode}</td>
+                                    <td>asd</td>
                                 </tr>
                             ))}
                             </tbody>

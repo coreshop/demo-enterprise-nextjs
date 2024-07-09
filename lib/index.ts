@@ -90,6 +90,10 @@ import {
     CoreShopUpdateAddressMutation,
     CoreShopUpdateAddressMutationVariables,
     CoreShopUpdateAddressResult,
+    CoreShopDeleteAddress,
+    CoreShopDeleteAddressMutation,
+    CoreShopDeleteAddressMutationVariables,
+    CoreShopDeleteAddressResult
 } from "@/lib/graphql/types.generated";
 import {auth} from "@/auth";
 
@@ -552,7 +556,13 @@ export async function checkoutAddress({token,address}: {
 
     return res.data?.CoreShopCheckoutAddress?.__typename === 'CoreShopCheckoutAddressResult';
 }
-export async function getCoreshopMe(): Promise<object | undefined | null > {
+export async function getCoreshopMe(): Promise<{
+    __typename?: "object_CoreShopCustomer";
+    id?: string | null;
+    firstname?: string | null;
+    lastname?: string | null;
+    email?: string | null
+} | null> {
     const res = await coreShopFetch<GetCoreShopMeQuery, GetCoreShopMeQueryVariables>({
         query: print(GetCoreShopMe),
         variables: {},
@@ -588,6 +598,31 @@ export async function updateCustomerAddress({addressId,  address }: { addressId:
 
     if (res.data?.CoreShopUpdateAddress?.__typename === 'CoreShopValidationError') {
         throw new Error(res.data.CoreShopUpdateAddress.message ?? 'Validation errors occurred.');
+    }
+
+    return null;
+}
+
+export async function deleteCustomerAddress({addressId}: { addressId: number}): Promise<CoreShopDeleteAddressResult | null> {
+
+    const res = await coreShopFetch<CoreShopDeleteAddressMutation, CoreShopDeleteAddressMutationVariables>({
+        query: print(CoreShopDeleteAddress),
+        variables: {
+            addressId,
+        },
+        cache: "no-cache"
+    });
+
+    if (res.data?.CoreShopDeleteAddress?.__typename === 'CoreShopDeleteAddressResult') {
+        return res.data.CoreShopDeleteAddress;
+    }
+
+    if (res.data?.CoreShopDeleteAddress?.__typename === 'CoreShopError') {
+        throw new Error(res.data.CoreShopDeleteAddress.message ?? 'An unknown error occurred.');
+    }
+
+    if (res.data?.CoreShopDeleteAddress?.__typename === 'CoreShopValidationError') {
+        throw new Error(res.data.CoreShopDeleteAddress.message ?? 'Validation errors occurred.');
     }
 
     return null;

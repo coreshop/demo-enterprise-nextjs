@@ -235,6 +235,13 @@ export type CoreShopCustomerRegistrationResult = {
 
 export type CoreShopCustomerRegistrationUnionResult = CoreShopCustomerRegistrationResult | CoreShopError | CoreShopValidationError;
 
+export type CoreShopDeleteAddressResult = {
+  __typename?: 'CoreShopDeleteAddressResult';
+  success?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type CoreShopDeleteAddressUnionResult = CoreShopDeleteAddressResult | CoreShopError | CoreShopValidationError;
+
 export type CoreShopError = {
   __typename?: 'CoreShopError';
   message?: Maybe<Scalars['String']['output']>;
@@ -680,6 +687,10 @@ export type CustomerInput = {
   user: UserInput;
 };
 
+export type DeleteAddressInputType = {
+  addressId?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type Document = Document_Email | Document_Hardlink | Document_Link | Document_Page | Document_Snippet;
 
 export type DocumentElement = Document_EditableAreablock | Document_EditableBlock | Document_EditableCheckbox | Document_EditableDate | Document_EditableEmbed | Document_EditableImage | Document_EditableInput | Document_EditableLink | Document_EditableMultiselect | Document_EditableNumeric | Document_EditablePdf | Document_EditableRelation | Document_EditableRelations | Document_EditableScheduledblock | Document_EditableSelect | Document_EditableTable | Document_EditableTextarea | Document_EditableVideo | Document_EditableWysiwyg;
@@ -774,6 +785,7 @@ export type Mutations = {
   CoreShopCheckoutShipping?: Maybe<CoreShopCheckoutShippingUnionResult>;
   CoreShopCreateAddress?: Maybe<CoreShopCreateAddressUnionResult>;
   CoreShopCustomerRegistration?: Maybe<CoreShopCustomerRegistrationUnionResult>;
+  CoreShopDeleteAddress?: Maybe<CoreShopDeleteAddressUnionResult>;
   CoreShopPasswordReset?: Maybe<CoreShopPasswordResetUnionResult>;
   CoreShopPasswordResetRequest?: Maybe<CoreShopPasswordResetRequestUnionResult>;
   CoreShopPasswordResetRequestValidate?: Maybe<CoreShopPasswordResetRequestValidateUnionResult>;
@@ -846,6 +858,12 @@ export type MutationsCoreShopCreateAddressArgs = {
 
 export type MutationsCoreShopCustomerRegistrationArgs = {
   customerRegistration?: InputMaybe<CustomerInput>;
+  locale?: InputMaybe<LocaleInput>;
+};
+
+
+export type MutationsCoreShopDeleteAddressArgs = {
+  deleteAddress?: InputMaybe<DeleteAddressInputType>;
   locale?: InputMaybe<LocaleInput>;
 };
 
@@ -2709,6 +2727,13 @@ export type CoreShopCheckoutAddressMutationVariables = Exact<{
 
 export type CoreShopCheckoutAddressMutation = { __typename?: 'Mutations', CoreShopCheckoutAddress?: { __typename: 'CoreShopCheckoutAddressResult', order?: { __typename?: 'object_CoreShopOrder', shippingAddress?: { __typename?: 'object_CoreShopAddress', id?: string | null } | null, invoiceAddress?: { __typename?: 'object_CoreShopAddress', id?: string | null } | null } | null } | { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopValidationError' } | null };
 
+export type CoreShopDeleteAddressMutationVariables = Exact<{
+  addressId: Scalars['Int']['input'];
+}>;
+
+
+export type CoreShopDeleteAddressMutation = { __typename?: 'Mutations', CoreShopDeleteAddress?: { __typename: 'CoreShopDeleteAddressResult' } | { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopValidationError', message?: string | null } | null };
+
 export type CoreShopUpdateAddressMutationVariables = Exact<{
   addressId: Scalars['Int']['input'];
   address: AddressInput;
@@ -3153,6 +3178,20 @@ export const CoreShopCheckoutAddress = gql`
   }
 }
     ${Error}`;
+export const CoreShopDeleteAddress = gql`
+    mutation CoreShopDeleteAddress($addressId: Int!) {
+  CoreShopDeleteAddress(deleteAddress: {addressId: $addressId}) {
+    __typename
+    ... on CoreShopError {
+      ...error
+    }
+    ... on CoreShopValidationError {
+      ...validation_error
+    }
+  }
+}
+    ${Error}
+${Validation_Error}`;
 export const CoreShopUpdateAddress = gql`
     mutation CoreShopUpdateAddress($addressId: Int!, $address: AddressInput!) {
   CoreShopUpdateAddress(updateAddress: {addressId: $addressId, address: $address}) {

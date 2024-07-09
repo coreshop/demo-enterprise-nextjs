@@ -9,7 +9,7 @@ import CreateAddresses from "@/components/forms/CreateAddress";
 import {AddressType} from '@/schema/CustomerRegistration';
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
 import {CoreButtontype} from "@/stories/Atoms/Button/types";
-import {setCustomerCartAddress} from "@/components/cart/actions";
+import {setCustomerCartAddress} from "@/components/actions";
 
 export default function CheckoutCustomerAddress({cart, authSession, addresses, selectedInvoiceAddressId = '', selectedShippingAddressId =''}: {cart: OrderFragment; authSession: Session | null; addresses:AddressFragment[] | [], selectedInvoiceAddressId: string, selectedShippingAddressId: string }) {
     const [open, setOpen] = useState(false);

@@ -3,7 +3,7 @@
 import {useState,useActionState} from 'react';
 import {useFormState, useFormStatus} from 'react-dom';
 import {ProductFragment} from "@/lib/graphql/types.generated";
-import {addItemToCart} from "@/components/cart/actions";
+import {addItemToCart} from "@/components/actions";
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
 import {CoreButtontype} from "@/stories/Atoms/Button/types";
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CustomerSchema, GuestCustomerType } from "@/schema/CustomerRegistration";
-import {registerGuestCustomer} from "@/components/cart/actions";
+import {registerGuestCustomer} from "@/components/actions";
 import Form from "react-bootstrap/Form";
 import {CountryEnumType} from "@/lib/graphql/types.generated";
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";

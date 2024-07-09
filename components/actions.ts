@@ -4,7 +4,7 @@ import {cookies} from "next/headers";
 import {
     addItemToOrder,
     addVoucherCode, checkoutAddress, checkoutCustomerAddress, checkoutGuestAddress,
-    checkoutGuestRegistration, checkoutPayment, checkoutShipping, getOrder,
+    checkoutGuestRegistration, checkoutPayment, checkoutShipping, deleteCustomerAddress, getOrder,
     removeOrderItem,
     removeVoucherCode, updateCustomerAddress,
     updateOrderItem
@@ -233,6 +233,14 @@ export async function setCustomerCartAddress(state: any, address: CheckoutAddres
 }
 export async function updateCustomerAddressAction(state: any, addressId: number, address: Omit<AddressType, "termsAccepted">): Promise<any> {
     const result = await updateCustomerAddress({addressId: addressId, address: address});
+
+    if (result) {
+        redirect('/profile/addresses');
+    }
+}
+
+export async function deleteCustomerAddressAction(state: any, addressId: number): Promise<any> {
+    const result = await deleteCustomerAddress({addressId: addressId});
     console.log(result);
     if (result) {
         redirect('/profile/addresses');

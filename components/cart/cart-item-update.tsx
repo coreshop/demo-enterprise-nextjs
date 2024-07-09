@@ -1,7 +1,7 @@
 'use client';
 
 import {OrderItemFragment} from "@/lib/graphql/types.generated";
-import {updateItemQuantity} from "@/components/cart/actions";
+import {updateItemQuantity} from "@/components/actions";
 import React, {ChangeEvent, useState} from "react";
 import { useFormState} from 'react-dom';
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";

@@ -1,6 +1,6 @@
 import {CoreShopPaymentProviderListResult, OrderFragment} from "@/lib/graphql/types.generated";
 import {useFormState, useFormStatus} from "react-dom";
-import {checkoutPaymentForm} from "@/components/cart/actions";
+import {checkoutPaymentForm} from "@/components/actions";
 import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";

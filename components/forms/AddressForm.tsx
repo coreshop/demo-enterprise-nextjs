@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import { registerGuestCartAddress } from '@/components/cart/actions';
+import { registerGuestCartAddress } from '@/components/actions';
 import { AddressSchema, AddressType } from '@/schema/CustomerRegistration';
 import Loading from '@/app/loading';
 import { CountryEnumType, OrderFragment } from '@/lib/graphql/types.generated';

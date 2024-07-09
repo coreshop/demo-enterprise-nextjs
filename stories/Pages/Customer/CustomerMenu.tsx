@@ -2,9 +2,11 @@ import React from "react";
 import {CoreLink} from "../../Atoms/Link/CoreLink";
 
 interface User {
-    firstname?: string;
-    lastname?: string;
-    email?: string;
+    __typename?: "object_CoreShopCustomer";
+    id?: string | null;
+    firstname?: string | null;
+    lastname?: string | null;
+    email?: string | null;
 }
 
 interface CustomerMenuProps  {

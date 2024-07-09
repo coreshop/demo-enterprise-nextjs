@@ -1,6 +1,6 @@
 import {CoreShopCarrierListResult, OrderFragment} from "@/lib/graphql/types.generated";
 import {useFormState, useFormStatus} from "react-dom";
-import {checkoutShippingForm} from "@/components/cart/actions";
+import {checkoutShippingForm} from "@/components/actions";
 import Loading from "@/app/loading";
 import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";

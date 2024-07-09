@@ -8,6 +8,7 @@ import {AddressFragment, OrderFragment} from "@/lib/graphql/types.generated";
 import CreateAddresses from "@/components/forms/CreateAddress";
 import {Collapse} from "react-bootstrap";
 import UpdateAddress from "@/components/forms/UpdateAddress";
+import {deleteCustomerAddressAction} from "@/components/actions";
 
 interface AddressesTableProps {
     sessionToken: string | undefined,
@@ -27,9 +28,8 @@ const AddressesTable: React.FC<AddressesTableProps> = ({ addresses , cart, sessi
         }
     };
 
-    const handleDeleteAddress = (id: string | null | undefined) => {
-        // Handle edit logic
-        console.log("Delete address with id:", id);
+    const handleDeleteAddress = async (id: string | null | undefined) => {
+        await deleteCustomerAddressAction(null, parseInt(id as string));
     };
     return (
         <>
