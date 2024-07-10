@@ -10,9 +10,12 @@ query getCoreShopMe {
                     customer {
                         ... on object_CoreShopCustomer {
                             id
+                            salutation
                             firstname
                             lastname
                             email
+                            gender
+                            newsletterActive
                         }
                     }
                 }

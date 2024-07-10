@@ -11,6 +11,7 @@ import "@/stories/Organisms/Header/header.scss";
 import {CoreBreadcrumb} from "@/stories/Atoms/Breadcrumb/CoreBreadcrumb";
 import {BreadcrumbItem} from "@/stories/Atoms/Breadcrumb/types";
 import {Logout} from "@/components/security/logout";
+import {getCoreshopMe} from "@/lib";
 
 export default async function Header() {
     const session = await auth()
@@ -28,7 +29,7 @@ export default async function Header() {
             }
         },
     ]
-
+    const user = await getCoreshopMe();
     const items = mockNavItems;
     const wishlist:CoreLinkProps = {text:"Wishlist", href:"/", iconType:"Heart" ,icon: true};
     const dropdownItems: DropdownItem[] = [
@@ -61,7 +62,7 @@ export default async function Header() {
                     dropdownItemsLanguage={dropdownItemsLanguage} selectedOption={selectedOption}/>
             <div className="coreshop-main-nav-wrapper">
                 <CoreNavbar logo={logo} logoActive={true}
-                            cart={true} navbar={false} cartWidget={<Suspense fallback={<Loader/>}><Cart/></Suspense>} authSession={session} logout={<Logout />} searchBar={false}/>
+                            cart={true} navbar={false} cartWidget={<Suspense fallback={<Loader/>}><Cart/></Suspense>} authSession={session} logout={<Logout />} searchBar={false} user={user}/>
             </div>
             <div className="coreshop-basic-nav-wrapper">
                 <CoreNavbar items={items} searchBar={false} logoActive={false}

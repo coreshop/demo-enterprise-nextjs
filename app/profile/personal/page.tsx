@@ -19,7 +19,7 @@ export default async function PersonalPage() {
             <div className="row">
                 <Suspense fallback={<Loader/>}>
                     <div className="col-12 col-lg-3 mb-3">
-                        <ProfileMenu active="addresses"/>
+                        <ProfileMenu active="personal"/>
                     </div>
                     <div className="col-12 col-lg-9">
                         <ProfileInfo user={user} />

@@ -13,7 +13,7 @@ export function Logout() {
             cookies().delete('cartToken');
             await signOut();
         }}>
-            <CoreButton type="submit" variant={CoreButtontype.Link} text="Logout" icon={false} />
+            <CoreButton type="submit" variant={CoreButtontype.Secondary} text="Logout" icon={false} />
         </Form>
 
     )

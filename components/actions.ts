@@ -6,7 +6,7 @@ import {
     addVoucherCode, checkoutAddress, checkoutCustomerAddress, checkoutGuestAddress,
     checkoutGuestRegistration, checkoutPayment, checkoutShipping, deleteCustomerAddress, getOrder,
     removeOrderItem,
-    removeVoucherCode, updateCustomerAddress,
+    removeVoucherCode, updateCoreshopMe, updateCustomerAddress,
     updateOrderItem
 } from "@/lib";
 import {revalidateTag} from "next/cache";
@@ -14,7 +14,7 @@ import {
     AddressInput,
     CarrierEnumType, CheckoutAddressInput,
     CountryEnumType,
-    GuestRegistrationInput,
+    GuestRegistrationInput, MeInput,
     PaymentProviderEnumType
 } from "@/lib/graphql/types.generated";
 import {redirect} from "next/navigation";
@@ -241,8 +241,16 @@ export async function updateCustomerAddressAction(state: any, addressId: number,
 
 export async function deleteCustomerAddressAction(state: any, addressId: number): Promise<any> {
     const result = await deleteCustomerAddress({addressId: addressId});
-    console.log(result);
+
     if (result) {
         redirect('/profile/addresses');
+    }
+}
+
+export async function updateMeAction(state: any, me:MeInput): Promise<any> {
+    const result = await updateCoreshopMe({me: me});
+
+    if (result) {
+        redirect('/profile/personal');
     }
 }

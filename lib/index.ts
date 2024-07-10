@@ -93,7 +93,12 @@ import {
     CoreShopDeleteAddress,
     CoreShopDeleteAddressMutation,
     CoreShopDeleteAddressMutationVariables,
-    CoreShopDeleteAddressResult
+    CoreShopDeleteAddressResult,
+    CoreShopUpdateMe,
+    CoreShopUpdateMeResult,
+    CoreShopUpdateMeMutation,
+    CoreShopUpdateMeMutationVariables,
+    MeInput
 } from "@/lib/graphql/types.generated";
 import {auth} from "@/auth";
 
@@ -556,13 +561,7 @@ export async function checkoutAddress({token,address}: {
 
     return res.data?.CoreShopCheckoutAddress?.__typename === 'CoreShopCheckoutAddressResult';
 }
-export async function getCoreshopMe(): Promise<{
-    __typename?: "object_CoreShopCustomer";
-    id?: string | null;
-    firstname?: string | null;
-    lastname?: string | null;
-    email?: string | null
-} | null> {
+export async function getCoreshopMe(): Promise<MeInput | null> {
     const res = await coreShopFetch<GetCoreShopMeQuery, GetCoreShopMeQueryVariables>({
         query: print(GetCoreShopMe),
         variables: {},
@@ -576,6 +575,24 @@ export async function getCoreshopMe(): Promise<{
         return null;
     }
 }
+
+// Define the correct type for the function parameter
+export async function updateCoreshopMe({ me }: { me: MeInput }): Promise<MeInput | undefined | null> {
+    const res = await coreShopFetch<CoreShopUpdateMeMutation, CoreShopUpdateMeMutationVariables>({
+        query: print(CoreShopUpdateMe),
+        variables: {
+            me
+        },
+        cache: "no-cache"
+    });
+
+    if (res.data?.CoreShopUpdateMe?.__typename === "CoreShopUpdateMeResult") {
+        return res.data.CoreShopUpdateMe?.me;
+    } else {
+        return null;
+    }
+}
+
 
 export async function updateCustomerAddress({addressId,  address }: { addressId: number, address: AddressInput }): Promise<CoreShopUpdateAddressResult | null> {
 

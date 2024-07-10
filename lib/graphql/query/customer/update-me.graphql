@@ -1,0 +1,26 @@
+#import "../error.graphql"
+#import "../validation-error.graphql"
+mutation CoreShopUpdateMe(
+    $me: MeInput!
+) {
+    CoreShopUpdateMe(updateMe: {
+         me: $me
+    }) {
+        __typename
+        ... on CoreShopUpdateMeResult {
+            me {
+                gender
+                firstname
+                lastname
+                newsletterActive
+
+            }
+        }
+        ... on CoreShopError {
+            ...error
+        }
+        ... on CoreShopValidationError {
+            ...validation_error
+        }
+    }
+}

@@ -273,6 +273,13 @@ export type CoreShopMeResult = {
 
 export type CoreShopMeUnionResult = CoreShopError | CoreShopMeResult | CoreShopValidationError;
 
+export type CoreShopOrderListResult = {
+  __typename?: 'CoreShopOrderListResult';
+  orders?: Maybe<Array<Maybe<Object_CoreShopOrder>>>;
+};
+
+export type CoreShopOrderListUnionResult = CoreShopError | CoreShopOrderListResult | CoreShopValidationError;
+
 export type CoreShopOrderResult = {
   __typename?: 'CoreShopOrderResult';
   order?: Maybe<Object_CoreShopOrder>;
@@ -390,6 +397,13 @@ export type CoreShopUpdateAddressResult = {
 };
 
 export type CoreShopUpdateAddressUnionResult = CoreShopError | CoreShopUpdateAddressResult | CoreShopValidationError;
+
+export type CoreShopUpdateMeResult = {
+  __typename?: 'CoreShopUpdateMeResult';
+  me?: Maybe<Object_CoreShopCustomer>;
+};
+
+export type CoreShopUpdateMeUnionResult = CoreShopError | CoreShopUpdateMeResult | CoreShopValidationError;
 
 export type CoreShopUpdateOrderItemResult = {
   __typename?: 'CoreShopUpdateOrderItemResult';
@@ -772,6 +786,13 @@ export type LoginInput = {
   username: Scalars['String']['input'];
 };
 
+export type MeInput = {
+  firstname?: InputMaybe<Scalars['String']['input']>;
+  gender?: InputMaybe<Scalars['String']['input']>;
+  lastname?: InputMaybe<Scalars['String']['input']>;
+  newsletterActive?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type Mutations = {
   __typename?: 'Mutations';
   CoreShopAddOrderVoucherCode?: Maybe<CoreShopAddOrderVoucherCodeUnionResult>;
@@ -792,6 +813,7 @@ export type Mutations = {
   CoreShopRemoveOrderItem?: Maybe<CoreShopRemoveOrderItemUnionResult>;
   CoreShopRemoveOrderVoucherCode?: Maybe<CoreShopRemoveOrderVoucherCodeUnionResult>;
   CoreShopUpdateAddress?: Maybe<CoreShopUpdateAddressUnionResult>;
+  CoreShopUpdateMe?: Maybe<CoreShopUpdateMeUnionResult>;
   CoreShopUpdateOrderItem?: Maybe<CoreShopUpdateOrderItemUnionResult>;
 };
 
@@ -904,6 +926,12 @@ export type MutationsCoreShopUpdateAddressArgs = {
 };
 
 
+export type MutationsCoreShopUpdateMeArgs = {
+  locale?: InputMaybe<LocaleInput>;
+  updateMe?: InputMaybe<UpdateMeInputType>;
+};
+
+
 export type MutationsCoreShopUpdateOrderItemArgs = {
   locale?: InputMaybe<LocaleInput>;
   updateOrderItem?: InputMaybe<UpdateOrderItemInput>;
@@ -980,6 +1008,7 @@ export type Query = {
   CoreShopLatestProducts?: Maybe<CoreShopLatestProductsUnionResult>;
   CoreShopMe?: Maybe<CoreShopMeUnionResult>;
   CoreShopOrder?: Maybe<CoreShopOrderUnionResult>;
+  CoreShopOrderList?: Maybe<CoreShopOrderListUnionResult>;
   CoreShopPaymentProviderList?: Maybe<CoreShopPaymentProviderListUnionResult>;
   CoreShopProduct?: Maybe<CoreShopProductUnionResult>;
   CoreShopProductPrice?: Maybe<CoreShopProductPriceUnionResult>;
@@ -1038,6 +1067,11 @@ export type QueryCoreShopOrderArgs = {
 };
 
 
+export type QueryCoreShopOrderListArgs = {
+  locale?: InputMaybe<LocaleInput>;
+};
+
+
 export type QueryCoreShopPaymentProviderListArgs = {
   locale?: InputMaybe<LocaleInput>;
   paymentProviderList?: InputMaybe<PaymentProviderListInput>;
@@ -1074,6 +1108,10 @@ export type RemoveOrderVoucherCodeInput = {
 export type UpdateAddressInputType = {
   address: AddressInput;
   addressId?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type UpdateMeInputType = {
+  me: MeInput;
 };
 
 export type UpdateOrderItemInput = {
@@ -1971,6 +2009,7 @@ export type Object_CoreShopCustomer = Element & {
   lastname?: Maybe<Scalars['String']['output']>;
   localeCode?: Maybe<Scalars['String']['output']>;
   modificationDate?: Maybe<Scalars['Int']['output']>;
+  newsletterActive?: Maybe<Scalars['Boolean']['output']>;
   objectType?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Object_Tree>;
   properties?: Maybe<Array<Maybe<ElementProperty>>>;
@@ -2818,7 +2857,14 @@ export type CustomerFragment = { __typename: 'object_CoreShopCustomer', salutati
 export type GetCoreShopMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCoreShopMeQuery = { __typename?: 'Query', CoreShopMe?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopMeResult', user?: { __typename?: 'object_CoreShopUser', id?: string | null, customer?: { __typename?: 'object_CoreShopCustomer', id?: string | null, firstname?: string | null, lastname?: string | null, email?: string | null } | null } | null } | { __typename?: 'CoreShopValidationError' } | null };
+export type GetCoreShopMeQuery = { __typename?: 'Query', CoreShopMe?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopMeResult', user?: { __typename?: 'object_CoreShopUser', id?: string | null, customer?: { __typename?: 'object_CoreShopCustomer', id?: string | null, salutation?: string | null, firstname?: string | null, lastname?: string | null, email?: string | null, gender?: string | null, newsletterActive?: boolean | null } | null } | null } | { __typename?: 'CoreShopValidationError' } | null };
+
+export type CoreShopUpdateMeMutationVariables = Exact<{
+  me: MeInput;
+}>;
+
+
+export type CoreShopUpdateMeMutation = { __typename?: 'Mutations', CoreShopUpdateMe?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopUpdateMeResult', me?: { __typename?: 'object_CoreShopCustomer', gender?: string | null, firstname?: string | null, lastname?: string | null, newsletterActive?: boolean | null } | null } | { __typename: 'CoreShopValidationError', message?: string | null } | null };
 
 export type ErrorFragment = { __typename: 'CoreShopError', message?: string | null };
 
@@ -3405,9 +3451,12 @@ export const GetCoreShopMe = gql`
           customer {
             ... on object_CoreShopCustomer {
               id
+              salutation
               firstname
               lastname
               email
+              gender
+              newsletterActive
             }
           }
         }
@@ -3419,6 +3468,28 @@ export const GetCoreShopMe = gql`
   }
 }
     ${Error}`;
+export const CoreShopUpdateMe = gql`
+    mutation CoreShopUpdateMe($me: MeInput!) {
+  CoreShopUpdateMe(updateMe: {me: $me}) {
+    __typename
+    ... on CoreShopUpdateMeResult {
+      me {
+        gender
+        firstname
+        lastname
+        newsletterActive
+      }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+    ... on CoreShopValidationError {
+      ...validation_error
+    }
+  }
+}
+    ${Error}
+${Validation_Error}`;
 export const GetCoreShopActiveOrder = gql`
     query GetCoreShopActiveOrder {
   CoreShopActiveOrder {

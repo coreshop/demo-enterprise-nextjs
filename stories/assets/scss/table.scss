@@ -54,4 +54,10 @@
             }
         }
     }
+
+    tr:last-child {
+        td {
+            border:0
+        }
+    }
 }

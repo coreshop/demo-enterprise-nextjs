@@ -15,6 +15,7 @@ import {Session} from "next-auth";
 import * as Icons from 'react-bootstrap-icons';
 import {CoreLink} from "@/stories/Atoms/Link/CoreLink";
 import Loader from "@/components/loader";
+import {MeInput} from "@/lib/graphql/types.generated";
 
 interface CoreNavbarProps {
     logo?: BrandItem;
@@ -26,6 +27,7 @@ interface CoreNavbarProps {
     cartWidget?: React.ReactNode;
     authSession?: Session|null;
     logout?: React.ReactNode;
+    user?: MeInput | null
 }
 
 export const CoreNavbar = ({
@@ -37,7 +39,8 @@ export const CoreNavbar = ({
     navbar,
     cartWidget,
     authSession,
-    logout
+    logout,
+    user
 }:CoreNavbarProps) => {
     const renderNavItem = (item: NavItem) => {
         if (item.node?.children && item.node?.children.length > 0) {
@@ -114,7 +117,7 @@ export const CoreNavbar = ({
                 { cart && logoActive && 
                     <div className={`${!navbar && "d-flex align-items-center ms-auto" }`}>
 
-                        {authSession && authSession.user ?
+                        {authSession && authSession.user && user ?
                             <div>
                                 <Suspense fallback={<Loader/>}>
                                     <Dropdown>
@@ -123,9 +126,13 @@ export const CoreNavbar = ({
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <div className="px-3 mb-3">{authSession.user.email}</div>
-                                            <Dropdown.Item href="/profile">Profile</Dropdown.Item>
-                                            <Dropdown.Item href="#/">{logout}</Dropdown.Item>
+                                            <div className="px-3 mb-3 text-nowrap">Hi, {user?.firstname} {user?.lastname}</div>
+                                            <Dropdown.Item href="/profile" >Profile</Dropdown.Item>
+                                            <Dropdown.Item href="/profile/orders" className="ms-2">Order history</Dropdown.Item>
+                                            <Dropdown.Item href="/profile/addresses" className="ms-2">Addresses</Dropdown.Item>
+                                            <Dropdown.Item href="/profile/personal" className="ms-2">Personal information</Dropdown.Item>
+                                            <Dropdown.Item href="/profile/password" className="ms-2">change Password</Dropdown.Item>
+                                            <div className="px-3 mt-3">{logout}</div>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </Suspense>
