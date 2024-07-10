@@ -29,6 +29,7 @@ export const CustomerSchema = z.object({
 export type GuestCustomerType = z.infer<typeof CustomerSchema>;
 
 export const MeSchema = z.object({
+    salutation: z.string().min(1),
     gender: z.string().min(1),
     firstname: z.string().min(1),
     lastname: z.string().min(1),

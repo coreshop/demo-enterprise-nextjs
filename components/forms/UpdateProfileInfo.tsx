@@ -19,6 +19,7 @@ export default function UpdateProfileInfo({user} : {user: MeInput | undefined | 
     } = useForm<MeInput>({
         resolver: zodResolver(MeSchema),
         defaultValues: {
+            salutation: user?.salutation ?? '',
             gender: user?.gender ?? '',
             firstname: user?.firstname ?? '',
             lastname: user?.lastname ?? '',
@@ -37,6 +38,16 @@ export default function UpdateProfileInfo({user} : {user: MeInput | undefined | 
                 <Form className="border-0 p-3" onSubmit={handleSubmit(onSubmit)}>
                     <h3>Personal information</h3>
                     <div className="row mt-3">
+                        <div className="col-12">
+                            <Form.Group className="mb-3" controlId="salutation">
+                                <Form.Label>Salutation</Form.Label>
+                                <Form.Select aria-label="" {...register('salutation')}>
+                                    <option value="">Empty</option>
+                                    <option value="mrs">Mrs</option>
+                                    <option value="mr">Mr</option>
+                                </Form.Select>
+                            </Form.Group>
+                        </div>
                         <div className="col-12">
                             <Form.Group className="mb-3" controlId="gender">
                                 <Form.Label>Gender</Form.Label>

@@ -4,6 +4,9 @@
 
 fragment order on object_CoreShopOrder {
     id
+    orderNumber
+    orderDate
+    orderState
     token
     totalGross
     totalNet

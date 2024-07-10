@@ -98,7 +98,7 @@ import {
     CoreShopUpdateMeResult,
     CoreShopUpdateMeMutation,
     CoreShopUpdateMeMutationVariables,
-    MeInput
+    MeInput, CoreShopOrderListQuery, CoreShopOrderListQueryVariables, CoreShopOrderList
 } from "@/lib/graphql/types.generated";
 import {auth} from "@/auth";
 
@@ -645,3 +645,17 @@ export async function deleteCustomerAddress({addressId}: { addressId: number}): 
     return null;
 }
 
+export async function getOrders(): Promise<OrderFragment[] | null> {
+    const res = await coreShopFetch<CoreShopOrderListQuery, CoreShopOrderListQueryVariables>({
+        query: print(CoreShopOrderList),
+        variables: {},
+        cache: "no-cache"
+    });
+
+    if (res.data.CoreShopOrderList?.__typename === 'CoreShopOrderListResult') {
+        return res.data.CoreShopOrderList?.orders as OrderFragment[];
+    }
+
+    return null;
+
+}
