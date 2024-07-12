@@ -17,40 +17,30 @@ export default async function OrdersPage() {
     }
     const orders = await getOrders();
     return <>
-        <section className="container">
-            <div className="row">
-                <Suspense fallback={<Loader/>}>
-                    <div className="col-12 col-lg-3 mb-3">
-                        <ProfileMenu active="addresses"/>
-                    </div>
-                    <div className="col-12 col-lg-9">
-                        <Table>
-                            <thead>
-                            <tr>
-                                <th>Order number</th>
-                                <th>Date</th>
-                                <th>Total</th>
-                                <th>State</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            { orders && orders.map(order => (
-                                <tr>
-                                    <td>{order?.orderNumber}</td>
-                                    <td>{order?.orderDate}</td>
-                                    <td><Currency amount={order?.totalGross} currencyCode="EUR"/></td>
-                                    <td>{order?.orderState}</td>
-                                    <td>
-                                        <CoreLink text="Show Details" href={`/profile/orders/${order?.orderNumber}`} icon={true} iconType="ArrowUpRight" target="_blank" />
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </Table>
-                    </div>
-                </Suspense>
-            </div>
-        </section>
+            <h3>Order history</h3>
+            <Table className="mt-3">
+                <thead>
+                <tr>
+                    <th>Order number</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>State</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                { orders && orders.map(order => (
+                    <tr>
+                        <td>{order?.orderNumber}</td>
+                        <td>{order?.orderDate}</td>
+                        <td><Currency amount={order?.totalGross} currencyCode="EUR"/></td>
+                        <td>{order?.orderState}</td>
+                        <td>
+                            <CoreLink text="Show Details" href={`/profile/orders/${order?.orderNumber}`} icon={true} iconType="ArrowUpRight" target="_blank" />
+                        </td>
+                    </tr>
+                ))}
+                </tbody>
+            </Table>
     </>
 }

@@ -1,5 +1,5 @@
 #import "../error.graphql"
-
+#import "../address/address-fragment.graphql"
 query getCoreShopMe {
     CoreShopMe {
         ... on CoreShopMeResult {
@@ -16,6 +16,11 @@ query getCoreShopMe {
                             email
                             gender
                             newsletterActive
+                            defaultAddress {
+                                ... on object_CoreShopAddress {
+                                    id
+                                }
+                            }
                         }
                     }
                 }

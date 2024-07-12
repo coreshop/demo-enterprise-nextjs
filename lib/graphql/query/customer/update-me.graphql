@@ -1,19 +1,36 @@
 #import "../error.graphql"
 #import "../validation-error.graphql"
 mutation CoreShopUpdateMe(
-    $me: MeInput!
+    $salutation: String!
+    $gender: String!
+    $firstname: String!
+    $lastname: String!
+    $newsletterActive: Boolean!
+    $defaultAddressId: Int!
 ) {
     CoreShopUpdateMe(updateMe: {
-         me: $me
+        me: {
+            salutation: $salutation,
+            gender: $gender,
+            firstname: $firstname,
+            lastname: $lastname,
+            newsletterActive: $newsletterActive,
+            defaultAddressId: $defaultAddressId
+        }
     }) {
         __typename
         ... on CoreShopUpdateMeResult {
             me {
+                salutation
                 gender
                 firstname
                 lastname
                 newsletterActive
-
+                defaultAddress {
+                    ... on object_CoreShopAddress {
+                        id
+                    }
+                }
             }
         }
         ... on CoreShopError {

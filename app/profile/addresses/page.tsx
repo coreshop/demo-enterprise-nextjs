@@ -1,12 +1,11 @@
-import {getCustomerAddresses, getOrder, updateCustomerAddress} from "@/lib";
-import React, { Suspense } from "react";
-import ProfileMenu from "@/components/profile/ProfileMenu";
+import {getCustomerAddresses, getOrder} from "@/lib";
+import React from "react";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import Loader from "@/components/loader";
-import {AddressFragment, AddressInput, CountryEnumType, OrderFragment} from "@/lib/graphql/types.generated";
+import {AddressFragment, OrderFragment} from "@/lib/graphql/types.generated";
 import AddressesTable from "@/components/profile/AddressesTable";
 import {cookies} from "next/headers";
+
 
 export default async function AddressesPage() {
     const session = await auth();
@@ -36,17 +35,6 @@ export default async function AddressesPage() {
     }
 
     return (
-        <section className="container">
-            <div className="row">
-                <Suspense fallback={<Loader />}>
-                    <div className="col-12 col-lg-3 mb-3">
-                        <ProfileMenu active="addresses" />
-                    </div>
-                    <div className="col-12 col-lg-9">
-                        <AddressesTable addresses={addresses} cart={cart} sessionToken={session?.accessToken}/>
-                    </div>
-                </Suspense>
-            </div>
-        </section>
+            <AddressesTable addresses={addresses} cart={cart} sessionToken={session?.accessToken}/>
     );
 }

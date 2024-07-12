@@ -1,17 +1,10 @@
 import React from "react";
 import {CoreLink} from "../../Atoms/Link/CoreLink";
-
-interface User {
-    __typename?: "object_CoreShopCustomer";
-    id?: string | null;
-    firstname?: string | null;
-    lastname?: string | null;
-    email?: string | null;
-}
+import {MeInput} from "@/lib/graphql/types.generated";
 
 interface CustomerMenuProps  {
     menuitemActive?: string;
-    user?: User;
+    user?: MeInput;
     active?: string
 }
 
@@ -25,7 +18,6 @@ export const CustomerMenu = ({
             <div className="bg-primary text-white py-2 px-3">
                 <div>
                     <div className="h5 mb-0">{ user && user.firstname } { user && user.lastname }</div>
-                    <div>{ user && user.email }</div>
                 </div>
 
             </div>

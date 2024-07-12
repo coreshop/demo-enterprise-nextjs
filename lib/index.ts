@@ -1,4 +1,5 @@
 import {print} from 'graphql';
+
 import {
     AddressFragment,
     AddressInput,
@@ -37,6 +38,13 @@ import {
     CoreShopCreateAddress,
     CoreShopCreateAddressMutation,
     CoreShopCreateAddressMutationVariables,
+    CoreShopDeleteAddress,
+    CoreShopDeleteAddressMutation,
+    CoreShopDeleteAddressMutationVariables,
+    CoreShopDeleteAddressResult,
+    CoreShopOrderList,
+    CoreShopOrderListQuery,
+    CoreShopOrderListQueryVariables,
     CoreShopPaymentProviderList,
     CoreShopPaymentProviderListQuery,
     CoreShopPaymentProviderListQueryVariables,
@@ -48,6 +56,14 @@ import {
     CoreShopRemoveOrderVoucherCode,
     CoreShopRemoveOrderVoucherCodeMutation,
     CoreShopRemoveOrderVoucherCodeMutationVariables,
+    CoreShopUpdateAddress,
+    CoreShopUpdateAddressMutation,
+    CoreShopUpdateAddressMutationVariables,
+    CoreShopUpdateAddressResult,
+    CoreShopUpdateMe,
+    CoreShopUpdateMeMutation,
+    CoreShopUpdateMeMutationVariables,
+    CoreShopUpdateMeResult,
     CoreShopUpdateOrderItem,
     CoreShopUpdateOrderItemMutation,
     CoreShopUpdateOrderItemMutationVariables,
@@ -82,25 +98,14 @@ import {
     GetCoreShopProductsInCategoryQuery,
     GetCoreShopProductsInCategoryQueryVariables,
     GuestRegistrationInput,
+    MeInput,
     Object_CoreShopCategory,
     OrderFragment,
     PaymentProviderEnumType,
-    ProductFragment,
-    CoreShopUpdateAddress,
-    CoreShopUpdateAddressMutation,
-    CoreShopUpdateAddressMutationVariables,
-    CoreShopUpdateAddressResult,
-    CoreShopDeleteAddress,
-    CoreShopDeleteAddressMutation,
-    CoreShopDeleteAddressMutationVariables,
-    CoreShopDeleteAddressResult,
-    CoreShopUpdateMe,
-    CoreShopUpdateMeResult,
-    CoreShopUpdateMeMutation,
-    CoreShopUpdateMeMutationVariables,
-    MeInput, CoreShopOrderListQuery, CoreShopOrderListQueryVariables, CoreShopOrderList
+    ProductFragment
 } from "@/lib/graphql/types.generated";
-import {auth} from "@/auth";
+import {auth, signOut} from "@/auth";
+import {cookies} from "next/headers";
 
 const domain = process.env.API_URL;
 const endpoint = `${domain}`;
@@ -140,7 +145,13 @@ export async function coreShopFetch<TResult, TVariables>({
     })
 
     if (response.status !== 200) {
-       throw new Error(`Failed to fetch: ${response.statusText}. Body: ${await response.text()}`)
+
+        const errorResult = 'refresh' as TResult;
+       /* if(response.status === 401) {
+            cookies().delete('authjs.session-token');
+            await signOut();
+        }*/
+        return { data: errorResult };
     }
 
     return await response.json() as { data: TResult };
@@ -581,7 +592,12 @@ export async function updateCoreshopMe({ me }: { me: MeInput }): Promise<MeInput
     const res = await coreShopFetch<CoreShopUpdateMeMutation, CoreShopUpdateMeMutationVariables>({
         query: print(CoreShopUpdateMe),
         variables: {
-            me
+            salutation: me.salutation ?? '',
+            gender: me.gender ?? '',
+            firstname: me.firstname ?? '',
+            lastname: me.lastname ?? '',
+            newsletterActive: me.newsletterActive ?? false,
+            defaultAddressId: parseInt(me.defaultAddressId as unknown as string) ?? 0,
         },
         cache: "no-cache"
     });

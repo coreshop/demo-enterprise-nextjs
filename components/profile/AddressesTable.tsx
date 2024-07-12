@@ -33,7 +33,8 @@ const AddressesTable: React.FC<AddressesTableProps> = ({ addresses , cart, sessi
     };
     return (
         <>
-            <Table>
+            <h3>Account Addresses</h3>
+            <Table className="mt-3">
                 <thead>
                 <tr>
                     <th className="text-nowrap">Street Name</th>
