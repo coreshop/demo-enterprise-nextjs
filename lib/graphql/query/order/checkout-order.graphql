@@ -1,0 +1,23 @@
+#import "../order/order-fragment.graphql"
+#import "../error.graphql"
+#import "../validation-error.graphql"
+
+mutation CoreShopCheckoutOrder(
+    $order: OrderInput!,
+){
+    CoreShopCheckoutOrder(checkoutOrder: {
+        order: $order
+    }) {
+        ... on CoreShopCheckoutOrderResult {
+            __typename
+
+        }
+
+        ... on CoreShopError {
+            ...error
+        }
+        ... on CoreShopValidationError {
+            ...validation_error
+        }
+    }
+}

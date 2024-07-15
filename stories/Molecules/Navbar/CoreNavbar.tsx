@@ -131,7 +131,7 @@ export const CoreNavbar = ({
                                             <Dropdown.Item href="/profile/orders" className="ms-2">Order history</Dropdown.Item>
                                             <Dropdown.Item href="/profile/addresses" className="ms-2">Addresses</Dropdown.Item>
                                             <Dropdown.Item href="/profile/personal" className="ms-2">Personal information</Dropdown.Item>
-                                            <Dropdown.Item href="/profile/password" className="ms-2">change Password</Dropdown.Item>
+                                            <Dropdown.Item href="/profile/password" className="ms-2">Change password</Dropdown.Item>
                                             <div className="px-3 mt-3">{logout}</div>
                                         </Dropdown.Menu>
                                     </Dropdown>

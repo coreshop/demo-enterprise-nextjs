@@ -11,7 +11,7 @@ import {
     checkoutGuestRegistration,
     checkoutPayment,
     checkoutShipping,
-    deleteCustomerAddress,
+    deleteCustomerAddress, getCheckoutOrder,
     getCoreshopMe,
     getOrder,
     removeOrderItem,
@@ -29,7 +29,7 @@ import {
     CoreShopAuthorizeResult,
     CountryEnumType,
     GuestRegistrationInput,
-    MeInput,
+    MeInput, OrderFragment, OrderInput,
     PaymentProviderEnumType
 } from "@/lib/graphql/types.generated";
 import {redirect} from "next/navigation";
@@ -293,3 +293,14 @@ export async function validateCurrentPassword(state: any, password:string): Prom
     username = me?.email as string;
     return await authorize({username: username, password: password, orderToken: null});
 }
+
+export async function checkOutOrder(state: any, order: OrderInput ): Promise<any> {
+    const result = await getCheckoutOrder({order: order});
+
+    if (result) {
+        cookies().delete('cartToken');
+        redirect('/');
+    }
+}
+
+

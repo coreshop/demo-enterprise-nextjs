@@ -33,11 +33,13 @@ export default async function OrdersPage() {
                         <td>{order?.orderDate}</td>
                         <td><Currency amount={order?.totalGross} currencyCode="EUR"/></td>
                         <td>
-                            {order.orderState === 'confirmed' ?
+                            {order.orderState === 'confirmed' ? (
                                 <CoreBadge variant={CoreBadgetype.Success} description={order?.orderState} />
-                                :
+                                ) : order.orderState === 'new' ? (
+                                    <CoreBadge variant={CoreBadgetype.Info} description={order?.orderState} />
+                                ) : (
                                 ''
-                            }
+                            )}
                         </td>
                         <td>
                             <CoreLink text="Show Details" href={`/profile/orders/${order?.orderNumber}?token=${order?.token}`} icon={true} iconType="ArrowUpRight" />

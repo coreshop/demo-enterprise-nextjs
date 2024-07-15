@@ -1,19 +1,17 @@
 import StepComponent from "@/components/checkout/steps";
 import {
-    OrderFragment
+    OrderFragment, OrderInput
 } from "@/lib/graphql/types.generated";
 
 import React from "react";
 import Table from "react-bootstrap/Table";
 import CartItemPage from "@/components/cart/cart-item";
 import Currency from "@/components/common/currency";
-import VoucherForm from "@/components/cart/voucher";
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
 import {CoreButtontype} from "@/stories/Atoms/Button/types";
-import { Form } from "react-bootstrap";
+import CheckoutForm from "@/components/forms/CheckoutForm";
 
 export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
-    console.log(cart);
     return <section>
         <StepComponent currentStep={"summary"}/>
         <div className="pb-3">
@@ -158,12 +156,12 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
             </tfoot>
 
         </Table>
-        <Form>
-            <div className="d-flex flex-column flex-md-row justify-content-end mt-3 gap-2">
-                <CoreButton buttonType="a" text="Continue Shopping" variant={CoreButtontype.Secondary} icon={false}
-                            href="/cart"/>
-                <CoreButton type="submit" text="Checkout" variant={CoreButtontype.Primary} icon={false} />
-            </div>
-        </Form>
+
+        <div className="d-flex flex-column flex-md-row justify-content-end mt-3 gap-2">
+            <CoreButton buttonType="a" text="Continue Shopping" variant={CoreButtontype.Secondary} icon={false}
+                        href="/cart"/>
+            <CheckoutForm cart={cart} />
+        </div>
+
     </section>;
 }

@@ -105,7 +105,12 @@ import {
     ProductFragment,
     CoreShopUpdatePassword,
     CoreShopUpdatePasswordMutation,
-    CoreShopUpdatePasswordMutationVariables, CoreShopUpdatePasswordResult
+    CoreShopUpdatePasswordMutationVariables,
+    CoreShopUpdatePasswordResult,
+    CoreShopCheckoutOrder,
+    CoreShopCheckoutOrderMutation,
+    CoreShopCheckoutOrderMutationVariables,
+    CoreShopCheckoutOrderResult, OrderInput
 } from "@/lib/graphql/types.generated";
 import {auth} from "@/auth";
 
@@ -712,4 +717,23 @@ export async function UpdatePassword({password }: { password: string }): Promise
     }
 
     return null;
+}
+
+export async function getCheckoutOrder({order}:{order: OrderInput}): Promise<boolean | null > {
+    const res = await coreShopFetch<CoreShopCheckoutOrderMutation, CoreShopCheckoutOrderMutationVariables>({
+        query: print(CoreShopCheckoutOrder),
+        variables: {
+            order: {
+                token: order.token,
+            },
+        },
+        cache: "no-cache"
+    });
+
+    if (res.data.CoreShopCheckoutOrder?.__typename === 'CoreShopCheckoutOrderResult') {
+        return true;
+    }
+
+    return null;
+
 }
