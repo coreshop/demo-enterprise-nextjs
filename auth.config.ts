@@ -28,4 +28,16 @@ export const authConfig = {
         },
     },
     providers: [], // Add providers with an empty array for now
+    cookies: {
+        sessionToken: {
+            name: `authjs.session-token`,
+            options: {
+                httpOnly: true,
+                sameSite: 'lax',
+                path: '/',
+                secure: process.env.NODE_ENV === 'production',
+                maxAge: 60 * 60, // set duration for cookie session 1 hour (same as the pimcore)
+            },
+        },
+    },
 } satisfies NextAuthConfig;

@@ -104,8 +104,7 @@ import {
     PaymentProviderEnumType,
     ProductFragment
 } from "@/lib/graphql/types.generated";
-import {auth, signOut} from "@/auth";
-import {cookies} from "next/headers";
+import {auth} from "@/auth";
 
 const domain = process.env.API_URL;
 const endpoint = `${domain}`;
@@ -120,7 +119,7 @@ export async function coreShopFetch<TResult, TVariables>({
     variables: TVariables;
     headers?: HeadersInit;
     cache?: RequestCache;
-}): Promise<{ data: TResult }> {
+}): Promise<{ data: TResult  }> {
     const session = await auth();
     const authHeader = {};
 
@@ -145,13 +144,8 @@ export async function coreShopFetch<TResult, TVariables>({
     })
 
     if (response.status !== 200) {
+        throw new Error('Network Error');
 
-        const errorResult = 'refresh' as TResult;
-       /* if(response.status === 401) {
-            cookies().delete('authjs.session-token');
-            await signOut();
-        }*/
-        return { data: errorResult };
     }
 
     return await response.json() as { data: TResult };
