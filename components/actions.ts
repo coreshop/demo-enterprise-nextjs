@@ -254,3 +254,12 @@ export async function updateMeAction(state: any, me:MeInput): Promise<any> {
         redirect('/profile/personal');
     }
 }
+
+export async function getOrderAction(state: any, token: string): Promise<any> {
+    if(token) {
+        const order = await getOrder({cartToken: token});
+        return order;
+    } else {
+        return null;
+    }
+}

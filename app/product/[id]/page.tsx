@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import {getProduct} from "@/lib";
 import {notFound} from "next/navigation";
 import ProductDetail from "@/components/product/detail";

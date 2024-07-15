@@ -6,7 +6,6 @@ import React from "react";
 import ShippingForm from "@/components/forms/ShippingForm";
 
 export default function CheckoutShipping({cart, carriers}: {cart: OrderFragment, carriers: CoreShopCarrierListResult}) {
-    console.log(cart);
     return <section>
         <StepComponent currentStep={"shipping"}/>
         <div className="pb-3">
