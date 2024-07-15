@@ -3,18 +3,33 @@
 import {cookies} from "next/headers";
 import {
     addItemToOrder,
-    addVoucherCode, checkoutAddress, checkoutCustomerAddress, checkoutGuestAddress,
-    checkoutGuestRegistration, checkoutPayment, checkoutShipping, deleteCustomerAddress, getOrder,
+    addVoucherCode,
+    authorize,
+    checkoutAddress,
+    checkoutCustomerAddress,
+    checkoutGuestAddress,
+    checkoutGuestRegistration,
+    checkoutPayment,
+    checkoutShipping,
+    deleteCustomerAddress,
+    getCoreshopMe,
+    getOrder,
     removeOrderItem,
-    removeVoucherCode, updateCoreshopMe, updateCustomerAddress,
-    updateOrderItem
+    removeVoucherCode,
+    updateCoreshopMe,
+    updateCustomerAddress,
+    updateOrderItem,
+    UpdatePassword
 } from "@/lib";
 import {revalidateTag} from "next/cache";
 import {
     AddressInput,
-    CarrierEnumType, CheckoutAddressInput,
+    CarrierEnumType,
+    CheckoutAddressInput,
+    CoreShopAuthorizeResult,
     CountryEnumType,
-    GuestRegistrationInput, MeInput,
+    GuestRegistrationInput,
+    MeInput,
     PaymentProviderEnumType
 } from "@/lib/graphql/types.generated";
 import {redirect} from "next/navigation";
@@ -262,4 +277,19 @@ export async function getOrderAction(state: any, token: string): Promise<any> {
     } else {
         return null;
     }
+}
+
+export async function updatePasswordAction(state: any, password:string): Promise<any> {
+    const result = await UpdatePassword({password: password});
+
+    if (result) {
+        redirect('/profile/password');
+    }
+}
+
+export async function validateCurrentPassword(state: any, password:string): Promise<CoreShopAuthorizeResult | null> {
+    const me = await getCoreshopMe();
+    let username = 'empty';
+    username = me?.email as string;
+    return await authorize({username: username, password: password, orderToken: null});
 }

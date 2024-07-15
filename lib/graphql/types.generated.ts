@@ -2897,6 +2897,13 @@ export type CoreShopUpdateMeMutationVariables = Exact<{
 
 export type CoreShopUpdateMeMutation = { __typename?: 'Mutations', CoreShopUpdateMe?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopUpdateMeResult', me?: { __typename?: 'object_CoreShopCustomer', salutation?: string | null, gender?: string | null, firstname?: string | null, lastname?: string | null, newsletterActive?: boolean | null, defaultAddress?: { __typename?: 'object_CoreShopAddress', id?: string | null } | null } | null } | { __typename: 'CoreShopValidationError', message?: string | null } | null };
 
+export type CoreShopUpdatePasswordMutationVariables = Exact<{
+  password?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CoreShopUpdatePasswordMutation = { __typename?: 'Mutations', CoreShopUpdatePassword?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopUpdatePasswordResult' } | { __typename: 'CoreShopValidationError', message?: string | null } | null };
+
 export type ErrorFragment = { __typename: 'CoreShopError', message?: string | null };
 
 export type GetCoreShopActiveOrderQueryVariables = Exact<{ [key: string]: never; }>;
@@ -3531,6 +3538,23 @@ export const CoreShopUpdateMe = gql`
           }
         }
       }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+    ... on CoreShopValidationError {
+      ...validation_error
+    }
+  }
+}
+    ${Error}
+${Validation_Error}`;
+export const CoreShopUpdatePassword = gql`
+    mutation CoreShopUpdatePassword($password: String) {
+  CoreShopUpdatePassword(updatePassword: {password: $password}) {
+    __typename
+    ... on CoreShopUpdatePasswordResult {
+      __typename
     }
     ... on CoreShopError {
       ...error

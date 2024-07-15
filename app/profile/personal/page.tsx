@@ -3,7 +3,7 @@ import {auth} from "@/auth";
 import {redirect} from "next/navigation";
 import {getCoreshopMe, getCustomerAddresses} from "@/lib";
 import ProfileInfo from "@/components/profile/ProfileInfo";
-import {AddressFragment} from "@/lib/graphql/types.generated";
+import {AddressFragment, MeInput} from "@/lib/graphql/types.generated";
 
 export default async function PersonalPage() {
     const session = await auth();

@@ -102,7 +102,10 @@ import {
     Object_CoreShopCategory,
     OrderFragment,
     PaymentProviderEnumType,
-    ProductFragment
+    ProductFragment,
+    CoreShopUpdatePassword,
+    CoreShopUpdatePasswordMutation,
+    CoreShopUpdatePasswordMutationVariables, CoreShopUpdatePasswordResult
 } from "@/lib/graphql/types.generated";
 import {auth} from "@/auth";
 
@@ -566,7 +569,23 @@ export async function checkoutAddress({token,address}: {
 
     return res.data?.CoreShopCheckoutAddress?.__typename === 'CoreShopCheckoutAddressResult';
 }
-export async function getCoreshopMe(): Promise<MeInput | null> {
+
+interface MeInputExtend extends MeInput {
+    defaultAddress: {
+        id: string;
+    } | null;
+}
+export async function getCoreshopMe(): Promise<{
+    __typename?: "object_CoreShopCustomer";
+    id?: string | null;
+    salutation?: string | null;
+    firstname?: string | null;
+    lastname?: string | null;
+    email?: string | null;
+    gender?: string | null;
+    newsletterActive?: boolean | null;
+    defaultAddress?: { __typename?: "object_CoreShopAddress"; id?: string | null } | null
+} | null> {
     const res = await coreShopFetch<GetCoreShopMeQuery, GetCoreShopMeQueryVariables>({
         query: print(GetCoreShopMe),
         variables: {},
@@ -668,4 +687,29 @@ export async function getOrders(): Promise<OrderFragment[] | null> {
 
     return null;
 
+}
+
+export async function UpdatePassword({password }: { password: string }): Promise<CoreShopUpdatePasswordResult | null> {
+
+    const res = await coreShopFetch<CoreShopUpdatePasswordMutation, CoreShopUpdatePasswordMutationVariables>({
+        query: print(CoreShopUpdatePassword),
+        variables: {
+            password
+        },
+        cache: "no-cache"
+    });
+
+    if (res.data?.CoreShopUpdatePassword?.__typename === 'CoreShopUpdatePasswordResult') {
+        return res.data.CoreShopUpdatePassword;
+    }
+
+    if (res.data?.CoreShopUpdatePassword?.__typename === 'CoreShopError') {
+        throw new Error(res.data.CoreShopUpdatePassword.message ?? 'An unknown error occurred.');
+    }
+
+    if (res.data?.CoreShopUpdatePassword?.__typename === 'CoreShopValidationError') {
+        throw new Error(res.data.CoreShopUpdatePassword.message ?? 'Validation errors occurred.');
+    }
+
+    return null;
 }
