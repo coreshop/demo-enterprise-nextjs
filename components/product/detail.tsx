@@ -5,10 +5,10 @@ import {PriceInfo} from "@/components/product/price";
 import {AddToCart} from "@/components/product/add-to-cart";
 import {CoreLink} from "@/stories/Atoms/Link/CoreLink";
 import {StatusDot} from "@/stories/Molecules/StatusDot/StatusDot";
-import {CoreBadge} from "@/stories/Atoms/Badge/CoreBadge";
-import {CoreBadgesize, CoreBadgetype} from "@/stories/Atoms/Badge/types";
-import Table from "react-bootstrap/Table";
 import React from "react";
+import {redirect} from "next/navigation";
+import {ProductVariant} from "@/components/product/variant";
+
 
 type ProductDetailProps = {
     product: ProductFragment
@@ -16,10 +16,15 @@ type ProductDetailProps = {
 
 export default async function ProductDetail({product}: ProductDetailProps) {
     const firstImage = product.imagesProductDetail?.[0];
+    console.log(product);
+
+    if(product.attributes === null && product.mainVariant) { //land to mainvariant if attributes exists
+        redirect(`/product/${product.mainVariant.id}`);
+    }
 
     return (
-        <div>
-            {/*<Breadcrumb name={product.name} />*/}
+        <>
+            {/*<CoreBreadcrumb  breadcrumbItems={}/>*/}
 
             <div className="row product-info">
                 <div className="col-sm-5 images-block">
@@ -69,39 +74,15 @@ export default async function ProductDetail({product}: ProductDetailProps) {
                         </div>
                     </div>
                     {product.shortDescription && (
-                        <div className="description">
+                        <div className="description mb-3">
                             {product.shortDescription}
                         </div>
                     )}
 
-                    <div className="mb-2">Selection Labels:</div>
-                    <div className="d-flex flex-wrap gap-2">
-                        <CoreBadge description="Color Label" size={CoreBadgesize.F16}
-                                   variant={CoreBadgetype.OutlineSecondary} colorSpec="#DD5959" selected={true}/>
-                        <CoreBadge description="Color Label" size={CoreBadgesize.F16}
-                                   variant={CoreBadgetype.OutlineSecondary} colorSpec="#5966DD"/>
-                        <CoreBadge description="Color Label" size={CoreBadgesize.F16}
-                                   variant={CoreBadgetype.OutlineSecondary} colorSpec="#CC6228"
-                                   disabled={true}/>
-                        <CoreBadge description="Color Label" size={CoreBadgesize.F16}
-                                   variant={CoreBadgetype.OutlineSecondary} colorSpec="#F1BE3C"
-                                   disabled={true}/>
-                    </div>
-                    <div className="my-3"></div>
-                    <div className="mb-2">Selection Labels:</div>
-                    <div className="d-flex flex-wrap gap-2 mb-3">
-                        <CoreBadge description="Color Label" size={CoreBadgesize.F16}
-                                   variant={CoreBadgetype.OutlineSecondary} selected={true}/>
-                        <CoreBadge description="Color Label" size={CoreBadgesize.F16}
-                                   variant={CoreBadgetype.OutlineSecondary}/>
-                        <CoreBadge description="Color Label" size={CoreBadgesize.F16}
-                                   variant={CoreBadgetype.OutlineSecondary}
-                                   disabled={true}/>
-                        <CoreBadge description="Color Label" size={CoreBadgesize.F16}
-                                   variant={CoreBadgetype.OutlineSecondary}
-                                   disabled={true}/>
-                    </div>
-                    <div className="mb-3">
+
+                    <ProductVariant product={product} />
+
+                    {/*<div className="mb-3">
                         <Table className="layout-2">
                             <thead>
                             <tr>
@@ -154,14 +135,26 @@ export default async function ProductDetail({product}: ProductDetailProps) {
                             </tbody>
                         </Table>
                     </div>
-                    <div className="mb-3">
+
+                    */}
+                    <div className="my-3">
                         {product?.id && <PriceInfo productId={parseInt(product.id)} vat={true}/>}
                     </div>
-                    <div className="d-flex gap-2 justify-content-end">
-                        <AddToCart product={product}/>
-                    </div>
+                    { product.allowedAttributeGroups ? (
+                        <>
+                            { product.attributes && product.attributes.length > 0 &&
+                                <div className="d-flex gap-2 justify-content-end">
+                                    <AddToCart product={product}/>
+                                </div>
+                            }
+                        </>
+                    ) : (
+                        <div className="d-flex gap-2 justify-content-end">
+                            <AddToCart product={product}/>
+                        </div>
+                    )}
                 </div>
             </div>
-        </div>
+        </>
     );
 }

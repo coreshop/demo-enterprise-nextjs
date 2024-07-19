@@ -303,4 +303,10 @@ export async function checkOutOrder(state: any, order: OrderInput ): Promise<any
     }
 }
 
+export async function productVariant(state: any, url: string | null ): Promise<any> {
+    if (url) {
+        redirect(url);
+    }
+}
+
 

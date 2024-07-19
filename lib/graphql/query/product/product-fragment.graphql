@@ -66,4 +66,38 @@ fragment product on object_CoreShopProduct {
     isTracked
     stockAvailability
     shortDescription
+    allowedAttributeGroups {
+        ... on object_CoreShopAttributeGroup {
+            id
+            name
+            children {
+                __typename
+                ... on object_CoreShopAttributeValue {
+                    id
+                    name
+                    valueText
+                }
+                ... on object_CoreShopAttributeColor {
+                    id
+                    name
+                    valueText
+                    valueColor
+                }
+            }
+
+        }
+    }
+    attributes {
+        ... on object_CoreShopAttributeValue {
+            id
+        }
+        ... on object_CoreShopAttributeColor {
+            id
+        }
+    }
+    mainVariant {
+        ... on object_CoreShopProduct {
+            id
+        }
+    }
 }

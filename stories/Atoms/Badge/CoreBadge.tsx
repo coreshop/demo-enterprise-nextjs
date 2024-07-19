@@ -24,7 +24,8 @@ export const CoreBadge = ({
     colorSpec,
     onClose,
     disabled = false,
-    selected = false
+    selected = false,
+    onClick = () => {}
 }:CoreBadgeProps) => {
     const handleClose = () => {
         if (onClose) {
@@ -41,7 +42,7 @@ export const CoreBadge = ({
     }
 
     return (
-        <Badge pill={pill} bg={ variant } className={`${ colorSpec && 'badge-spec-wrapper' } ${size} ${selected && 'selected' } ${disabled && 'disabled' }`} >
+        <Badge pill={pill} bg={ variant } className={`${ colorSpec && 'badge-spec-wrapper' } ${size} ${selected && 'selected' } ${disabled && 'disabled' }`} onClick={onClick} >
             { colorSpec && (
                 <div className="badge-spec" style={{ background: colorSpec }}></div>
             )}

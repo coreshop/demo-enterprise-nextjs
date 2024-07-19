@@ -177,11 +177,10 @@ export default function AddressForm({ cart }: { cart: OrderFragment }) {
                             </Form.Group>
                         </div>
                         <Form.Group className="mb-3" controlId="termsAccepted">
-                            <Form.Check type="checkbox">
+                            <Form.Check type="checkbox" id="termsAccepted">
                                 <Form.Check.Input
                                     type="checkbox"
                                     isInvalid={!!errors.termsAccepted}
-                                    value={0}
                                     {...register('termsAccepted', { required: true })}
                                 />
                                 <Form.Check.Label>
