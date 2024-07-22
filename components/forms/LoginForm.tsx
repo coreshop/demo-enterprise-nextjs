@@ -73,7 +73,7 @@ export default function LoginForm() {
                 <LoginButton/>
             </div>
 
-            <a href="/password-reset-request">Reset Password</a>
+            <a href="/reset-password">Reset Password</a>
 
             <div className="mt-3" aria-live="polite" aria-atomic="true">
                 {errorMessage && (

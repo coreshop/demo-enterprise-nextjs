@@ -110,7 +110,10 @@ import {
     CoreShopCheckoutOrder,
     CoreShopCheckoutOrderMutation,
     CoreShopCheckoutOrderMutationVariables,
-    CoreShopCheckoutOrderResult, OrderInput
+    CoreShopCheckoutOrderResult, OrderInput,
+    CoreShopPasswordResetRequestResult,
+    CoreShopPasswordResetRequestMutation,
+    CoreShopPasswordResetRequestMutationVariables, CoreShopPasswordResetRequest, CoreShopError
 } from "@/lib/graphql/types.generated";
 import {auth} from "@/auth";
 
@@ -736,4 +739,25 @@ export async function getCheckoutOrder({order}:{order: OrderInput}): Promise<boo
 
     return null;
 
+}
+
+export async function ResetPassword({username }: { username: string }): Promise<CoreShopPasswordResetRequestResult | string | null | CoreShopError> {
+
+    const res = await coreShopFetch<CoreShopPasswordResetRequestMutation, CoreShopPasswordResetRequestMutationVariables>({
+        query: print(CoreShopPasswordResetRequest),
+        variables: {
+            username
+        },
+        cache: "no-cache"
+    });
+
+    if (res.data?.CoreShopPasswordResetRequest?.__typename === 'CoreShopPasswordResetRequestResult') {
+        return res.data.CoreShopPasswordResetRequest;
+    }
+
+    if (res.data?.CoreShopPasswordResetRequest?.__typename === 'CoreShopError') {
+        return res.data.CoreShopPasswordResetRequest;
+    }
+
+    return null;
 }

@@ -2918,6 +2918,13 @@ export type GetCoreShopMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetCoreShopMeQuery = { __typename?: 'Query', CoreShopMe?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopMeResult', user?: { __typename?: 'object_CoreShopUser', id?: string | null, customer?: { __typename?: 'object_CoreShopCustomer', id?: string | null, salutation?: string | null, firstname?: string | null, lastname?: string | null, email?: string | null, gender?: string | null, newsletterActive?: boolean | null, defaultAddress?: { __typename?: 'object_CoreShopAddress', id?: string | null } | null } | null } | null } | { __typename?: 'CoreShopValidationError' } | null };
 
+export type CoreShopPasswordResetRequestMutationVariables = Exact<{
+  username: Scalars['String']['input'];
+}>;
+
+
+export type CoreShopPasswordResetRequestMutation = { __typename?: 'Mutations', CoreShopPasswordResetRequest?: { __typename: 'CoreShopError', message?: string | null } | { __typename: 'CoreShopPasswordResetRequestResult', success?: boolean | null } | { __typename: 'CoreShopValidationError' } | null };
+
 export type CoreShopUpdateMeMutationVariables = Exact<{
   salutation: Scalars['String']['input'];
   gender: Scalars['String']['input'];
@@ -3585,6 +3592,19 @@ export const GetCoreShopMe = gql`
           }
         }
       }
+    }
+    ... on CoreShopError {
+      ...error
+    }
+  }
+}
+    ${Error}`;
+export const CoreShopPasswordResetRequest = gql`
+    mutation CoreShopPasswordResetRequest($username: String!) {
+  CoreShopPasswordResetRequest(passwordResetRequest: {username: $username}) {
+    __typename
+    ... on CoreShopPasswordResetRequestResult {
+      success
     }
     ... on CoreShopError {
       ...error

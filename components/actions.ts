@@ -15,7 +15,7 @@ import {
     getCoreshopMe,
     getOrder,
     removeOrderItem,
-    removeVoucherCode,
+    removeVoucherCode, ResetPassword,
     updateCoreshopMe,
     updateCustomerAddress,
     updateOrderItem,
@@ -308,5 +308,13 @@ export async function productVariant(state: any, url: string | null ): Promise<a
         redirect(url);
     }
 }
+
+export async function resetPasswordAction(state: any, username: string ): Promise<any> {
+    const result = await ResetPassword({username});
+    console.log(result);
+    return result;
+}
+
+
 
 
