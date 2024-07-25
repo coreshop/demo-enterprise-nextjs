@@ -24,7 +24,7 @@ export default async function Header() {
                 },
                 id: category.id,
                 title: category.name,
-                link: `/categories/${category.id}`,
+                link: `/category/${category.id}`,
                 children: [],
                 current: false
             }
