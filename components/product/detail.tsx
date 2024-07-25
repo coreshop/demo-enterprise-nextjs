@@ -42,7 +42,7 @@ export default async function ProductDetail({product}: ProductDetailProps) {
 
             <div className="row product-info mb-5">
                 <div className="col-sm-5 images-block">
-                    <CoreCarousel showSlides={1} autoplayDelay={1000} data={slides} height="square" />
+                    <CoreCarousel showSlides={1} autoplayDelay={1000} data={slides} height="square" loop={true} />
                 </div>
 
                 <div className="col-12 col-lg-7 mb-3">
