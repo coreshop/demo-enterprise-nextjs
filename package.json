@@ -55,6 +55,7 @@
     "sass-loader": "latest",
     "storybook": "^8.1.2",
     "storybook-preset-inline-svg": "^1.0.1",
+    "swiper": "^11.1.7",
     "typescript": "^5",
     "yup": "^1.4.0"
   }

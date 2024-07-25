@@ -143,7 +143,7 @@ export function ProductVariant({ product }: {
                         {groupAttribute.children && groupAttribute.children.map((attribute: any) => (
                             <CoreBadge
                                 key={attribute.id}
-                                description={attribute.id}
+                                description={attribute.name}
                                 size={CoreBadgesize.F16}
                                 variant={CoreBadgetype.OutlineSecondary}
                                 colorSpec={attribute.valueColor}

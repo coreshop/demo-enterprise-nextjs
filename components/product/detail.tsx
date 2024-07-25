@@ -8,6 +8,7 @@ import {StatusDot} from "@/stories/Molecules/StatusDot/StatusDot";
 import React from "react";
 import {redirect} from "next/navigation";
 import {ProductVariant} from "@/components/product/variant";
+import {CoreCarousel} from "@/stories/Molecules/Carousel/CoreCarousel";
 
 
 type ProductDetailProps = {
@@ -16,7 +17,20 @@ type ProductDetailProps = {
 
 export default async function ProductDetail({product}: ProductDetailProps) {
     const firstImage = product.imagesProductDetail?.[0];
-    console.log(product);
+    const productImages = product.imagesProductDetailPreview && product.imagesProductDetailPreview.length > 0 ? product.imagesProductDetailPreview : [];
+
+    let slides: { id: number; dark: boolean; headline: string; lead: string; imageSrc: string | null | undefined; }[] = [];
+    productImages.map((image, index) => {
+        if(image && image.fullpath != null && typeof image.fullpath !== 'undefined') {
+            slides.push({
+                id: index,
+                dark: false,
+                headline: '',
+                lead: '',
+                imageSrc: pimcoreImage(image.fullpath)
+            });
+        }
+    });
 
     if(product.attributes === null && product.mainVariant) { //land to mainvariant if attributes exists
         redirect(`/product/${product.mainVariant.id}`);
@@ -26,34 +40,9 @@ export default async function ProductDetail({product}: ProductDetailProps) {
         <>
             {/*<CoreBreadcrumb  breadcrumbItems={}/>*/}
 
-            <div className="row product-info">
+            <div className="row product-info mb-5">
                 <div className="col-sm-5 images-block">
-                    {firstImage && firstImage.dimensions && firstImage.fullpath && (
-                        <Image
-                            src={pimcoreImage(firstImage.fullpath)}
-                            alt={product.name ?? ""}
-                            className="img-fluid img-thumbnail"
-                            width={firstImage.dimensions.width ?? 0}
-                            height={firstImage.dimensions.height ?? 0}
-                        />
-                    )}
-
-                    {product.imagesProductDetailPreview && product.imagesProductDetailPreview?.length > 0 && (
-                        <div className="row">
-                            {product.imagesProductDetailPreview.map((image, index) => (
-                                image && image.dimensions && image.fullpath && (
-                                    <div key={index} className="col-12 col-sm-6">
-                                        <Image
-                                            src={pimcoreImage(image.fullpath)}
-                                            alt={product.name ?? ""}
-                                            className="img-fluid img-thumbnail"
-                                            width={image.dimensions.width ?? 0}
-                                            height={image.dimensions.height ?? 0}
-                                        />
-                                    </div>
-                                )))}
-                        </div>
-                    )}
+                    <CoreCarousel showSlides={1} autoplayDelay={1000} data={slides} height="square" />
                 </div>
 
                 <div className="col-12 col-lg-7 mb-3">
