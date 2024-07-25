@@ -2,7 +2,7 @@ import { BreadcrumbProps } from 'react-bootstrap/Breadcrumb';
 
 export interface BreadcrumbItem {
     title: string;
-    link: string;
+    link?: string;
 }
 
 export interface CoreBreadcrumbProps extends Omit<BreadcrumbProps, 'items'> {
@@ -25,7 +25,7 @@ export const generateBreadcrumbs = (pathname: string): BreadcrumbItem[] => {
 
         breadcrumbItems.push({
             title: title,
-            link: link
+            ...(index < pathSegments.length - 1 && { link: link })
         });
     });
 
