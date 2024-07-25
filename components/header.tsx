@@ -11,9 +11,26 @@ import "@/stories/Organisms/Header/header.scss";
 import {CoreBreadcrumb} from "@/stories/Atoms/Breadcrumb/CoreBreadcrumb";
 import {BreadcrumbItem} from "@/stories/Atoms/Breadcrumb/types";
 import {Logout} from "@/components/security/logout";
-import {getCoreshopMe} from "@/lib";
+import {getCategories, getCoreshopMe} from "@/lib";
+import {NavItem} from "@/stories/Molecules/Navbar/types";
 
 export default async function Header() {
+    const categories = await getCategories();
+    const mapCategoriesToNavItems = (categories: any[]): NavItem[] => {
+        return categories.map(category => ({
+            node: {
+                parent: {
+                    __typename: category.__typename
+                },
+                id: category.id,
+                title: category.name,
+                link: `/categories/${category.id}`,
+                children: [],
+                current: false
+            }
+        }));
+    };
+    const navItems = mapCategoriesToNavItems(categories);
     const session = await auth()
     const itemsTopbar = [
         {
@@ -30,7 +47,7 @@ export default async function Header() {
         },
     ]
     const user = await getCoreshopMe();
-    const items = mockNavItems;
+    const items = navItems;
     const wishlist:CoreLinkProps = {text:"Wishlist", href:"/", iconType:"Heart" ,icon: true};
     const dropdownItems: DropdownItem[] = [
         { description: "(EUR)", link: "/", icon:"CurrencyEuro" ,flagCode:"" },
