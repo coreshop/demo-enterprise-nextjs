@@ -66,7 +66,11 @@
         border: 1px solid var(--coreshop-third-border);
         background: var(--coreshop-white);
 
-        &:hover,
+        &:hover {
+            color: var(--coreshop-secondary);
+            border: 1px solid var(--coreshop-primary);
+        }
+
         &.selected {
             color: var(--coreshop-secondary);
             border: 1px solid var(--coreshop-secondary);

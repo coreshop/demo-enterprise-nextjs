@@ -7,67 +7,33 @@ import {ProductFragment} from "@/lib/graphql/types.generated";
 import {redirect} from "next/navigation";
 import {productVariant} from "@/components/actions";
 
-const mockDataAttributes = {
-    71: {
-        "attributes": {
-            11 : 12,
-            15 : 16,
-            20 : 21
-        },
-        "url":"/product/71"
-    },
-    72: {
-        "attributes": {
-            11 : 14,
-            15 : 19,
-            20 : 21
-        },
-        "url":"/product/72"
-    },
-    73: {
-        "attributes": {
-            11 : 13,
-            15 : 17,
-            20 : 22
-        },
-        "url":"/product/73"
-    },
-    74: {
-        "attributes": {
-            11 : 14,
-            15 : 19,
-            20 : 22
-        },
-        "url":"/product/74"
-    },
-    75: {
-        "attributes": {
-            11 : 12,
-            15 : 19,
-            20 : 21
-        },
-        "url":"/product/75"
-    },
-    76: {
-        "attributes": {
-            11 : 14,
-            15 : 17,
-            20 : 21
-        },
-        "url":"/product/76"
-    }
-}
-
 interface ProductVariant {
     attributes: {
         [key: number]: number;
-    };
+    },
+    url: string
 }
 
 export function ProductVariant({ product }: {
     product: ProductFragment
 }) {
-
+    
+    const transformData = (data:any) => {
+        return data.reduce((acc:any, item:any) => {
+            acc[item.productId] = {
+                attributes: item.attributes.reduce((attrAcc:any, attr:any) => {
+                    attrAcc[attr.groupId] = attr.attributeId;
+                    return attrAcc;
+                }, {}),
+                url: `/product/${item.productId}`
+            };
+            return acc;
+        }, {});
+    };
+    let transformedData = [];
+    if(product.variantAttributeIndex) {
+        transformedData = transformData(product.variantAttributeIndex);
+    }
     const [selectedAttributeIds, setSelectedAttributeIds] = useState<string[]>(() => {
         if (product.attributes) {
             return product.attributes
@@ -77,7 +43,6 @@ export function ProductVariant({ product }: {
     });
     const [productVariantsArray, setProductVariantsArray] = useState<ProductVariant[]>([]);
     const [firstClick, setFirstClick] = useState<boolean>(false);
-
     const handleVariant = (attributeId: string) => {
         const id = parseInt(attributeId);
 
@@ -93,13 +58,13 @@ export function ProductVariant({ product }: {
         }
 
         // Update productVariantsArray based on the updated selected attributes
-        const productVariantsResults = Object.entries(mockDataAttributes)
+        const productVariantsResults = Object.entries(transformedData)
             .filter(([key, value]) =>
                 updatedSelectedIds.every(selectedId =>
-                    Object.values(value.attributes).includes(parseInt(selectedId))
+                    Object.values((value as ProductVariant).attributes).includes(parseInt(selectedId))
                 )
             )
-            .map(([key, value]) => ({ id: Number(key), attributes: value.attributes, url: value.url }));
+            .map(([key, value]) => ({ id: Number(key), attributes: (value as ProductVariant).attributes, url: (value as ProductVariant).url }));
 
         setSelectedAttributeIds(updatedSelectedIds);
         setProductVariantsArray(productVariantsResults);
@@ -117,7 +82,6 @@ export function ProductVariant({ product }: {
             productVariant(null, exactMatch?.url);
         }
     };
-
     const checkAttribute = (attributeId: string) => {
         if (firstClick) {
             const updatedSelectedIds = [...selectedAttributeIds, attributeId];
@@ -127,10 +91,21 @@ export function ProductVariant({ product }: {
                 )
             );
         } else {
-            return true;
+            const updatedSelectedIds = [...selectedAttributeIds, attributeId];
+            const productVariantsResults = Object.entries(transformedData)
+                .filter(([key, value]) =>
+                    updatedSelectedIds.every(selectedId =>
+                        Object.values((value as ProductVariant).attributes).includes(parseInt(selectedId))
+                    )
+                )
+                .map(([key, value]) => ({ id: Number(key), attributes: (value as ProductVariant).attributes, url: (value as ProductVariant).url }));
+            return productVariantsResults.some(variant =>
+                updatedSelectedIds.every(id =>
+                    Object.values(variant.attributes).includes(parseInt(id))
+                )
+            );
         }
     };
-
     useEffect(() => {
     }, [selectedAttributeIds, productVariantsArray]);
 

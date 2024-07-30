@@ -45,7 +45,7 @@ export const CoreCarousel = ({
  }: CarouselProps) => {
   const swiperElRef = useRef(null);
   useEffect(() => {
-    register()
+
 
   }, []);
 

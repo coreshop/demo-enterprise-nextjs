@@ -1,5 +1,4 @@
 import {ProductFragment} from "@/lib/graphql/types.generated";
-import Image from "next/image";
 import {pimcoreImage} from "@/lib/pimcoreLoader";
 import {PriceInfo} from "@/components/product/price";
 import {AddToCart} from "@/components/product/add-to-cart";

@@ -100,4 +100,13 @@ fragment product on object_CoreShopProduct {
             id
         }
     }
+    variantAttributeIndex {
+        ... on CoreShopVariantAttributeIndex {
+            url
+            productId
+            attributes {
+                ... on CoreShopVariantAttributeIndexAttribute {groupId, attributeId}
+            }
+        }
+    }
 }

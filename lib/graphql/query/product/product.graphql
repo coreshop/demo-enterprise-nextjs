@@ -7,6 +7,15 @@ query getCoreShopProduct($productId: Int!) {
             __typename
             product {
                 ...product
+                variantAttributeIndex {
+                    ... on CoreShopVariantAttributeIndex {
+                        url
+                        productId
+                        attributes {
+                            ... on CoreShopVariantAttributeIndexAttribute {groupId, attributeId}
+                        }
+                    }
+                }
             }
         }
         ... on CoreShopError {
