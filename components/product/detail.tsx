@@ -4,10 +4,11 @@ import {PriceInfo} from "@/components/product/price";
 import {AddToCart} from "@/components/product/add-to-cart";
 import {CoreLink} from "@/stories/Atoms/Link/CoreLink";
 import {StatusDot} from "@/stories/Molecules/StatusDot/StatusDot";
-import React from "react";
+import React, {Suspense} from "react";
 import {redirect} from "next/navigation";
 import {ProductVariant} from "@/components/product/variant";
 import {CoreCarousel} from "@/stories/Molecules/Carousel/CoreCarousel";
+import Loader from "@/components/loader";
 
 
 type ProductDetailProps = {
@@ -36,7 +37,8 @@ export default async function ProductDetail({product}: ProductDetailProps) {
     }
 
     return (
-        <>
+        <Suspense fallback={<Loader />}>
+
             {/*<CoreBreadcrumb  breadcrumbItems={}/>*/}
 
             <div className="row product-info mb-5">
@@ -143,6 +145,6 @@ export default async function ProductDetail({product}: ProductDetailProps) {
                     )}
                 </div>
             </div>
-        </>
+        </Suspense>
     );
 }

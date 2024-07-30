@@ -203,7 +203,10 @@ export async function getLatestProducts(): Promise<ProductFragment[]> {
     return [];
 }
 
-export async function getProduct({productId}: { productId: number }): Promise<ProductFragment | undefined> {
+export async function getProduct({ productId }: { productId: number }): Promise<ProductFragment | undefined> {
+    // Simulate a delay of 3 seconds
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+    await delay(500);
     const res = await coreShopFetch<GetCoreShopProductQuery, GetCoreShopProductQueryVariables>({
         query: print(GetCoreShopProduct),
         variables: {

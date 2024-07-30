@@ -4,8 +4,7 @@ import React, {useEffect, useState} from "react";
 import {CoreBadgesize, CoreBadgetype} from "@/stories/Atoms/Badge/types";
 import {CoreBadge} from "@/stories/Atoms/Badge/CoreBadge";
 import {ProductFragment} from "@/lib/graphql/types.generated";
-import {redirect} from "next/navigation";
-import {productVariant} from "@/components/actions";
+import {productVariantAction} from "@/components/actions";
 
 interface ProductVariant {
     attributes: {
@@ -17,6 +16,7 @@ interface ProductVariant {
 export function ProductVariant({ product }: {
     product: ProductFragment
 }) {
+    const [loading, setLoading] = useState(false);
     
     const transformData = (data:any) => {
         return data.reduce((acc:any, item:any) => {
@@ -79,7 +79,7 @@ export function ProductVariant({ product }: {
         );
 
         if (typeof exactMatch?.url !== 'undefined') {
-            productVariant(null, exactMatch?.url);
+            productVariantAction(null, exactMatch?.url);
         }
     };
     const checkAttribute = (attributeId: string) => {
