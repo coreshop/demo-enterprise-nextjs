@@ -7,6 +7,7 @@ import {CoreLink} from "@/stories/Atoms/Link/CoreLink";
 import Currency from "@/components/common/currency";
 import {CoreBadge} from "@/stories/Atoms/Badge/CoreBadge";
 import {CoreBadgetype} from "@/stories/Atoms/Badge/types";
+import OrderState from "@/components/profile/OrderState";
 
 export default async function OrdersPage() {
     const session = await auth();
@@ -33,13 +34,7 @@ export default async function OrdersPage() {
                         <td>{order?.orderDate}</td>
                         <td><Currency amount={order?.totalGross} currencyCode="EUR"/></td>
                         <td>
-                            {order.orderState === 'confirmed' ? (
-                                <CoreBadge variant={CoreBadgetype.Success} description={order?.orderState} />
-                                ) : order.orderState === 'new' ? (
-                                    <CoreBadge variant={CoreBadgetype.Info} description={order?.orderState} />
-                                ) : (
-                                ''
-                            )}
+                            <OrderState order={order} />
                         </td>
                         <td>
                             <CoreLink text="Show Details" href={`/profile/orders/${order?.orderNumber}?token=${order?.token}`} icon={true} iconType="ArrowUpRight" />
