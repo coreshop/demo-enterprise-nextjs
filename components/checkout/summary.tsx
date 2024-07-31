@@ -102,7 +102,7 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
                     <tr>
                         <td className="border-0"></td>
                         <td className="text-right border-0">
-                            <strong>{item.typeIdentifier} (incl. VAT):</strong>
+                            <strong>{item.label ? item.label : item.typeIdentifier} (incl. VAT):</strong>
                         </td>
                         <td colSpan={2} className="text-right cart-shipping border-0">
                             <Currency amount={item.pimcoreAmountGross ?? 0}
@@ -112,7 +112,7 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
                     <tr>
                         <td className="border-0"></td>
                         <td className="text-right border-0">
-                            <strong>{item.typeIdentifier} (excl. VAT):</strong>
+                            <strong>{item.label ? item.label : item.typeIdentifier} (excl. VAT):</strong>
                         </td>
                         <td colSpan={2} className="text-right cart-shipping border-0">
                             <Currency amount={item.pimcoreAmountNet ?? 0}

@@ -14,7 +14,6 @@ type CartItemPageProps = {
 };
 
 export default function CartItemPage({cartItem, summary=false}: CartItemPageProps) {
-
     return <tr className="shopping-cart-item">
         <td>
             {cartItem.product && (

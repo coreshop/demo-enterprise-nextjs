@@ -11,11 +11,13 @@ import {
     checkoutGuestRegistration,
     checkoutPayment,
     checkoutShipping,
-    deleteCustomerAddress, getCheckoutOrder,
+    deleteCustomerAddress,
+    getCheckoutOrder,
     getCoreshopMe,
     getOrder,
     removeOrderItem,
-    removeVoucherCode, ResetPassword,
+    removeVoucherCode,
+    ResetPassword,
     updateCoreshopMe,
     updateCustomerAddress,
     updateOrderItem,
@@ -29,7 +31,8 @@ import {
     CoreShopAuthorizeResult,
     CountryEnumType,
     GuestRegistrationInput,
-    MeInput, OrderFragment, OrderInput,
+    MeInput,
+    OrderInput,
     PaymentProviderEnumType
 } from "@/lib/graphql/types.generated";
 import {redirect} from "next/navigation";
@@ -310,8 +313,15 @@ export async function productVariantAction(state: any, url: string | null ): Pro
 }
 
 export async function resetPasswordAction(state: any, username: string ): Promise<any> {
-    const result = await ResetPassword({username});
-    console.log(result);
+    return await ResetPassword({username});
+}
+
+export async function addVoucherCodeAction(state: any, token: string, voucherCode: string ): Promise<any> {
+    const result = await addVoucherCode({token, voucherCode});
+    if(result?.__typename !== 'CoreShopError') {
+        revalidateTag('cart');
+    }
+
     return result;
 }
 

@@ -42,6 +42,7 @@ fragment order on object_CoreShopOrder {
             cartPriceRule {
                 ... on CoreshopCartPriceRule {
                     name
+                    description
                     isVoucherRule
                 }
             }

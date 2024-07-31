@@ -30,7 +30,7 @@ export async function PriceInfo({productId, cartItem, mode = 'single', vat = fal
                             offerPrice={cartItem.itemRetailPriceGross !== 0 ? (
                                 <Currency amount={cartItem.itemRetailPriceGross} currencyCode="EUR"/>
                             ) : null }
-                            price={cartItem.itemDiscountPriceGross ? (
+                            price={cartItem.itemDiscountPriceGross && cartItem.itemDiscountPriceGross > 0 ? (
                                 <Currency
                                     amount={cartItem.itemDiscountPriceGross && cartItem.itemDiscountPriceGross > 0 ? cartItem.itemDiscountPriceGross : cartItem.itemRetailPriceGross}
                                     currencyCode="EUR"
@@ -40,7 +40,7 @@ export async function PriceInfo({productId, cartItem, mode = 'single', vat = fal
                                 currencyCode="EUR"
                             /> }
                             taxAmount={productPrice ? <Currency amount={productPrice.tax_amount} currencyCode="EUR"/> : null}
-                            showDiscount={productPrice && productPrice.discount_price_net != 0 ? true : false }
+                            showDiscount={productPrice && productPrice.discount_price_net != 0 }
                             vat={vat}
                         />
                         ) : (
@@ -65,7 +65,7 @@ export async function PriceInfo({productId, cartItem, mode = 'single', vat = fal
                                         ? productPrice.tax_amount
                                         : 0
                             } currencyCode="EUR"/> : null}
-                            showDiscount={productPrice && productPrice.discount_price_net != 0 ? true : false }
+                            showDiscount={productPrice && productPrice.discount_price_net != 0 }
                             vat={vat}
                         />
                     )
@@ -73,10 +73,10 @@ export async function PriceInfo({productId, cartItem, mode = 'single', vat = fal
                 </div>
             ) : (
                 <PriceTag
-                    offerPrice={productPrice ? <Currency amount={productPrice.discount_price_gross != 0 ? productPrice.price_gross : 0 } currencyCode="EUR"/> : null}
+                    offerPrice={productPrice ? <Currency amount={productPrice.retail_price_gross != 0 ? productPrice.retail_price_gross : 0 } currencyCode="EUR"/> : null}
                     price={productPrice ? <Currency amount={productPrice.discount_price_gross != 0 ? productPrice.discount_price_gross : productPrice.price_gross} currencyCode="EUR"/> : null}
                     taxAmount={productPrice ? <Currency amount={productPrice.tax_amount} currencyCode="EUR"/> : null}
-                    showDiscount={productPrice && productPrice.discount_price_gross != 0 ? true : false }
+                    showDiscount={productPrice && productPrice.discount_price_gross != 0 }
                     vat={true}
                 />
 

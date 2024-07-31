@@ -4,11 +4,12 @@ import Currency from "@/components/common/currency";
 import {OrderFragment} from "@/lib/graphql/types.generated";
 import CartItemPage from "@/components/cart/cart-item";
 import React, {Suspense} from "react";
-import VoucherForm from "@/components/cart/voucher";
+import VoucherForm from "@/components/forms/VoucherForm";
 import Table from "react-bootstrap/Table";
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
 import {CoreButtontype} from "@/stories/Atoms/Button/types";
 import StepComponent from "@/components/checkout/steps";
+import CartPriceRuleItem from "@/components/cart/cart-price-rule-item";
 
 export default async function CartPage() {
     const cartToken = cookies().get('cartToken')?.value;
@@ -25,6 +26,8 @@ export default async function CartPage() {
     if (cart === undefined) {
         return <div>No Cart</div>;
     }
+
+    console.log(cart?.adjustmentItems);
 
     return <Suspense>
         <StepComponent currentStep={"cart"} />
@@ -43,11 +46,9 @@ export default async function CartPage() {
                 {cart.items?.map((item, index) => (item && (
                     <CartItemPage key={item.id} cartItem={item}/>
                 )))}
-                {/* start what is about ? */}
-                {/*{cart.priceRuleItems?.map((item, index) => (item && (
+                {cart.priceRuleItems?.map((item, index) => (item && (
                     <CartPriceRuleItem key={index} priceRule={item}/>
-                )))}*/}
-                {/* end what is about ? */}
+                )))}
                 </tbody>
 
                 <tfoot>
@@ -60,7 +61,8 @@ export default async function CartPage() {
                 </tr>
                 <tr>
                     <td colSpan={2} rowSpan={10} valign="top" className="border-0">
-                        <VoucherForm/>
+
+                        <VoucherForm cartToken={cartToken}/>
                     </td>
                     <td className="border-0"></td>
                     <td className="text-right border-0">
@@ -84,7 +86,7 @@ export default async function CartPage() {
                         <tr>
                             <td className="border-0"></td>
                             <td className="text-right border-0">
-                                <strong>{item.typeIdentifier} (incl. VAT):</strong>
+                                <strong>{item.label ? item.label : item.typeIdentifier} (incl. VAT):</strong>
                             </td>
                             <td colSpan={2} className="text-right cart-shipping border-0">
                                 <Currency amount={item.pimcoreAmountGross ?? 0}
@@ -94,7 +96,7 @@ export default async function CartPage() {
                         <tr>
                             <td className="border-0"></td>
                             <td className="text-right border-0">
-                                <strong>{item.typeIdentifier} (excl. VAT):</strong>
+                                <strong>{item.label ? item.label : item.typeIdentifier} (excl. VAT):</strong>
                             </td>
                             <td colSpan={2} className="text-right cart-shipping border-0">
                                 <Currency amount={item.pimcoreAmountNet ?? 0}

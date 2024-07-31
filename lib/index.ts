@@ -353,7 +353,7 @@ export async function removeOrderItem({token, orderItemId}: {
 export async function addVoucherCode({token, voucherCode}: {
     token: string,
     voucherCode: string
-}): Promise<OrderFragment | null> {
+}): Promise<OrderFragment | null | CoreShopError> {
     const res = await coreShopFetch<CoreShopAddOrderVoucherCodeMutation, CoreShopAddOrderVoucherCodeMutationVariables>({
         query: print(CoreShopAddOrderVoucherCode),
         variables: {
@@ -362,17 +362,17 @@ export async function addVoucherCode({token, voucherCode}: {
         },
         cache: "no-cache"
     });
-
+    console.log(res.data);
     if (res.data?.CoreShopAddOrderVoucherCode?.__typename === 'CoreShopAddOrderVoucherCodeResult') {
         return res.data.CoreShopAddOrderVoucherCode.order as OrderFragment;
     }
 
     if (res.data?.CoreShopAddOrderVoucherCode?.__typename === 'CoreShopError') {
-        throw new Error(res.data.CoreShopAddOrderVoucherCode.message ?? undefined);
+       return res.data.CoreShopAddOrderVoucherCode.message as OrderFragment;
     }
 
     if (res.data?.CoreShopAddOrderVoucherCode?.__typename === 'CoreShopValidationError') {
-        throw new Error(res.data.CoreShopAddOrderVoucherCode.message ?? undefined);
+        return res.data.CoreShopAddOrderVoucherCode.message as OrderFragment;
     }
 
     return null;
