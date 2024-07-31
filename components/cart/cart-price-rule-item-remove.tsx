@@ -3,6 +3,8 @@
 import {Fieldcollection_CoreShopProposalCartPriceRuleItem} from "@/lib/graphql/types.generated";
 import {removeVoucher} from "@/components/actions";
 import {useFormState} from "react-dom";
+import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
+import {CoreButtontype} from "@/stories/Atoms/Button/types";
 
 type CartPriceRuleItemRemoveProps = {
     priceRule: Fieldcollection_CoreShopProposalCartPriceRuleItem
@@ -16,9 +18,9 @@ export default function CartPriceRuleItemRemove({priceRule}: CartPriceRuleItemRe
 
     return (
         <form action={action}>
-            <button title="Remove" className="btn btn-danger tool-tip">
-                <i className="fa fa-times-circle"></i>
-            </button>
+            <div className="d-flex justify-content-end">
+                <CoreButton text="Remove" buttonType="button" type="submit" variant={CoreButtontype.OutlineSecondary } icon={true} iconPre={true} iconType="Trash" size="sm" />
+            </div>
         </form>
     );
 }

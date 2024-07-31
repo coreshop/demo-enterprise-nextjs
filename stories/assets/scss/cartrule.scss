@@ -1,0 +1,21 @@
+.shopping-cart-item-cart-rule {
+
+    &-head {
+        border-top: 3rem solid var(--bs-white) !important;
+
+        td {
+            border: 0;
+        }
+    }
+
+    td {
+        border: 0;
+    }
+
+    .cart-rule {
+        border-radius: var(--bs-border-radius);
+        border: 1px solid var(--bs-gray-600);
+        padding: 1.5rem 2rem;
+        flex: 1;
+    }
+}

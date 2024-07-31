@@ -10,6 +10,7 @@ import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
 import {CoreButtontype} from "@/stories/Atoms/Button/types";
 import StepComponent from "@/components/checkout/steps";
 import CartPriceRuleItem from "@/components/cart/cart-price-rule-item";
+import {Row} from "react-bootstrap";
 
 export default async function CartPage() {
     const cartToken = cookies().get('cartToken')?.value;
@@ -46,97 +47,121 @@ export default async function CartPage() {
                 {cart.items?.map((item, index) => (item && (
                     <CartItemPage key={item.id} cartItem={item}/>
                 )))}
-                {cart.priceRuleItems?.map((item, index) => (item && (
-                    <CartPriceRuleItem key={index} priceRule={item}/>
-                )))}
-                </tbody>
-
-                <tfoot>
-                <tr>
-                    <td colSpan={6} className="border-0"></td>
-                </tr>
-
-                <tr>
-                <td colSpan={6} className="border-0"></td>
-                </tr>
-                <tr>
-                    <td colSpan={2} rowSpan={10} valign="top" className="border-0">
-
-                        <VoucherForm cartToken={cartToken}/>
-                    </td>
-                    <td className="border-0"></td>
-                    <td className="text-right border-0">
-                        <strong>Subtotal (incl. VAT):</strong>
-                    </td>
-                    <td colSpan={2} className="text-right cart-sub-total border-0">
-                        <Currency amount={cart.subtotalGross ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
-                    </td>
-                </tr>
-                <tr>
-                    <td className="border-0"></td>
-                    <td className="text-right border-0">
-                        <strong>Subtotal (excl. VAT):</strong>
-                    </td>
-                    <td colSpan={2} className="text-right cart-discount border-0">
-                        <Currency amount={cart.subtotalNet ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
-                    </td>
-                </tr>
-                {cart.adjustmentItems?.map((item, index) => (item && (
+                {cart.priceRuleItems &&
                     <>
-                        <tr>
-                            <td className="border-0"></td>
-                            <td className="text-right border-0">
-                                <strong>{item.label ? item.label : item.typeIdentifier} (incl. VAT):</strong>
-                            </td>
-                            <td colSpan={2} className="text-right cart-shipping border-0">
-                                <Currency amount={item.pimcoreAmountGross ?? 0}
-                                          currencyCode={cart?.currency?.isoCode ?? 'EUR'}/>
+                        <tr className="shopping-cart-item-cart-rule-head">
+                            <td colSpan={7}>
+                                <h5>Special cart discounts</h5>
                             </td>
                         </tr>
-                        <tr>
-                            <td className="border-0"></td>
-                            <td className="text-right border-0">
-                                <strong>{item.label ? item.label : item.typeIdentifier} (excl. VAT):</strong>
-                            </td>
-                            <td colSpan={2} className="text-right cart-shipping border-0">
-                                <Currency amount={item.pimcoreAmountNet ?? 0}
-                                          currencyCode={cart?.currency?.isoCode ?? 'EUR'}/>
+                        <tr className="shopping-cart-item-cart-rule">
+                            <td colSpan={7}>
+                                <Row>
+                                    {cart.priceRuleItems?.map((item, index) => (item && (
+                                        <CartPriceRuleItem key={index} priceRule={item}/>
+                                    )))}
+                                </Row>
                             </td>
                         </tr>
                     </>
-                )))}
+                }
 
-                {cart.taxes?.map((item, index) => (item && (
-                    <tr key={index}>
-                        <td className="border-0"></td>
-                        <td className="text-right cart-tax-detail border-0">
-                            <strong>Tax {item.name}:</strong>
-                        </td>
-                        <td colSpan={2} className="text-right cart-tax-detail border-0">
-                            <Currency amount={item.amount ?? 0} currencyCode={cart?.currency?.isoCode ?? 'EUR'}/>
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <td colSpan={6} className="border-0"></td>
+                    </tr>
+
+                    <tr>
+                        <td colSpan={6} className="border-0"></td>
+                    </tr>
+                    <tr>
+                        <td colSpan={2} valign="top" className="border-0">
+                            <VoucherForm cartToken={cartToken}/>
                         </td>
                     </tr>
-                )))}
+                    <tr>
+                        <td className="border-0" colSpan={2}></td>
+                        <td className="border-0"></td>
+                        <td className="text-right border-0">
+                            <strong>Subtotal (incl. VAT):</strong>
+                        </td>
+                        <td colSpan={2} className="text-right cart-sub-total border-0">
+                            <Currency amount={cart.subtotalGross ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="border-0" colSpan={2}></td>
+                        <td className="border-0"></td>
+                        <td className="text-right border-0">
+                            <strong>Subtotal (excl. VAT):</strong>
+                        </td>
+                        <td colSpan={2} className="text-right cart-discount border-0">
+                            <Currency amount={cart.subtotalNet ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
+                        </td>
+                    </tr>
+                    {cart.adjustmentItems?.map((item, index) => (item && (
+                        <>
+                            <tr key={index}>
+                                <td className="border-0" colSpan={2}></td>
+                                <td className="border-0"></td>
+                                <td className="text-right border-0">
+                                    <strong>{item.label ? item.label : item.typeIdentifier} (incl. VAT):</strong>
+                                </td>
+                                <td colSpan={2} className="text-right cart-shipping border-0">
+                                    <Currency amount={item.pimcoreAmountGross ?? 0}
+                                              currencyCode={cart?.currency?.isoCode ?? 'EUR'}/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="border-0" colSpan={2}></td>
+                                <td className="border-0"></td>
+                                <td className="text-right border-0">
+                                    <strong>{item.label ? item.label : item.typeIdentifier} (excl. VAT):</strong>
+                                </td>
+                                <td colSpan={2} className="text-right cart-shipping border-0">
+                                    <Currency amount={item.pimcoreAmountNet ?? 0}
+                                              currencyCode={cart?.currency?.isoCode ?? 'EUR'}/>
+                                </td>
+                            </tr>
+                        </>
+                    )))}
 
-                <tr>
-                    <td className="border-0"></td>
-                    <td className="text-right">
-                        <strong>Total Tax:</strong>
-                    </td>
-                    <td colSpan={2} className="text-right cart-tax">
-                        <Currency amount={(cart.totalGross ?? 0) - (cart.totalNet ?? 0) ?? 0}
-                                  currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
-                    </td>
-                </tr>
-                <tr>
-                    <td className="border-0"></td>
-                    <td className="text-right border-0">
-                        <strong>Total:</strong>
-                    </td>
-                    <td colSpan={2} className="text-right cart-total-price border-0">
-                        <Currency amount={cart.totalGross ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
-                    </td>
-                </tr>
+                    {cart.taxes?.map((item, index) => (item && (
+                        <tr key={index}>
+                            <td className="border-0" colSpan={2}></td>
+                            <td className="border-0"></td>
+                            <td className="text-right cart-tax-detail border-0">
+                                <strong>Tax {item.name}:</strong>
+                            </td>
+                            <td colSpan={2} className="text-right cart-tax-detail border-0">
+                                <Currency amount={item.amount ?? 0} currencyCode={cart?.currency?.isoCode ?? 'EUR'}/>
+                            </td>
+                        </tr>
+                    )))}
+
+                    <tr>
+                        <td className="border-0" colSpan={2}></td>
+                        <td className="border-0"></td>
+                        <td className="text-right">
+                            <strong>Total Tax:</strong>
+                        </td>
+                        <td colSpan={2} className="text-right cart-tax">
+                            <Currency amount={(cart.totalGross ?? 0) - (cart.totalNet ?? 0) ?? 0}
+                                      currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="border-0" colSpan={2}></td>
+                        <td className="border-0"></td>
+                        <td className="text-right border-0">
+                            <strong>Total:</strong>
+                        </td>
+                        <td colSpan={2} className="text-right cart-tax border-0">
+                            <Currency amount={cart.totalGross ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
+                        </td>
+                    </tr>
                 </tfoot>
             </Table>
 

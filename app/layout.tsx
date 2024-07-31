@@ -17,6 +17,7 @@ import '@/stories/assets/scss/main.scss';
 import '@/stories/assets/scss/cartprogress.scss';
 import '@/stories/assets/scss/variables.scss';
 import '@/stories/assets/scss/buttons.scss';
+import '@/stories/assets/scss/cartrule.scss';
 
 
 export const metadata: Metadata = {

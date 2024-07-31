@@ -10,6 +10,7 @@ import Currency from "@/components/common/currency";
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
 import {CoreButtontype} from "@/stories/Atoms/Button/types";
 import CheckoutForm from "@/components/forms/CheckoutForm";
+import VoucherForm from "@/components/forms/VoucherForm";
 
 export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
     return <section>
@@ -76,10 +77,9 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
             <tr>
                 <td colSpan={6} className="border-0"></td>
             </tr>
-            <tr>
-                <td colSpan={2} rowSpan={10} valign="top" className="border-0">
 
-                </td>
+            <tr>
+                <td className="border-0" colSpan={2}></td>
                 <td className="border-0"></td>
                 <td className="text-right border-0">
                     <strong>Subtotal (incl. VAT):</strong>
@@ -89,6 +89,7 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
                 </td>
             </tr>
             <tr>
+                <td className="border-0" colSpan={2}></td>
                 <td className="border-0"></td>
                 <td className="text-right border-0">
                     <strong>Subtotal (excl. VAT):</strong>
@@ -99,7 +100,8 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
             </tr>
             {cart.adjustmentItems?.map((item, index) => (item && (
                 <>
-                    <tr>
+                    <tr key={index}>
+                        <td className="border-0" colSpan={2}></td>
                         <td className="border-0"></td>
                         <td className="text-right border-0">
                             <strong>{item.label ? item.label : item.typeIdentifier} (incl. VAT):</strong>
@@ -110,6 +112,7 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
                         </td>
                     </tr>
                     <tr>
+                        <td className="border-0" colSpan={2}></td>
                         <td className="border-0"></td>
                         <td className="text-right border-0">
                             <strong>{item.label ? item.label : item.typeIdentifier} (excl. VAT):</strong>
@@ -124,6 +127,7 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
 
             {cart.taxes?.map((item, index) => (item && (
                 <tr key={index}>
+                    <td className="border-0" colSpan={2}></td>
                     <td className="border-0"></td>
                     <td className="text-right cart-tax-detail border-0">
                         <strong>Tax {item.name}:</strong>
@@ -135,6 +139,7 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
             )))}
 
             <tr>
+                <td className="border-0" colSpan={2}></td>
                 <td className="border-0"></td>
                 <td className="text-right">
                     <strong>Total Tax:</strong>
@@ -145,11 +150,12 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
                 </td>
             </tr>
             <tr>
+                <td className="border-0" colSpan={2}></td>
                 <td className="border-0"></td>
                 <td className="text-right border-0">
                     <strong>Total:</strong>
                 </td>
-                <td colSpan={2} className="text-right cart-total-price border-0">
+                <td colSpan={2} className="text-right cart-tax border-0">
                     <Currency amount={cart.totalGross ?? 0} currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
                 </td>
             </tr>
@@ -160,7 +166,7 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
         <div className="d-flex flex-column flex-md-row justify-content-end mt-3 gap-2">
             <CoreButton buttonType="a" text="Continue Shopping" variant={CoreButtontype.Secondary} icon={false}
                         href="/cart"/>
-            <CheckoutForm cart={cart} />
+            <CheckoutForm cart={cart}/>
         </div>
 
     </section>;

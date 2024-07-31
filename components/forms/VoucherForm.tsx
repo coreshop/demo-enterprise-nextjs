@@ -31,10 +31,7 @@ export default function VoucherForm({cartToken}: {cartToken:string}) {
 
     const onSubmit = async (data: VoucherFormData) => {
         const result = await addVoucherCodeAction(null, cartToken, data.voucherCode);
-        console.log(result);
-        if(result.token) {
-                // reload cart
-        } else {
+        if(!result.token) {
             setErrorMessage(result);
         }
     };
