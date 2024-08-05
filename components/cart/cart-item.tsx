@@ -14,39 +14,45 @@ type CartItemPageProps = {
 };
 
 export default function CartItemPage({cartItem, summary=false}: CartItemPageProps) {
-    return <tr className="shopping-cart-item">
-        <td>
-            {cartItem.product && (
-                <Link href={`/product/${cartItem.product.id}`}>
-                    {cartItem.product?.imagesCartPreview?.[0] && cartItem.product?.imagesCartPreview?.[0]?.fullpath && cartItem.product?.imagesCartPreview?.[0]?.dimensions && (
-                        <CoreCard
-                            layout="layout3"
-                            imageSrc={pimcoreImage(cartItem.product.imagesCartPreview[0].fullpath)}
-                            imageSrc2={pimcoreImage(cartItem.product.imagesCartPreview[0].fullpath)}
-                            title={cartItem.product?.name ?? undefined}
-                            description={"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa."}
-                        />
-                    )}
-                </Link>
-            )}
-        </td>
-
-        <td>
-            <CartItemUpdate cartItem={cartItem} summary ={summary}/>
-        </td>
-        <td className="text-right cart-item-price">
-            <span className="price-new">
-                 <PriceInfo cartItem={cartItem} mode="single" vat={false} />
-            </span>
-        </td>
-        <td className="text-right cart-item-total-price">
-
-            <PriceInfo cartItem={cartItem} mode="total" vat={true}/>
-        </td>
-        { !summary &&
-        <td className="text-center">
-            <CartItemRemove cartItem={cartItem}/>
-        </td> }
-    </tr>
+    return <div className="shopping-cart-item mb-3">
+        <div className="d-md-flex justify-content-md-between gap-md-3 mb-2">
+            <div className="shopping-cart-item-info">
+                {cartItem.product && (
+                    <Link href={`/product/${cartItem.product.id}`} className="text-decoration-none">
+                        {cartItem.product?.imagesCartPreview?.[0] && cartItem.product?.imagesCartPreview?.[0]?.fullpath && cartItem.product?.imagesCartPreview?.[0]?.dimensions && (
+                            <CoreCard
+                                layout="layout4"
+                                imageSrc={pimcoreImage(cartItem.product.imagesCartPreview[0].fullpath)}
+                                imageSrc2={pimcoreImage(cartItem.product.imagesCartPreview[0].fullpath)}
+                                title={cartItem.product?.name ?? undefined}
+                                description={cartItem.product?.shortDescription ?? undefined}
+                            />
+                        )}
+                    </Link>
+                )}
+            </div>
+            <div className="d-flex justify-content-between gap-3 gap-md-5 mb-3">
+                <div className="text-right cart-item-price">
+                    <span className="price-new">
+                        <div><small>Each:</small></div>
+                        <PriceInfo cartItem={cartItem} mode="single" vat={false}/>
+                    </span>
+                </div>
+                <div className="text-right cart-item-total-price">
+                <div><small>Total:</small></div>
+                <PriceInfo cartItem={cartItem} mode="total" vat={true}/>
+            </div>
+            </div>
+        </div>
+        <div className="d-flex justify-content-end gap-3">
+            <div>
+                <CartItemUpdate cartItem={cartItem} summary={summary}/>
+            </div>
+            {!summary &&
+            <div className="text-center">
+                <CartItemRemove cartItem={cartItem}/>
+            </div>}
+        </div>
+    </div>
         ;
 }

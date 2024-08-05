@@ -25,7 +25,7 @@ export default function StepComponent ({ currentStep }: {currentStep: string}) {
     };
 
     return (
-        <section className="container">
+        <section className="mt-lg-5">
             <div className="cartprogress">
                 {steps.map((stepName) => (
                     <CoreLink key={stepName} text={stepName} href="#" icon={false} cssClass={` ${

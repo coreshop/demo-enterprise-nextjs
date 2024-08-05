@@ -113,19 +113,37 @@ export const CoreCard = ({
             textAlign="start"
           />
         </Card.Body>
-      </Card>  : (
-        <Card className= {`flex-sm-row ${layout}`} border="0">
-        <div>
-          {imageSrc2 && <Card.Img variant="middle" className="img-fluid" src={imageSrc2} />}
-        </div>
-        <Card.Body className="p-0">
-          <div className="ps-sm-2">
-            { title && <Card.Title as="h6" className="mb-1">{ title }</Card.Title> }
-            <div className="text-14 mb-1">Attribute: Value Attribute:Value3</div>
-          </div>
-        </Card.Body>
-      </Card>  
-      )
-    )
+      </Card> : (layout === "layout3" ?
+        <Card className= {`flex-md-row ${layout}`} border="0">
+            <div>
+              {imageSrc2 && <Card.Img variant="middle" className="img-fluid" src={imageSrc2} />}
+            </div>
+            <Card.Body className="p-0">
+              <div className="ps-md-2 pt-2 pt-md-0">
+                { title && <Card.Title as="h6" className="mb-1">{ title }</Card.Title> }
+                <div className="text-14 mb-1">
+                    <div>Attribute: Value</div>
+                    <div>Attribute: Value3</div>
+                </div>
+              </div>
+            </Card.Body>
+        </Card>  : (
+            <Card className={`flex-row gap-3 mb-2 ${layout}`} border="0">
+                <div>
+                    {imageSrc2 && <Card.Img variant="middle" className="img-fluid" src={imageSrc2}/>}
+                </div>
+                <Card.Body className="p-0">
+                    <div className="mt-md-1">
+                        {title && <Card.Title as="h6" className="mb-1">{title}</Card.Title>}
+                        { description &&
+                            <Card.Text>
+                                { description }
+                            </Card.Text>
+                        }
+                    </div>
+                </Card.Body>
+            </Card>
+        )
+        ))
   );
 };

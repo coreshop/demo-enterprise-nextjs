@@ -1,21 +1,26 @@
-.shopping-cart-item-cart-rule {
+@import 'breakpoints';
 
-    &-head {
-        border-top: 3rem solid var(--bs-white) !important;
+.shopping-cart-item {
+    padding: 1rem;
+    border: 1px solid var(--coreshop-gray-400);
+    border-radius: var(--bs-border-radius);
 
-        td {
-            border: 0;
+    img {
+        flex-shrink: 0;
+    }
+
+    &-info {
+        @media (min-width: $md) {
+            flex-basis: 55%;
         }
     }
 
-    td {
-        border: 0;
-    }
-
-    .cart-rule {
-        border-radius: var(--bs-border-radius);
-        border: 1px solid var(--bs-gray-600);
-        padding: 1.5rem 2rem;
-        flex: 1;
+    &-cart-rule {
+        .cart-rule {
+            border-radius: var(--bs-border-radius);
+            border: 1px solid var(--coreshop-gray-400);
+            padding: 1rem 1.5rem;
+            flex: 1;
+        }
     }
 }

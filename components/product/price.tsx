@@ -36,7 +36,7 @@ export async function PriceInfo({productId, cartItem, mode = 'single', vat = fal
                                     currencyCode="EUR"
                                 />
                             ) :  <Currency
-                                amount={cartItem.totalGross}
+                                amount={(cartItem.itemRetailPriceGross ?? 0) - (cartItem.itemDiscountGross ?? 0)}
                                 currencyCode="EUR"
                             /> }
                             taxAmount={productPrice ? <Currency amount={productPrice.tax_amount} currencyCode="EUR"/> : null}

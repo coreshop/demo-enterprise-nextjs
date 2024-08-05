@@ -25,4 +25,11 @@
             }
         }
     }
+
+    &.layout4 {
+        img {
+            margin-bottom: 0;
+            max-width: rem(110px);
+        }
+    }
 }

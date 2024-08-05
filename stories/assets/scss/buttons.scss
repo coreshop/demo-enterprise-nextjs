@@ -108,12 +108,17 @@
     --bs-btn-disabled-border-color: var(--coreshop-secondary);
     --bs-gradient: none;
 
-    &:hover {
-        @include box-shadow-opacity(0px, 0px, 0px, rem(4px), var(--coreshop-secondary-rgb), 0.10);
-    }
 
     svg {
         fill: var(--coreshop-secondary);
+    }
+
+    &:hover {
+        @include box-shadow-opacity(0px, 0px, 0px, rem(4px), var(--coreshop-secondary-rgb), 0.10);
+
+        svg {
+            fill: #fff;
+        }
     }
 }
 
