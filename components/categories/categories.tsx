@@ -9,6 +9,7 @@ export default async function GetAllCategories() {
         <h3>Categories</h3>
         <div className="row">
             {categories && categories.map((item, index) => (
+                // eslint-disable-next-line react/jsx-key
                 <div className="col-12 col-md-6 col-lg-3 mb-3">
                     <CoreCard
                         layout="layout1"
