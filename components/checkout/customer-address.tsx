@@ -3,10 +3,9 @@
 import StepComponent from "@/components/checkout/steps";
 import {AddressFragment, OrderFragment} from "@/lib/graphql/types.generated";
 import {Session} from "next-auth";
-import React, {useState} from "react";
+import React, {Suspense, useState} from "react";
 import {Collapse, Form} from "react-bootstrap";
 import CreateAddresses from "@/components/forms/CreateAddress";
-import {AddressType} from '@/schema/CustomerRegistration';
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
 import {CoreButtontype} from "@/stories/Atoms/Button/types";
 import {setCustomerCartAddress} from "@/components/actions";
@@ -102,6 +101,7 @@ export default function CheckoutCustomerAddress({cart, authSession, addresses, s
                         }
                     </div>
                     <div className="row">
+                        <Suspense>
                         {cart?.invoiceAddress ?
                             <div className="col-12 col-lg-6 mb-3">
                                 <div className="bg-light p-4 h-100">
@@ -148,6 +148,8 @@ export default function CheckoutCustomerAddress({cart, authSession, addresses, s
                                 </div>
                             </div>
                         }
+                        </Suspense>
+                        <Suspense>
                         {cart?.shippingAddress ? <div className="col-12 col-lg-6 mb-3">
                                 <div className="bg-light p-4 h-100">
                                     <div className="pb-3">
@@ -166,6 +168,7 @@ export default function CheckoutCustomerAddress({cart, authSession, addresses, s
                                 </div>
                             </div>
                         }
+                        </Suspense>
                     </div>
 
 

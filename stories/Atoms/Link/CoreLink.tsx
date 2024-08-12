@@ -1,6 +1,7 @@
 import React from "react";
 import * as Icons from "react-bootstrap-icons";
 import { CoreLinkProps } from "./types";
+import Link from "next/link";
 
 
 export const CoreLink = ({
@@ -16,7 +17,7 @@ export const CoreLink = ({
 }: CoreLinkProps) => {
     const IconComponent = Icons[iconType];
     return (
-        <a
+        <Link
             href={href}
             className={cssClass ?? cssClass}
             rel={rel ?? rel}
@@ -27,6 +28,6 @@ export const CoreLink = ({
                 <IconComponent className={`${text ? "me-2" : ""} ${iconCss ? iconCss : ""}`} />
             )}
             <span className="link-description">{text}</span>
-        </a>
+        </Link>
     );
 };

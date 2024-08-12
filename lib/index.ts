@@ -196,7 +196,7 @@ export async function getLatestProducts(): Promise<ProductFragment[]> {
         variables: {}
     });
 
-     if (res.data.CoreShopLatestProducts?.__typename === 'CoreShopLatestProductsResult') {
+     if (res.data?.CoreShopLatestProducts?.__typename === 'CoreShopLatestProductsResult') {
         return res.data.CoreShopLatestProducts?.products?.edges?.map((data) => data?.node) as ProductFragment[];
     }
 

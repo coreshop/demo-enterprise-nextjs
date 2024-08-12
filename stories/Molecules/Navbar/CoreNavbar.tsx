@@ -16,6 +16,7 @@ import * as Icons from 'react-bootstrap-icons';
 import {CoreLink} from "@/stories/Atoms/Link/CoreLink";
 import Loader from "@/components/loader";
 import {MeInput} from "@/lib/graphql/types.generated";
+import Link from "next/link";
 
 interface CoreNavbarProps {
     logo?: BrandItem;
@@ -47,16 +48,20 @@ export const CoreNavbar = ({
             return (
                 <NavDropdown title={item.node.title} id={item.node.title.toLowerCase().replace(/\s/g, '-')} key={`drop_${item.node?.id}`}>
                     {item.node.children.map((child, index) => (
-                        <NavDropdown.Item key={`child_${child.id}`} href={child.link} active={child.current} >{child.title}</NavDropdown.Item>
+                        <Link key={`child_${child.id}`} href={child.link} passHref legacyBehavior>
+                            <NavDropdown.Item active={child.current} >{child.title}</NavDropdown.Item>
+                        </Link>
                     ))}
                 </NavDropdown>
             );
         } else {
             return (
                 item.node && (item.node.parent.__typename !== 'object_Page' && item.node.parent.__typename !== 'object_TopBar') ? (
-                    <Nav.Link href={item.node.link} key={`parent_${item.node.id}`} active={item.node.current}>
-                        {item.node.title}
-                    </Nav.Link>
+                    <Link key={`parent_${item.node.id}`} href={item.node.link} passHref legacyBehavior>
+                        <Nav.Link  active={item.node.current}>
+                            {item.node.title}
+                        </Nav.Link>
+                    </Link>
                 ) : null
             );
         }
@@ -127,11 +132,21 @@ export const CoreNavbar = ({
 
                                         <Dropdown.Menu>
                                             <div className="px-3 mb-3 text-nowrap">Hi, {user?.firstname} {user?.lastname}</div>
-                                            <Dropdown.Item href="/profile" >Profile</Dropdown.Item>
-                                            <Dropdown.Item href="/profile/orders" className="ms-2">Order history</Dropdown.Item>
-                                            <Dropdown.Item href="/profile/addresses" className="ms-2">Addresses</Dropdown.Item>
-                                            <Dropdown.Item href="/profile/personal" className="ms-2">Personal information</Dropdown.Item>
-                                            <Dropdown.Item href="/profile/password" className="ms-2">Change password</Dropdown.Item>
+                                            <Link href="/profile" passHref legacyBehavior>
+                                                <Dropdown.Item>Profile</Dropdown.Item>
+                                            </Link>
+                                            <Link href="/profile/orders" passHref legacyBehavior>
+                                                <Dropdown.Item className="ms-2">Order history</Dropdown.Item>
+                                            </Link>
+                                            <Link href="/profile/addresses" passHref legacyBehavior>
+                                                <Dropdown.Item href="/profile/addresses" className="ms-2">Addresses</Dropdown.Item>
+                                            </Link>
+                                            <Link href="/profile/personal" passHref legacyBehavior>
+                                                <Dropdown.Item className="ms-2">Personal information</Dropdown.Item>
+                                            </Link>
+                                            <Link href="/profile/password" passHref legacyBehavior>
+                                                <Dropdown.Item className="ms-2">Change password</Dropdown.Item>
+                                            </Link>
                                             <div className="px-3 mt-3">{logout}</div>
                                         </Dropdown.Menu>
                                     </Dropdown>
