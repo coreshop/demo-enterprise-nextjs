@@ -9,6 +9,7 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import {CoreButton} from "@/stories/Atoms/Button/CoreButton";
 import {CoreButtontype} from "@/stories/Atoms/Button/types";
+import Link from  "next/link";
 
 const LoginSchema = z.object({
     email: z.string().email(),
@@ -73,7 +74,7 @@ export default function LoginForm() {
                 <LoginButton/>
             </div>
 
-            <a href="/reset-password">Reset Password</a>
+            <Link href="/reset-password">Reset Password</Link>
 
             <div className="mt-3" aria-live="polite" aria-atomic="true">
                 {errorMessage && (
