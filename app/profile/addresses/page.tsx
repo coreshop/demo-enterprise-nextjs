@@ -9,7 +9,7 @@ import {cookies} from "next/headers";
 
 export default async function AddressesPage() {
     const session = await auth();
-    const cartToken = cookies().get('cartToken')?.value;
+    const cartToken = (await cookies()).get('cartToken')?.value;
     let addresses: AddressFragment[] = [];
 
     if (!session) {

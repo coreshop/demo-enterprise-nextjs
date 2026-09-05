@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { CoreButton } from './CoreButton';
 import { CoreButtontype } from './types';
 import * as Icons from 'react-bootstrap-icons';

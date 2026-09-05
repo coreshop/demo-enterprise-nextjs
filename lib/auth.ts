@@ -11,7 +11,7 @@ export async function authenticate(
     formData: FormData,
 ) {
     try {
-        const token = cookies().get('cartToken')?.value;
+        const token = (await cookies()).get('cartToken')?.value;
 
         if (token) {
             formData.append('orderToken', token);

@@ -5,7 +5,7 @@ import CheckoutGuestAddress from "@/components/checkout/guest-address";
 import CheckoutShipping from "@/components/checkout/shipping";
 
 export default async function CheckoutAddressPage() {
-    const cartToken = cookies().get('cartToken')?.value;
+    const cartToken = (await cookies()).get('cartToken')?.value;
     let cart: OrderFragment | undefined;
 
     if (!cartToken) {

@@ -6,7 +6,7 @@ import {auth} from "@/auth";
 
 export default async function CheckoutSummaryPage() {
     const session = await auth();
-    const cartToken = cookies().get('cartToken')?.value;
+    const cartToken = (await cookies()).get('cartToken')?.value;
     let cart: OrderFragment | undefined;
 
     if (!cartToken) {

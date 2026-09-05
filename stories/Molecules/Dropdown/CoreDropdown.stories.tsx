@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { CoreDropdown } from './CoreDropdown';
 import { CoreButtontype } from '../../Atoms/Button/types';
 

@@ -108,7 +108,7 @@ export default function CheckoutSummary({cart}: {cart: OrderFragment}) {
 
                 <div className="d-flex justify-content-between gap-2">
                     <strong>Total Tax:</strong>
-                    <Currency amount={(cart.totalGross ?? 0) - (cart.totalNet ?? 0) ?? 0}
+                    <Currency amount={(cart.totalGross ?? 0) - (cart.totalNet ?? 0)}
                               currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
                 </div>
                 <hr />

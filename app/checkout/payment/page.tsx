@@ -6,7 +6,7 @@ import CheckoutShipping from "@/components/checkout/shipping";
 import CheckoutPayment from "@/components/checkout/payment";
 
 export default async function CheckoutPaymentPage() {
-    const cartToken = cookies().get('cartToken')?.value;
+    const cartToken = (await cookies()).get('cartToken')?.value;
     let cart: OrderFragment | undefined;
 
     if (!cartToken) {

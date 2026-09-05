@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { ChekoutAddress } from './CheckoutAddress';
 import Logo from '../../assets/img/coreshop.svg';
 import {mockNavItems} from "../../../mockdata/mockNavItems";
