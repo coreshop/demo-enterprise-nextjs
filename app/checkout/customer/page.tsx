@@ -4,7 +4,7 @@ import {OrderFragment} from "@/lib/graphql/types.generated";
 import {getOrder} from "@/lib";
 
 export default async function CheckoutCustomerPage() {
-    const cartToken = cookies().get('cartToken')?.value;
+    const cartToken = (await cookies()).get('cartToken')?.value;
     let cart: OrderFragment | undefined;
 
     if (!cartToken) {

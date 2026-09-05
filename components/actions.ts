@@ -23,7 +23,7 @@ import {
     updateOrderItem,
     UpdatePassword
 } from "@/lib";
-import {revalidateTag} from "next/cache";
+import {updateTag} from "next/cache";
 import {
     AddressInput,
     CarrierEnumType,
@@ -39,22 +39,22 @@ import {redirect} from "next/navigation";
 import {AddressType, GuestCustomerType} from "@/schema/CustomerRegistration";
 
 export async function addItemToCart(state: any, {productId, quantity}: { productId: number, quantity: number }) {
-    const token = cookies().get('cartToken')?.value;
+    const token = (await cookies()).get('cartToken')?.value;
 
     const order = await addItemToOrder({token, productId, quantity});
 
     if (order) {
-        cookies().set('cartToken', order.token as string);
+        (await cookies()).set('cartToken', order.token as string);
     }
 
-    revalidateTag('cart');
+    updateTag('cart');
 }
 
 export async function updateItemQuantity(state: any, {orderItemId, quantity}: {
     orderItemId: number,
     quantity: number
 }) {
-    const token = cookies().get('cartToken')?.value;
+    const token = (await cookies()).get('cartToken')?.value;
 
     if (!token) {
         return;
@@ -66,7 +66,7 @@ export async function updateItemQuantity(state: any, {orderItemId, quantity}: {
         await updateOrderItem({token, orderItemId, quantity});
     }
 
-    revalidateTag('cart');
+    updateTag('cart');
 }
 
 export async function addVoucherForm(state: any, formData: FormData): Promise<any> {
@@ -98,7 +98,7 @@ export async function registerGuestCustomer(state: any, user: GuestCustomerType)
         },
     };
 
-    const token = cookies().get('cartToken')?.value;
+    const token = (await cookies()).get('cartToken')?.value;
 
     if (!token) {
         return;
@@ -125,7 +125,7 @@ export async function registerGuestCartAddress(state: any, address: AddressType)
         phoneNumber: address.phoneNumber,
     };
 
-    const token = cookies().get('cartToken')?.value;
+    const token = (await cookies()).get('cartToken')?.value;
 
     if (!token) {
         return;
@@ -153,7 +153,7 @@ export async function registerCustomerCartAddress(state: any, invoiceAddress: Ad
         phoneNumber: invoiceAddress.phoneNumber,
     };
 
-    const token = cookies().get('cartToken')?.value;
+    const token = (await cookies()).get('cartToken')?.value;
 
     if (!token) {
         return;
@@ -162,14 +162,14 @@ export async function registerCustomerCartAddress(state: any, invoiceAddress: Ad
     const result = await checkoutCustomerAddress({address});
 
     if (result) {
-        revalidateTag('cart');
+        updateTag('cart');
     }
 }
 
 export async function checkoutShippingForm(state: any, formData: FormData): Promise<any> {
     const carrier = formData.get('carrier') as CarrierEnumType;
 
-    const token = cookies().get('cartToken')?.value;
+    const token = (await cookies()).get('cartToken')?.value;
 
     if (!token) {
         return;
@@ -184,7 +184,7 @@ export async function checkoutShippingForm(state: any, formData: FormData): Prom
 export async function checkoutPaymentForm(state: any, formData: FormData): Promise<any> {
     const paymentProvider = formData.get('paymentProvider') as PaymentProviderEnumType;
 
-    const token = cookies().get('cartToken')?.value;
+    const token = (await cookies()).get('cartToken')?.value;
 
     if (!token) {
         return;
@@ -198,7 +198,7 @@ export async function checkoutPaymentForm(state: any, formData: FormData): Promi
 }
 
 export async function addVoucher({voucherCode}: { voucherCode: string }): Promise<void | any> {
-    const token = cookies().get('cartToken')?.value;
+    const token = (await cookies()).get('cartToken')?.value;
 
     if (!token) {
         return;
@@ -212,11 +212,11 @@ export async function addVoucher({voucherCode}: { voucherCode: string }): Promis
         }
     }
 
-    revalidateTag('cart');
+    updateTag('cart');
 }
 
 export async function removeVoucher(state: any, {voucherCode}: { voucherCode: string }) {
-    const token = cookies().get('cartToken')?.value;
+    const token = (await cookies()).get('cartToken')?.value;
 
     if (!token) {
         return;
@@ -224,7 +224,7 @@ export async function removeVoucher(state: any, {voucherCode}: { voucherCode: st
 
     await removeVoucherCode({token, voucherCode});
 
-    revalidateTag('cart');
+    updateTag('cart');
 }
 
 
@@ -237,7 +237,7 @@ export async function setCustomerCartAddress(state: any, address: CheckoutAddres
         order: {token: ''}
     };
 
-    const token = cookies().get('cartToken')?.value;
+    const token = (await cookies()).get('cartToken')?.value;
 
     if (!token) {
         return;
@@ -246,7 +246,7 @@ export async function setCustomerCartAddress(state: any, address: CheckoutAddres
     const result = await checkoutAddress({token, address: cartAddresses});
 
     if (result) {
-        revalidateTag('cart');
+        updateTag('cart');
     }
 }
 export async function updateCustomerAddressAction(state: any, addressId: number, address: Omit<AddressType, "termsAccepted">): Promise<any> {
@@ -301,7 +301,7 @@ export async function checkOutOrder(state: any, order: OrderInput ): Promise<any
     const result = await getCheckoutOrder({order: order});
 
     if (result) {
-        cookies().delete('cartToken');
+        (await cookies()).delete('cartToken');
         redirect('/');
     }
 }
@@ -319,7 +319,7 @@ export async function resetPasswordAction(state: any, username: string ): Promis
 export async function addVoucherCodeAction(state: any, token: string, voucherCode: string ): Promise<any> {
     const result = await addVoucherCode({token, voucherCode});
     if(result?.__typename !== 'CoreShopError') {
-        revalidateTag('cart');
+        updateTag('cart');
     }
 
     return result;

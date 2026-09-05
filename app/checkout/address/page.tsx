@@ -7,7 +7,7 @@ import CheckoutCustomerAddress from "@/components/checkout/customer-address";
 
 export default async function CheckoutAddressPage() {
     const session = await auth();
-    const cartToken = cookies().get('cartToken')?.value;
+    const cartToken = (await cookies()).get('cartToken')?.value;
     let allAddresses: AddressFragment[] = [];
     if (session && session.accessToken) {
         allAddresses = await getCustomerAddresses(session.accessToken);

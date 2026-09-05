@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {MeSchema} from "@/schema/CustomerRegistration";
 import Loading from "@/app/loading";
@@ -23,7 +23,7 @@ export default function UpdateProfileInfo({user, addresses} : {user: MeInputExte
         handleSubmit,
         formState: { errors, isSubmitting },
     } = useForm<MeInputExtend>({
-        resolver: zodResolver(MeSchema),
+        resolver: zodResolver(MeSchema) as unknown as Resolver<MeInputExtend>,
         defaultValues: {
             salutation: user?.salutation ?? '',
             gender: user?.gender ?? '',

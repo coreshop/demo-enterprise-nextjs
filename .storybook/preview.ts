@@ -1,4 +1,4 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/nextjs";
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
 import 'bootstrap/scss/bootstrap.scss';
 import 'bootstrap/dist/js/bootstrap.bundle.js'

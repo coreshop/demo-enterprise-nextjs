@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { Slide  } from './Slide';
 import Logo from '../../assets/img/coreshop.svg';
 

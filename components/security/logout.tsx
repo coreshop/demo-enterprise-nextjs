@@ -9,12 +9,11 @@ export function Logout() {
 
     return (
         <Form action={async () => {
-            "use server"
-            cookies().delete('cartToken');
+            "use server";
+            (await cookies()).delete('cartToken');
             await signOut();
         }}>
             <CoreButton type="submit" variant={CoreButtontype.Secondary} text="Logout" icon={false} />
         </Form>
-
-    )
+    );
 }

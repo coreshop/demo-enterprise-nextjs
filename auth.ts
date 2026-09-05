@@ -11,7 +11,7 @@ export const {auth, signIn, signOut} = NextAuth({
             // @ts-ignore
             if (user.active_order) {
                 // @ts-ignore
-                cookies().set('cartToken', user.active_order);
+                (await cookies()).set('cartToken', user.active_order);
             }
         },
     },

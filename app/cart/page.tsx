@@ -13,7 +13,7 @@ import CartPriceRuleItem from "@/components/cart/cart-price-rule-item";
 import {Col, Row} from "react-bootstrap";
 
 export default async function CartPage() {
-    const cartToken = cookies().get('cartToken')?.value;
+    const cartToken = (await cookies()).get('cartToken')?.value;
     let cart: OrderFragment | undefined;
 
     if (!cartToken) {
@@ -89,7 +89,7 @@ export default async function CartPage() {
 
                     <div className="d-flex justify-content-between gap-2">
                         <strong>Total Tax:</strong>
-                        <Currency amount={(cart.totalGross ?? 0) - (cart.totalNet ?? 0) ?? 0}
+                        <Currency amount={(cart.totalGross ?? 0) - (cart.totalNet ?? 0)}
                                   currencyCode={cart.currency?.isoCode ?? 'EUR'}/>
                     </div>
                     <hr />

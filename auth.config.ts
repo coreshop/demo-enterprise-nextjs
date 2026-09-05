@@ -5,15 +5,15 @@ export const authConfig = {
         signIn: '/login',
     },
     callbacks: {
-        jwt: async ({token, user, account}: { token: any, user: any, account: any }) => {
+        jwt({token, user, account}) {
             if (account) {
-                token.accessToken = user.access_token
+                token.accessToken = (user as { access_token?: string }).access_token;
             }
             return token;
         },
-        async session({session, token, user}: {session: any, token:any, user: any}) {
-            session.accessToken = token.accessToken
-            return session
+        session({session, token}) {
+            (session as { accessToken?: unknown }).accessToken = token.accessToken;
+            return session;
         },
         authorized({auth, request: {nextUrl}}) {
             const isLoggedIn = !!auth?.user;
