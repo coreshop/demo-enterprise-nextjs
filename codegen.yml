@@ -1,6 +1,8 @@
 overwrite: true
+# CODEGEN_SCHEMA_URL: GraphQL endpoint of a running CoreShop installation including the API key,
+# e.g. https://coreshop-enterprise-demo.localhost/pimcore-graphql-webservices/coreshop?apikey=...
 schema:
-  - "https://coreshop-headless.localhost/pimcore-graphql-webservices/coreshop?apikey=cccffae4fb6834f6a3d7eef35e890777"
+  - ${CODEGEN_SCHEMA_URL}
 documents:
   - "./lib/graphql/**/*.graphql"
 generates:

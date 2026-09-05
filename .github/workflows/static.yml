@@ -1,0 +1,25 @@
+name: Static Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  static:
+    name: Lint, typecheck, build
+    runs-on: ubuntu-latest
+    env:
+      API_HOSTNAME: enterprise.coreshop.dev
+      NEXT_PUBLIC_PIMCORE_BASE_URL: https://enterprise.coreshop.dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npx tsc --noEmit
+      - run: npm run build-storybook
