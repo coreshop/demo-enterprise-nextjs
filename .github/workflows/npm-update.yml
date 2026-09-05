@@ -21,8 +21,18 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm update --no-audit --no-fund
+      # a PR opened with GITHUB_TOKEN triggers no workflows; use the coreshop GitHub App so the
+      # static checks run on the update PR
+      - name: Create app token
+        id: app-token
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2.2.2
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
       - uses: peter-evans/create-pull-request@v7
         with:
+          token: ${{ steps.app-token.outputs.token }}
           branch: chore/npm-update
           title: "Update package-lock.json"
           commit-message: "Update package-lock.json"
