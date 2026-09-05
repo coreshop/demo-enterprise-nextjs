@@ -120,16 +120,23 @@ import {auth} from "@/auth";
 const domain = process.env.API_URL;
 const endpoint = `${domain}`;
 
+// catalog data (categories, products, prices) is cached in the Next.js data cache for this long;
+// cart, checkout and customer calls always go to the shop
+export const CATALOG_REVALIDATE_SECONDS = 300;
+export const catalogCache = {cache: 'force-cache' as RequestCache, next: {revalidate: CATALOG_REVALIDATE_SECONDS}};
+
 export async function coreShopFetch<TResult, TVariables>({
      query,
      variables,
      headers,
-     cache = 'reload'
+     cache = 'no-store',
+     next
  }: {
     query: string;
     variables: TVariables;
     headers?: HeadersInit;
     cache?: RequestCache;
+    next?: NextFetchRequestConfig;
 }): Promise<{ data: TResult  }> {
     const session = await auth();
     const authHeader = {};
@@ -151,7 +158,8 @@ export async function coreShopFetch<TResult, TVariables>({
             query,
             variables
         }),
-        cache
+        cache,
+        ...(next ? {next} : {})
     })
 
     if (response.status !== 200) {
@@ -165,7 +173,8 @@ export async function coreShopFetch<TResult, TVariables>({
 export async function getCategories(): Promise<Object_CoreShopCategory[]> {
     const res = await coreShopFetch<GetCoreShopCategoriesQuery, GetCoreShopCategoriesQueryVariables>({
         query: print(GetCoreShopCategories),
-        variables: {}
+        variables: {},
+        ...catalogCache
     });
 
     if (res.data.CoreShopCategories?.__typename === 'CoreShopCategoriesResult') {
@@ -180,7 +189,8 @@ export async function getCategory({categoryId}: { categoryId: number }) {
         query: print(GetCoreShopCategory),
         variables: {
             categoryId: categoryId
-        }
+        },
+        ...catalogCache
     });
 
     if (res.data?.CoreShopCategory?.__typename === 'CoreShopCategoryResult') {
@@ -193,7 +203,8 @@ export async function getCategory({categoryId}: { categoryId: number }) {
 export async function getLatestProducts(): Promise<ProductFragment[]> {
     const res = await coreShopFetch<GetCoreShopLatestProductsQuery, GetCoreShopLatestProductsQueryVariables>({
         query: print(GetCoreShopLatestProducts),
-        variables: {}
+        variables: {},
+        ...catalogCache
     });
 
      if (res.data?.CoreShopLatestProducts?.__typename === 'CoreShopLatestProductsResult') {
@@ -211,7 +222,8 @@ export async function getProduct({ productId }: { productId: number }): Promise<
         query: print(GetCoreShopProduct),
         variables: {
             productId: productId
-        }
+        },
+        ...catalogCache
     });
 
     if (res.data?.CoreShopProduct?.__typename === 'CoreShopProductResult') {
@@ -228,7 +240,8 @@ export async function getProductsInCategory({categoryId}: {
         query: print(GetCoreShopProductsInCategory),
         variables: {
             categoryId: categoryId,
-        }
+        },
+        ...catalogCache
     });
 
     if (res.data.CoreShopProducts?.__typename === 'CoreShopProductsResult') {
@@ -246,7 +259,8 @@ export async function getProductPrice({productId}: {
         query: print(GetCoreShopProductPrice),
         variables: {
             productId: productId,
-        }
+        },
+        ...catalogCache
     });
 
     if (res.data?.CoreShopProductPrice?.__typename === 'CoreShopProductPriceResult') {
