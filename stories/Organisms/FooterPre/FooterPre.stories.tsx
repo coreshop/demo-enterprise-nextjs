@@ -14,7 +14,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    footerPreText: { text:"© CoreShop GmbH (GPLv3 and CoreShop Commercial License)", href:"https://www.coreshop.org"},
+    footerPreText: { text:"© CoreShop GmbH (CoreShop Commercial License)", href:"https://www.coreshop.org"},
     footerPreItems: mockNavItems,
   }
 };

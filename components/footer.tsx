@@ -17,7 +17,7 @@ export default function Footer() {
 
     const footerPreItems = mockNavItems;
     const footerPreText = {
-        text:"© CoreShop GmbH (GPLv3 and CoreShop Commercial License)",
+        text:"© CoreShop GmbH (CoreShop Commercial License)",
         href:"https://www.coreshop.org"
     };
 

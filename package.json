@@ -48,5 +48,6 @@
     "storybook": "^10.6.0",
     "swiper": "^14.2.0",
     "typescript": "^5.9.1"
-  }
+  },
+  "license": "SEE LICENSE IN LICENSE.md"
 }
