@@ -50,7 +50,7 @@ export const Default: Story = {
             {text:"Item", href:"/"},
         ],
         footerPreItems: mockNavItems,
-        footerPreText: { text:"© CoreShop GmbH (GPLv3 and CoreShop Commercial License)", href:"https://www.coreshop.org"},
+        footerPreText: { text:"© CoreShop GmbH (CoreShop Commercial License)", href:"https://www.coreshop.org"},
         breadcrumbItems: [
             { title: "Home", link: "/de" },
             { title: "Shop", link: "/shop"},
